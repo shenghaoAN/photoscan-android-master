@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="contact_body_line1">#ebebe6</color>
+    <color name="contact_body_line2">#f6f6f6</color>
+    <color name="contact_body_font">#a7a9ac</color>
+    <color name="transparent_darkgray">#e0A9A9A9</color>
+    <color name="set_bg">#f2f2f2</color>
+    <color name="category_create_font">#33d2d6</color>
+    <color name="category_create_font_s">#aa33d2d6</color>
+    <color name="input_bg">#f7f7f7</color>
+    <color name="input_bg_s">#aa333333</color>
+    <color name="input_label_color">#33d2d6</color>
+    <color name="input_text_color">#aeb0b2</color>
+    <color name="search_input_bg">#aa5C5C56</color>
+    <color name="upcoming_bg">#474743</color>
+    <color name="main_tap_bg">#f8f8f8</color>
+    <color name="tab_text_focus">#33d2d6</color>
+    <color name="tab_text">#666666</color>
+    <color name="menu_bg">#40413b</color>
+    <color name="menu_text_color">#ffffff</color>
+    <color name="menu_text_focus">#e0A9A9A9</color>
+    <color name="list_divider">#ececec</color>
+    <color name="color_line">#70333333</color>
+    <color name="color_background">#f6f8f7</color>
+    <color name="color_black">#000000</color>
+    <color name="color_black_s">#aa000000</color>
+    <color name="color_yellow">#f8da77</color>
+    <color name="color_purple">#d4a2e9</color>
+    <color name="color_red">#f43c6e</color>
+    <color name="color_green">#acdc90</color>
+    <color name="color_blue">#1fc2eb</color>
+    <color name="edit_bg">#ffffff</color>
+    <color name="edit_text_color">#9f9f9f</color>
+    <color name="input_blanck">#f6f8f7</color>
+
+</resources>
