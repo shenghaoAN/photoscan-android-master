@@ -21,9 +21,7 @@ public class Cfg {
 	private static SharedPreferences.Editor editor;
 	private static Context context;
 	
-	public static String url = "";
-	public static final String ProvinceWeatherURL = "http://webservice.webxml.com.cn/WebServices/WeatherWS.asmx/getRegionProvince";
-	public static final String CITY_URL = "http://webservice.webxml.com.cn/WebServices/WeatherWS.asmx/getSupportCityString?theRegionCode=";
+	public static String BaseUrl = "http://image.baidu.com/";
 
 	public static void setContext(Context ctx) {
 		context = ctx;

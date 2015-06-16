@@ -3,5 +3,11 @@
 
     <string name="app_name">动漫图片查看器</string>
     <string name="title">动漫</string>
+    <string name="loading">加载中...</string>
+    <string name="back">返回</string>
+    <string name="save">保存</string>
+    <string name="save_img">图片正在保存中，请稍等...</string>
+    <string name="save_success">图片已保存至%1$s</string>
+    <string name="save_failure">图片保存失败！</string>
 
 </resources>

@@ -1,38 +1,56 @@
 package com.jason.hao;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.jason.fragment.HomeFragment;
 import com.jason.view.DragLayout;
-import com.jason.view.Loading;
 import com.nineoldandroids.view.ViewHelper;
 
-public class MainActivity extends Activity {
+/**
+ * @author jason
+ */
+public class MainActivity extends FragmentActivity {
 
     private DragLayout dl;
     private ImageView iv_icon;
     private ImageView iv_bottom;
+    private LinearLayout linear_fragment;
 
-    private Loading loading;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+    private HomeFragment homeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        loading = new Loading(this);
         initDragLayout();
         findById();
+        initFragment();
         initView();
     }
 
     private void findById() {
         iv_icon = (ImageView) findViewById(R.id.iv_icon);
         iv_bottom = (ImageView) findViewById(R.id.iv_bottom);
-        iv_bottom.setImageResource(R.drawable.huoying);
-        iv_icon.setImageResource(R.drawable.huoying);
+        iv_bottom.setImageResource(R.drawable.kenan);
+        iv_icon.setImageResource(R.drawable.kenan);
+        linear_fragment = (LinearLayout) findViewById(R.id.linear_fragment);
+    }
+
+    private void initFragment() {
+        homeFragment = new HomeFragment();
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.linear_fragment, homeFragment);
+        fragmentTransaction.commit();
     }
 
     private void initView() {

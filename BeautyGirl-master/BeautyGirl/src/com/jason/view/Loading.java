@@ -27,12 +27,11 @@ public class Loading {
 			pd.dismiss();
 	}
 
-	public void Start(String msg, OnDismissListener DismissListener) {
+	public void Start(String msg) {
 		pd = new ProgressDialog(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
 		pd.setCancelable(true);
 		pd.setIndeterminate(true);
 		pd.setMessage(ResourceHelper.getResourceString(msg, context));
-		pd.setOnDismissListener(DismissListener);
         pd.setCanceledOnTouchOutside(false);
 		pd.show();
 	}
@@ -41,14 +40,4 @@ public class Loading {
 		pd.setMessage(msg);
 	}
 
-	public void Start() {
-		Start("loading", new OnDismissListener() {
-
-			@Override
-			public void onDismiss(DialogInterface dialog) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-	}
 }

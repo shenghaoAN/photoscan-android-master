@@ -23,7 +23,7 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/huoying" />
+                android:src="@drawable/kenan" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -71,8 +71,8 @@
             <RelativeLayout
                 android:id="@+id/rl_title"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:background="#009990">
+                android:layout_height="50dp"
+                android:background="#aa009990">
 
                 <ImageView
                     android:id="@+id/iv_icon"
@@ -81,7 +81,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/huoying" />
+                    android:src="@drawable/kenan" />
 
                 <TextView
                     android:id="@+id/txt_title"
@@ -97,6 +97,7 @@
                 android:id="@+id/linear_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/ListBgColor"
                 android:orientation="vertical" />
 
         </LinearLayout>

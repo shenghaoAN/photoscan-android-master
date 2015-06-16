@@ -3,6 +3,16 @@ package com.jason;
 import android.app.Application;
 import android.content.Context;
 
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LRULimitedMemoryCache;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.utils.StorageUtils;
+
+import java.io.File;
+
 
 public class MyApplication extends Application {
 	
@@ -15,10 +25,45 @@ public class MyApplication extends Application {
 		Debug.Log("app start", "");
 		context = getApplicationContext();
 		Cfg.setContext(context);
+        initImageLoader(getApplicationContext());
 	}
 
 	public static MyApplication getApplication() {
 		return (MyApplication) context.getApplicationContext();
 	}
+
+    /**
+     * @param context initImageLoader
+     */
+    public static void initImageLoader(Context context) {
+//      http://site.com/image.png // from Web
+//      file:///mnt/sdcard/image.png // from SD card
+//      file:///mnt/sdcard/video.mp4 // from SD card (video thumbnail)
+//      content://media/external/images/media/13 // from content provider
+//      content://media/external/video/media/13 // from content provider (video thumbnail)
+//      assets://image.png // from assets
+//      drawable:// + R.drawable.img // from drawables (non-9patch images)
+
+        // This configuration tuning is custom. You can tune every option, you may tune some of them,
+        // or you can create default configuration by
+        //  ImageLoaderConfiguration.createDefault(this);
+        // method.
+        File cacheDir = StorageUtils.getCacheDirectory(context);  //缓存文件路径
+        ImageLoaderConfiguration config =
+                new ImageLoaderConfiguration.Builder(context)
+                        .threadPriority(Thread.NORM_PRIORITY - 2) //设置当前线程的优先级
+                        .threadPoolSize(3)   //线程池内加载的数量
+                        .denyCacheImageMultipleSizesInMemory()
+                        .diskCacheFileNameGenerator(new Md5FileNameGenerator())  //文件命名
+                        .diskCacheFileCount(100)   //设置缓存文件的数量,超过数量后,old将被删除
+                        .memoryCache(new LRULimitedMemoryCache(2 * 1024 * 1024)) //內存緩存大小
+                        .diskCacheSize(100 * 1024 * 1024)   //文件緩存大小
+                        .diskCache(new UnlimitedDiscCache(cacheDir))  //文件目錄
+                        .tasksProcessingOrder(QueueProcessingType.LIFO)   //default
+                        .writeDebugLogs() // 打印debug log
+                        .build();
+        // Initialize ImageLoader with configuration.
+        ImageLoader.getInstance().init(config);
+    }
 	
 }
