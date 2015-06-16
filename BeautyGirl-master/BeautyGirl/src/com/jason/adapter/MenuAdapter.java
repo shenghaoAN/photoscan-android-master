@@ -19,14 +19,14 @@ import java.util.List;
 /**
  * @author jason
  */
-public class ItemAdapter extends BaseAdapter {
+public class MenuAdapter extends BaseAdapter {
 
     private Context context;
     private ImageLoader imageLoader;
     private LayoutInflater inflater;
     private List<ItemObject> list;
 
-    public ItemAdapter(Context context, List<ItemObject> list) {
+    public MenuAdapter(Context context, List<ItemObject> list) {
         this.context = context;
         this.list = list;
         this.inflater = LayoutInflater.from(context);
@@ -72,4 +72,5 @@ public class ItemAdapter extends BaseAdapter {
         TextView txt_title;
         TextView txt_description;
     }
+
 }

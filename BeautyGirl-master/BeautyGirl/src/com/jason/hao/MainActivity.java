@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.jason.fragment.HomeFragment;
+import com.jason.fragment.MenuFragment;
 import com.jason.view.DragLayout;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -21,11 +22,11 @@ public class MainActivity extends FragmentActivity {
     private DragLayout dl;
     private ImageView iv_icon;
     private ImageView iv_bottom;
-    private LinearLayout linear_fragment;
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private HomeFragment homeFragment;
+    private MenuFragment menuFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +43,17 @@ public class MainActivity extends FragmentActivity {
         iv_bottom = (ImageView) findViewById(R.id.iv_bottom);
         iv_bottom.setImageResource(R.drawable.kenan);
         iv_icon.setImageResource(R.drawable.kenan);
-        linear_fragment = (LinearLayout) findViewById(R.id.linear_fragment);
     }
 
     private void initFragment() {
         homeFragment = new HomeFragment();
+        menuFragment = new MenuFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.linear_fragment, homeFragment);
+        fragmentTransaction.add(R.id.menu_fragment, menuFragment);
         fragmentTransaction.commit();
+
     }
 
     private void initView() {

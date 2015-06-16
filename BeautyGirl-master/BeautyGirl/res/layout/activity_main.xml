@@ -44,18 +44,16 @@
             android:textColor="#ffffff"
             android:textSize="15sp" />
 
-        <ListView
-            android:id="@+id/listview"
+        <LinearLayout
+            android:id="@+id/menu_fragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_above="@id/tv_mail"
             android:layout_below="@id/ll1"
             android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
-            android:cacheColorHint="@android:color/transparent"
-            android:divider="@color/list_divider"
-            android:dividerHeight="1dp"
-            android:textColor="#ffffff" />
+            android:orientation="vertical"/>
+
     </RelativeLayout>
 
     <com.jason.view.MyRelativeLayout

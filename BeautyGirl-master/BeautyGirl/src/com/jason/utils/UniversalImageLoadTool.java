@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 
 public class UniversalImageLoadTool {
@@ -26,8 +25,8 @@ public class UniversalImageLoadTool {
                 .showImageOnFail(default_pic)
                 .showImageForEmptyUri(default_pic)
                 .cacheOnDisk(true)
+                .cacheInMemory(true)
                 .imageScaleType(ImageScaleType.EXACTLY) //设置图片的缩放方式
-                .displayer(new FadeInBitmapDisplayer(100))  //图片加载后渐入的动画时间
                 .considerExifParams(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .build();
@@ -37,6 +36,7 @@ public class UniversalImageLoadTool {
 
     /**
      * 获取option
+     *
      * @param default_pic 加载图片前显示的默认图片
      * @return
      */
@@ -46,8 +46,8 @@ public class UniversalImageLoadTool {
                 .showImageOnFail(default_pic)
                 .showImageForEmptyUri(default_pic)
                 .cacheOnDisk(true)
+                .cacheInMemory(true)
                 .imageScaleType(ImageScaleType.EXACTLY) //设置图片的缩放方式
-                .displayer(new FadeInBitmapDisplayer(100))  //图片加载后渐入的动画时间
                 .considerExifParams(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .build();

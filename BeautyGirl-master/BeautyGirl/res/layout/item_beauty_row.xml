@@ -7,9 +7,9 @@
         android:id="@+id/content_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_launcher"
         android:gravity="center_vertical"
-        android:minHeight="94dip"
+        android:background="@drawable/round_corner_item_single_bg"
+        android:minHeight="120dp"
         android:orientation="vertical"
         android:padding="8.0dip" >
 

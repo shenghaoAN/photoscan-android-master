@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * 轮播适配
  * <p/>
- * Created by shenghao on 2015/6/01.
+ * @author jason
  */
 public class LunBoAdapter extends PagerAdapter {
 

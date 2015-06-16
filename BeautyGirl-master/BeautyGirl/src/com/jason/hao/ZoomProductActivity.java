@@ -98,7 +98,7 @@ public class ZoomProductActivity extends Activity {
 
     protected void initView() {
         txt_title.setText(cartoonObjects.get(pagerposition).getDesc()
-                + "(" + pagerposition + 1 + "/" + cartoonObjects.size() + ")");
+                + "(" + (pagerposition + 1) + "/" + cartoonObjects.size() + ")");
         zoom_viewpager.setOnPageChangeListener(new OnPageChangeListener() {
 
             @Override

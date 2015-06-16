@@ -56,7 +56,6 @@ public class MyApplication extends Application {
                         .denyCacheImageMultipleSizesInMemory()
                         .diskCacheFileNameGenerator(new Md5FileNameGenerator())  //文件命名
                         .diskCacheFileCount(100)   //设置缓存文件的数量,超过数量后,old将被删除
-                        .memoryCache(new LRULimitedMemoryCache(2 * 1024 * 1024)) //內存緩存大小
                         .diskCacheSize(100 * 1024 * 1024)   //文件緩存大小
                         .diskCache(new UnlimitedDiscCache(cacheDir))  //文件目錄
                         .tasksProcessingOrder(QueueProcessingType.LIFO)   //default

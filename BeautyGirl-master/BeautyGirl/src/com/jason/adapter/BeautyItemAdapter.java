@@ -15,7 +15,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
-
+/**
+ * @author jason
+ */
 public class BeautyItemAdapter extends BaseAdapter {
 
     private Context mContext;
