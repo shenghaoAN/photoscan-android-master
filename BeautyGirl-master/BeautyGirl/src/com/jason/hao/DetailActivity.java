@@ -7,6 +7,7 @@ import android.os.Message;
 
 import com.huewu.pla.lib.WaterFallListView;
 import com.jason.Debug;
+import com.jason.adapter.BeautyItemAdapter;
 import com.jason.bean.CartoonObject;
 import com.jason.global.CommonData;
 import com.jason.helper.HttpClientHelper;
@@ -25,6 +26,7 @@ import java.util.List;
 public class DetailActivity extends Activity {
 
     private WaterFallListView listView;
+    private BeautyItemAdapter beautyItemAdapter;
 
     private List<CartoonObject> cartoonObjects;
 
@@ -49,6 +51,8 @@ public class DetailActivity extends Activity {
         listView = (WaterFallListView) findViewById(R.id.myListview);
         listView.setPullLoadEnable(true);
         listView.setPullRefreshEnable(true);
+        beautyItemAdapter = new BeautyItemAdapter(this, cartoonObjects);
+        listView.setAdapter(beautyItemAdapter);
     }
 
     /**
@@ -118,7 +122,7 @@ public class DetailActivity extends Activity {
             switch (msg.what) {
                 case 1:
                     Debug.Log("handler message 1", "success");
-
+                    beautyItemAdapter.updateAdapter(cartoonObjects);
                     break;
                 default:
                     break;
