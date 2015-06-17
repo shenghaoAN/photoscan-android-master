@@ -34,10 +34,12 @@
     <color name="edit_text_color">#9f9f9f</color>
     <color name="input_blanck">#f6f8f7</color>
 
+    <color name="topbar_bg">#009990</color>
     <color name="ListBgColor">#F7F4F2</color>
     <color name="SlidingMenuItemColor">#ffffff</color>
     <color name="SlidingMenuItemFocusColor">#292724</color>
     <color name="linear_text">#454340</color>
     <color name="linear_text_s">#70454340</color>
+    <color name="drawer_bg">#FFFFFFcc</color>
 
 </resources>

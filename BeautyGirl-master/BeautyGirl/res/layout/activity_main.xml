@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="30dp"
-        android:paddingLeft="30dp"
+        android:paddingLeft="20dp"
         android:paddingTop="50dp">
 
         <LinearLayout
@@ -52,7 +52,7 @@
             android:layout_below="@id/ll1"
             android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
-            android:orientation="vertical"/>
+            android:orientation="vertical" />
 
     </RelativeLayout>
 
@@ -70,7 +70,7 @@
                 android:id="@+id/rl_title"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="#aa009990">
+                android:background="@color/topbar_bg">
 
                 <ImageView
                     android:id="@+id/iv_icon"

@@ -6,11 +6,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.jason.Debug;
@@ -24,8 +28,10 @@ import com.jason.hao.R;
 import com.jason.helper.HttpClientHelper;
 import com.jason.helper.JSONHttpHelper;
 import com.jason.utils.DensityUtils;
+import com.jason.utils.ToastShow;
 import com.jason.view.MyViewPager;
 import com.jason.view.NoScrollListView;
+import com.jason.view.VerticalScrollView;
 import com.jason.view.ViewPagerFocusView;
 import com.loopj.android.http.RequestParams;
 
@@ -43,10 +49,16 @@ import java.util.Random;
  */
 public class HomeFragment extends Fragment {
 
+    private SwipeRefreshLayout swipeRefreshLayout;   //下拉刷新
+    private VerticalScrollView scrollView;
     private FrameLayout frame_ad;
     private MyViewPager viewpager_ad;
     private ViewPagerFocusView focusView;
     private NoScrollListView listView;
+
+    private EditText edit_search;
+    private ImageButton imgbtn_search;
+
     private ItemAdapter itemAdapter;
     private List<ItemObject> itemObjects;
 
@@ -55,8 +67,28 @@ public class HomeFragment extends Fragment {
 
     private int ScreenWidth;
 
+    //标志是否刷新
+    private boolean isRefresh = false;
+
     //判断是否轮播
     private boolean ifStartLunbo = false;
+
+    private String title;  //post的参数
+
+    /**
+     * 实例化fragment
+     * 接收activity的参数
+     *
+     * @param itemObject
+     * @return
+     */
+    public static HomeFragment newInstance(ItemObject itemObject) {
+        HomeFragment fragment = new HomeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(CommonData.TITLE, itemObject.getTitle());
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,9 +98,20 @@ public class HomeFragment extends Fragment {
         ScreenWidth = DensityUtils.getWidth(getActivity());
     }
 
+    /**
+     * 取出参数
+     */
+    private void parseArgument() {
+        Bundle bundle = getArguments();
+        title = bundle.getString(CommonData.TITLE);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        scrollView = (VerticalScrollView) view.findViewById(R.id.scrollview);
         frame_ad = (FrameLayout) view.findViewById(R.id.frame_ad);
         viewpager_ad = (MyViewPager) view.findViewById(R.id.viewpager_ad);
         focusView = (ViewPagerFocusView) view.findViewById(R.id.viewpger_focusview);
@@ -78,8 +121,19 @@ public class HomeFragment extends Fragment {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ScreenWidth, 331 * ScreenWidth / 584);//图片比例
         frame_ad.setLayoutParams(lp);
         frame_ad.setVisibility(View.GONE);
+
+        edit_search = (EditText) view.findViewById(R.id.edit_search);
+        imgbtn_search = (ImageButton) view.findViewById(R.id.imgbtn_search);
+
+        parseArgument();
         getBanner();
         getItem();
+
+        swipeRefreshLayout.setOnRefreshListener(new onRefreshListener());
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -88,12 +142,51 @@ public class HomeFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(CommonData.TAG, itemObject.getTag());
+                bundle.putString(CommonData.TITLE, itemObject.getTitle());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
 
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                DensityUtils.hideSoftWindow(getActivity(), edit_search);
+                return false;
+            }
+        });
+
+        imgbtn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (edit_search.getText().toString().isEmpty()) {
+                    ToastShow.displayToast(getActivity(), getString(R.string.search));
+                    return;
+                }
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(CommonData.TAG, edit_search.getText().toString());
+                bundle.putString(CommonData.TITLE, title);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                DensityUtils.hideSoftWindow(getActivity(), edit_search);
+            }
+        });
+
         return view;
+    }
+
+    /**
+     * 下拉刷新监听器
+     */
+    class onRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
+
+        @Override
+        public void onRefresh() {
+            isRefresh = true;
+            swipeRefreshLayout.setRefreshing(true);
+            getItem();
+        }
     }
 
     @Override
@@ -162,7 +255,7 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void onPageScrollStateChanged(int arg0) {
-
+            enableDisableSwipeRefresh(arg0 == ViewPager.SCROLL_STATE_IDLE);
         }
 
         @Override
@@ -177,35 +270,63 @@ public class HomeFragment extends Fragment {
     }
 
     /**
+     * viewpager左右滑动时不触发下拉刷新
+     *
+     * @param enable
+     */
+    protected void enableDisableSwipeRefresh(boolean enable) {
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setEnabled(enable);
+        }
+    }
+
+    /**
      * 获取item
      */
     private void getItem() {
         Debug.Log("Item", "get");
         HttpClientHelper client = new HttpClientHelper();
         RequestParams params = new RequestParams();
-        params.put("column", "动漫");
+        params.put("column", title);
         client.get("detail/info?fr=channel&ie=utf-8&oe=utf-8", params,
                 new JSONHttpHelper.JSONHttpResponseHandler() {
 
                     @Override
                     public void onFailure(int i, Header[] headers, String responseBody, Throwable throwable) {
+                        if (swipeRefreshLayout.isRefreshing())
+                            swipeRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
                     public void onSuccess(int i, Header[] headers, String responseBody) {
                         Debug.Log("server response:", responseBody);
                         try {
+
+                            if (itemObjects != null && itemObjects.size() > 0) {
+                                if (isRefresh) {
+                                    isRefresh = false;
+                                    itemObjects.clear();
+                                }
+                            }
+
                             JSONObject jsonObject = new JSONObject(responseBody.trim());
                             JSONObject data = (JSONObject) jsonObject.get("data");
                             JSONArray thumbs = data.getJSONArray("thumbs");
                             UpdateItem(thumbs);
                         } catch (JSONException e) {
+                            if (swipeRefreshLayout.isRefreshing())
+                                swipeRefreshLayout.setRefreshing(false);
                             e.printStackTrace();
                         }
                     }
                 });
     }
 
+    /**
+     * UpdateItem
+     *
+     * @param thumbs
+     */
     private void UpdateItem(JSONArray thumbs) {
         for (int i = 0; i < thumbs.length(); i++) {
             try {
@@ -232,8 +353,9 @@ public class HomeFragment extends Fragment {
         HttpClientHelper client = new HttpClientHelper();
         RequestParams params = new RequestParams();
         params.put("pn", getRandom());
-        params.put("rn", 4);
-        client.get("channel/listjson?tag1=动漫&tag2=全部&ie=utf8", params,
+        params.put("rn", 10);
+        params.put("tag1", title);
+        client.get("channel/listjson?tag2=全部&ie=utf8", params,
                 new JSONHttpHelper.JSONHttpResponseHandler() {
 
                     @Override
@@ -269,17 +391,22 @@ public class HomeFragment extends Fragment {
 
                     public void Failure() {
                         Debug.Log("banner get", "failed");
+                        ToastShow.displayToast(getActivity(),getString(R.string.check_net));
                     }
 
                 });
     }
 
+    /**
+     * UpdateAD
+     *
+     * @param datas
+     */
     private void UpdateAD(JSONArray datas) {
         for (int i = 0; i < datas.length(); i++) {
             try {
                 CartoonObject cartoonObject = new CartoonObject();
                 JSONObject d = (JSONObject) datas.get(i);
-                cartoonObject.setId(d.getString("id"));
                 cartoonObject.setDesc(d.getString("desc"));
                 cartoonObject.setColum(d.getString("colum"));
                 cartoonObject.setDate(d.getString("date"));
@@ -295,11 +422,19 @@ public class HomeFragment extends Fragment {
 
     }
 
+    /**
+     * 获取随机数
+     *
+     * @return
+     */
     private int getRandom() {
         Random random = new Random();
-        return random.nextInt(100);
+        return random.nextInt(1000);
     }
 
+    /**
+     * handler处理事件
+     */
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -314,6 +449,7 @@ public class HomeFragment extends Fragment {
                     break;
                 case 2:
                     Debug.Log("handler message 2", "success");
+                    swipeRefreshLayout.setRefreshing(false);
                     listView.setAdapter(itemAdapter);
                     itemAdapter.notifyDataSetChanged();
                     break;

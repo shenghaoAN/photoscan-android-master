@@ -20,6 +20,7 @@ public class JSONHttpHelper extends Activity {
         public String error = "";
         public String response;
         public JSONArray datas;
+        public int totalNum;
         public boolean rawResponse = false;
 
         public void JSONHttpResponseHandler(Context context) {
@@ -54,6 +55,8 @@ public class JSONHttpHelper extends Activity {
             }
             try {
                 JSONObject json = new JSONObject(response.trim());
+
+                totalNum = json.getInt("totalNum");
 
                 datas = (JSONArray) json.get("data");
 

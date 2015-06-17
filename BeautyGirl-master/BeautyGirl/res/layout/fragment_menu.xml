@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:cacheColorHint="@android:color/transparent"
-        android:divider="@color/list_divider"
-        android:dividerHeight="1dp"
-        android:textColor="#ffffff" />
+        android:choiceMode="singleChoice"
+        android:background="@color/drawer_bg"
+        android:dividerHeight="0dp" />
 
 </LinearLayout>

@@ -103,7 +103,7 @@ public class DragLayout extends FrameLayout {
 
         @Override
         public void onViewPositionChanged(View changedView, int left, int top,
-                int dx, int dy) {
+                                          int dx, int dy) {
             if (changedView == vg_main) {
                 mainLeft = left;
             } else {
@@ -177,9 +177,15 @@ public class DragLayout extends FrameLayout {
         vg_main.layout(mainLeft, 0, mainLeft + width, height);
     }
 
+//    @Override
+//    public boolean onInterceptTouchEvent(MotionEvent ev) {
+//        return dragHelper.shouldInterceptTouchEvent(ev) && gestureDetector.onTouchEvent(ev);
+//    }
+
+    //不允许手势滑动
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return dragHelper.shouldInterceptTouchEvent(ev) && gestureDetector.onTouchEvent(ev);
+        return false;
     }
 
     @Override

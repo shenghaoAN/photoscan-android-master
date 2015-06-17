@@ -1,14 +1,15 @@
 package com.jason.hao;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.jason.bean.ItemObject;
 import com.jason.fragment.HomeFragment;
 import com.jason.fragment.MenuFragment;
 import com.jason.view.DragLayout;
@@ -21,12 +22,10 @@ public class MainActivity extends FragmentActivity {
 
     private DragLayout dl;
     private ImageView iv_icon;
+    private TextView txt_title;
     private ImageView iv_bottom;
 
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
     private HomeFragment homeFragment;
-    private MenuFragment menuFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +38,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void findById() {
+        txt_title = (TextView) findViewById(R.id.txt_title);
         iv_icon = (ImageView) findViewById(R.id.iv_icon);
         iv_bottom = (ImageView) findViewById(R.id.iv_bottom);
         iv_bottom.setImageResource(R.drawable.kenan);
@@ -46,14 +46,10 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void initFragment() {
-        homeFragment = new HomeFragment();
-        menuFragment = new MenuFragment();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.linear_fragment, homeFragment);
-        fragmentTransaction.add(R.id.menu_fragment, menuFragment);
-        fragmentTransaction.commit();
-
+        replaceFragment(R.id.menu_fragment, new MenuFragment());
+        ItemObject itemObject = new ItemObject();
+        itemObject.setTitle("明星");
+        setCategory(itemObject);
     }
 
     private void initView() {
@@ -94,5 +90,21 @@ public class MainActivity extends FragmentActivity {
         iv_icon.startAnimation(AnimationUtils.loadAnimation(this, R.anim.shake));
     }
 
+    /**
+     * 点击菜单时切换fragment
+     */
+    public void setCategory(ItemObject itemObject) {
+        dl.close();
+        if (itemObject == null)
+            return;
+        txt_title.setText(itemObject.getTitle());
+        homeFragment = HomeFragment.newInstance(itemObject);
+        replaceFragment(R.id.linear_fragment, homeFragment);
+    }
+
+    public void replaceFragment(int viewId, Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(viewId, fragment).commit();
+    }
 
 }

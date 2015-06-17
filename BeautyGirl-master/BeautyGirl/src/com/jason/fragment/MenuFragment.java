@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.jason.Debug;
 import com.jason.adapter.MenuAdapter;
 import com.jason.bean.ItemObject;
+import com.jason.hao.MainActivity;
 import com.jason.hao.R;
 import com.jason.helper.HttpClientHelper;
 import com.jason.helper.JSONHttpHelper;
@@ -31,6 +32,8 @@ import java.util.List;
  */
 public class MenuFragment extends Fragment {
 
+    private MainActivity mActivity;
+
     private ListView listView;
     private MenuAdapter menuAdapter;
     private List<ItemObject> itemObjects;
@@ -48,6 +51,7 @@ public class MenuFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mActivity = (MainActivity) getActivity();
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         listView = (ListView) view.findViewById(R.id.listview);
         menuAdapter = new MenuAdapter(getActivity(), itemObjects);
@@ -57,7 +61,7 @@ public class MenuFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ItemObject itemObject = (ItemObject) parent.getItemAtPosition(position);
-
+                mActivity.setCategory(itemObject);
             }
         });
         return view;
@@ -117,6 +121,7 @@ public class MenuFragment extends Fragment {
             switch (msg.what) {
                 case 1:
                     listView.setAdapter(menuAdapter);
+                    listView.setItemChecked(0,true);
                     menuAdapter.notifyDataSetChanged();
                     break;
                 default:
