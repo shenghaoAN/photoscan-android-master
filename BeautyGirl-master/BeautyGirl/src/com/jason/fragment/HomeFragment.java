@@ -47,7 +47,7 @@ import java.util.Random;
 /**
  * Created by shenghao on 2015/6/16.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     private SwipeRefreshLayout swipeRefreshLayout;   //下拉刷新
     private VerticalScrollView scrollView;

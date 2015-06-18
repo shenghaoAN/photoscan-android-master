@@ -42,7 +42,7 @@ import java.util.List;
 /**
  * @author jason
  */
-public class ZoomProductActivity extends Activity {
+public class ZoomProductActivity extends BaseActivity {
 
     private HackyViewPager zoom_viewpager;
     private ImagePagerAdapter adapter;

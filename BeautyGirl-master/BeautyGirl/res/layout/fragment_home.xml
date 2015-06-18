@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container"
@@ -47,8 +49,6 @@
                     android:layout_height="60dp"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
-                    android:focusableInTouchMode="true"
-                    android:focusable="true"
                     android:gravity="center_vertical">
 
                     <EditText

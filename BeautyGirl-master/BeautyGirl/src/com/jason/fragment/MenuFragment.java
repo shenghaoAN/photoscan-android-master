@@ -3,7 +3,6 @@ package com.jason.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ import java.util.List;
 /**
  * Created by asus-1 on 2015/6/16.
  */
-public class MenuFragment extends Fragment {
+public class MenuFragment extends BaseFragment {
 
     private MainActivity mActivity;
 
@@ -101,10 +100,12 @@ public class MenuFragment extends Fragment {
             try {
                 ItemObject itemObject = new ItemObject();
                 JSONObject d = (JSONObject) thumbs.get(i);
-                itemObject.setIcon(d.getString("thumb_url"));
-                itemObject.setTitle(d.getString("column"));
-                itemObject.setTag(convertTagName(d.getString("tag")));
-                itemObjects.add(itemObject);
+                if (!d.getString("column").equals("美女")) {
+                    itemObject.setIcon(d.getString("thumb_url"));
+                    itemObject.setTitle(d.getString("column"));
+                    itemObject.setTag(convertTagName(d.getString("tag")));
+                    itemObjects.add(itemObject);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -121,7 +122,7 @@ public class MenuFragment extends Fragment {
             switch (msg.what) {
                 case 1:
                     listView.setAdapter(menuAdapter);
-                    listView.setItemChecked(0,true);
+                    listView.setItemChecked(0, true);
                     menuAdapter.notifyDataSetChanged();
                     break;
                 default:

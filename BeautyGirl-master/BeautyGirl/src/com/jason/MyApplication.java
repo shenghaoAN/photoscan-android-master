@@ -8,6 +8,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
 
@@ -24,6 +25,7 @@ public class MyApplication extends Application {
         context = getApplicationContext();
         Cfg.setContext(context);
         initImageLoader(getApplicationContext());
+        MobclickAgent.openActivityDurationTrack(false);
     }
 
     public static MyApplication getApplication() {

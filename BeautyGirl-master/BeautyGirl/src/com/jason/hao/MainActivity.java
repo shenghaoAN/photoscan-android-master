@@ -14,11 +14,13 @@ import com.jason.fragment.HomeFragment;
 import com.jason.fragment.MenuFragment;
 import com.jason.view.DragLayout;
 import com.nineoldandroids.view.ViewHelper;
+import com.umeng.analytics.AnalyticsConfig;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * @author jason
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
 
     private DragLayout dl;
     private ImageView iv_icon;
@@ -31,6 +33,8 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MobclickAgent.updateOnlineConfig(this);
+        AnalyticsConfig.enableEncrypt(false);  //日志加密,true表示加密，false表示不加密
         initDragLayout();
         findById();
         initFragment();

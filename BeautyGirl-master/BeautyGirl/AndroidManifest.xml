@@ -46,6 +46,11 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
 
+        <!-- 友盟KEY -->
+        <meta-data android:value="55823e9467e58e6e63000e18" android:name="UMENG_APPKEY"></meta-data>
+        <!-- 友盟channel -->
+        <meta-data android:value="" android:name="UMENG_CHANNEL"/>
+
     </application>
 
 </manifest>

@@ -30,7 +30,7 @@ import java.util.List;
  * <p/>
  * Created by shenghao on 2015/6/16.
  */
-public class DetailActivity extends Activity {
+public class DetailActivity extends BaseActivity {
 
     private ImageView img_back;
     private TextView txt_title;
@@ -125,7 +125,6 @@ public class DetailActivity extends Activity {
                     public void Success() {
                         // TODO Auto-generated method stub
                         try {
-                            progressBar.setVisibility(View.GONE);
                             if (cartoonObjects != null && cartoonObjects.size() > 0) {
                                 if (isFresh) {
                                     cartoonObjects.clear();
@@ -137,17 +136,20 @@ public class DetailActivity extends Activity {
                                     listView.stopLoadMore();
                                 }
                             }
+                            progressBar.setVisibility(View.GONE);
+                            total = totalNum;
+                            if (total == 0) {
+                                txt_error.setVisibility(View.VISIBLE);
+                                listView.setVisibility(View.GONE);
+                                return;
+                            }
 
                             Thread thread = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    total = totalNum;
                                     if (datas.length() > 0) {
                                         Debug.Log("detail", "has data");
                                         UpdateDatas(datas);
-                                    }
-                                    if (total == 0) {
-                                        txt_error.setVisibility(View.VISIBLE);
                                     }
                                 }
                             });
