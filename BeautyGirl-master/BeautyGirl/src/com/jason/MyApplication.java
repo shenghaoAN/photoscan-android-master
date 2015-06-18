@@ -56,7 +56,7 @@ public class MyApplication extends Application {
                         .denyCacheImageMultipleSizesInMemory()
                         .diskCacheFileNameGenerator(new Md5FileNameGenerator())  //文件命名
                         .diskCacheSize(200 * 1024 * 1024)   //文件緩存大小
-                        .memoryCacheSize(50 * 1024 * 1024)   //内存缓存大小
+                        .memoryCacheSize(2 * 1024 * 1024)   //内存缓存大小
                         .tasksProcessingOrder(QueueProcessingType.LIFO)   //default
                         .writeDebugLogs() // 打印debug log
                         .build();

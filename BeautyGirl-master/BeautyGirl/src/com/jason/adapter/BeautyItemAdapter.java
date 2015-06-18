@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,8 +16,8 @@ import com.jason.bean.CartoonObject;
 import com.jason.global.CommonData;
 import com.jason.hao.R;
 import com.jason.hao.ZoomProductActivity;
+import com.jason.utils.DensityUtils;
 import com.jason.utils.UniversalImageLoadTool;
-import com.jason.view.ScaleImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -32,11 +34,13 @@ public class BeautyItemAdapter extends BaseAdapter {
     private List<CartoonObject> list;
     private ImageLoader imageLoader;
     private ViewHolder viewHolder;
+    private int ScreenWidth;
 
     public BeautyItemAdapter(Context mContext, List<CartoonObject> list) {
         this.mContext = mContext;
         this.list = list;
         imageLoader = ImageLoader.getInstance();
+        ScreenWidth = DensityUtils.getWidth(mContext);
     }
 
     public void updateAdapter(List<CartoonObject> list) {
@@ -67,7 +71,7 @@ public class BeautyItemAdapter extends BaseAdapter {
                     R.layout.item_beauty_row, null);
             viewHolder.content_layout = (LinearLayout) convertView
                     .findViewById(R.id.content_layout);
-            viewHolder.thumbImage = (ScaleImageView) convertView
+            viewHolder.thumbImage = (ImageView) convertView
                     .findViewById(R.id.thumbImage);
             viewHolder.title_tag = (TextView) convertView
                     .findViewById(R.id.title_tag);
@@ -76,9 +80,16 @@ public class BeautyItemAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        //计算图片的宽度和高度，防止瀑布流滑动闪烁
+        int w = ScreenWidth / 2;
+        int h = (ScreenWidth * (list.get(position).getImage_height())) / (2 * list.get(position).getImage_width());
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(w, h);
+        viewHolder.thumbImage.setLayoutParams(params);
+        //设置图片描述
         viewHolder.title_tag.setText(list.get(position).getDesc());
-
-        UniversalImageLoadTool.loadimgAnimate(list.get(position).getImage_url(), viewHolder.thumbImage);
+        //加载图片
+        imageLoader.displayImage(list.get(position).getImage_url(), viewHolder.thumbImage,
+                UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
 
         viewHolder.content_layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +112,7 @@ public class BeautyItemAdapter extends BaseAdapter {
         // layout
         LinearLayout content_layout;
         // 缩略图
-        ScaleImageView thumbImage;
+        ImageView thumbImage;
         // 标签
         TextView title_tag;
     }
