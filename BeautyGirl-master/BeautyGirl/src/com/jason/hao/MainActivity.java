@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity {
     private void initFragment() {
         replaceFragment(R.id.menu_fragment, new MenuFragment());
         ItemObject itemObject = new ItemObject();
-        itemObject.setTitle("明星");
+        itemObject.setTitle("旅游");
         setCategory(itemObject);
     }
 
