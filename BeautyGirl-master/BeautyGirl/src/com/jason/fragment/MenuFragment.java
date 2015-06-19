@@ -100,7 +100,7 @@ public class MenuFragment extends BaseFragment {
             try {
                 ItemObject itemObject = new ItemObject();
                 JSONObject d = (JSONObject) thumbs.get(i);
-                if (!d.getString("column").equals("明星")) {
+                if (!d.getString("column").equals("美女")) {
                     itemObject.setIcon(d.getString("thumb_url"));
                     itemObject.setTitle(d.getString("column"));
                     itemObject.setTag(convertTagName(d.getString("tag")));

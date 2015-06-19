@@ -1,7 +1,7 @@
 package com.jason.hao;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,6 +35,19 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.media.QQShareContent;
+import com.umeng.socialize.media.QZoneShareContent;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.QZoneSsoHandler;
+import com.umeng.socialize.sso.SinaSsoHandler;
+import com.umeng.socialize.sso.UMQQSsoHandler;
+import com.umeng.socialize.sso.UMSsoHandler;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
+import com.umeng.socialize.weixin.media.CircleShareContent;
+import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +83,11 @@ public class ZoomProductActivity extends BaseActivity {
     private AnimationSet closeTopLayoutAnimation;
     private AnimationSet openTopLayoutAnimation;
 
+    //分享
+    // 首先在您的Activity中添加如下成员变量
+    final UMSocialService mController = UMServiceFactory
+            .getUMSocialService("com.umeng.share");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -97,6 +115,7 @@ public class ZoomProductActivity extends BaseActivity {
     }
 
     protected void initView() {
+
         txt_title.setText(cartoonObjects.get(pagerposition).getDesc()
                 + "(" + (pagerposition + 1) + "/" + cartoonObjects.size() + ")");
         zoom_viewpager.setOnPageChangeListener(new OnPageChangeListener() {
@@ -152,6 +171,100 @@ public class ZoomProductActivity extends BaseActivity {
         zoom_viewpager.setAdapter(adapter);
         zoom_viewpager.setCurrentItem(pagerposition);
         zoom_viewpager.setPageTransformer(true, new DepthPageTransformer());
+    }
+
+    /**
+     * 配置分享平台
+     */
+    private void configPlatforms(String title, String content, String img_url, String link) {
+
+//---------------------------------------------新浪微博分享-----------------------------------------------------------
+        // 设置分享内容
+        mController.setShareContent(content);
+        // 设置分享图片, 参数2为图片的url地址
+        mController.setShareImage(new UMImage(this,img_url));
+//        UMusic uMusic = new UMusic("http://music.163.com/song/254270/");
+//        uMusic.setAuthor("GuGu");
+//        uMusic.setTitle("GuGu");
+//        // 设置音乐缩略图
+//        uMusic.setThumb("http://www.baidu.com/img/bdlogo.png");
+//        mController.setShareMedia(uMusic);
+        // 设置新浪SSO handler
+        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+//---------------------------------------------QQ好友分享-----------------------------------------------------------
+        // 参数1为当前Activity，参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.（自己申请）
+        //设置qq平台的AppID和AppKey
+        String qq_appID = "1104650467";
+        String qq_appKey = "BFiVqe76dkCb3fLN";
+        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, qq_appID,
+                qq_appKey);
+        qqSsoHandler.addToSocialSDK();
+        QQShareContent qqShareContent = new QQShareContent();
+        // 设置分享文字
+        qqShareContent.setShareContent(content);
+        // 设置分享title
+        qqShareContent.setTitle(title);
+        // 设置分享图片
+        qqShareContent.setShareImage(new UMImage(this, img_url));
+        // 设置点击分享内容的跳转链接
+        qqShareContent.setTargetUrl(link);
+        mController.setShareMedia(qqShareContent);
+//-------------------------------------------QQ空间分享-------------------------------------------------------------
+        // 参数1为当前Activity，参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.（自己申请）
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(this,
+                qq_appID, qq_appKey);
+        qZoneSsoHandler.addToSocialSDK();
+        QZoneShareContent qzone = new QZoneShareContent();
+        // 设置分享文字
+        qzone.setShareContent(content);
+        // 设置点击消息的跳转URL
+        qzone.setTargetUrl(link);
+        // 设置分享内容的标题
+        qzone.setTitle(title);
+        // 设置分享图片
+        qzone.setShareImage(new UMImage(this, img_url));
+        mController.setShareMedia(qzone);
+//-----------------------------------------微信好友分享---------------------------------------------------------------
+        // 添加微信的appID appSecret要自己申请
+        String wx_appID = "wx385d8d2a8e499db0";
+        String wx_appSecret = "73988a1e070e5b2b3d046dfb834bafef";
+        // 添加微信平台
+        UMWXHandler wxHandler = new UMWXHandler(this, wx_appID, wx_appSecret);
+        wxHandler.addToSocialSDK();
+        // 设置微信好友分享内容
+        WeiXinShareContent weixinContent = new WeiXinShareContent();
+        // 设置分享文字
+        weixinContent.setShareContent(content);
+        // 设置title
+        weixinContent.setTitle(title);
+        // 设置图片
+        weixinContent.setShareImage(new UMImage(this, img_url));
+        // 设置分享内容跳转URL
+        weixinContent.setTargetUrl(link);
+        mController.setShareMedia(weixinContent);
+//------------------------------------------微信朋友圈分享--------------------------------------------------------------
+        // 添加微信朋友圈(自会显示title，不会显示内容，官网这样说的)
+        UMWXHandler wxCircleHandler = new UMWXHandler(this, wx_appID, wx_appSecret);
+        // 设置微信朋友圈分享内容
+        CircleShareContent circleMedia = new CircleShareContent();
+        circleMedia.setShareContent(content);
+        // 设置朋友圈title
+        circleMedia.setTitle(title);
+        circleMedia.setShareImage(new UMImage(this, img_url));
+        circleMedia.setTargetUrl(link);
+        mController.setShareMedia(circleMedia);
+        wxCircleHandler.setToCircle(true);
+        wxCircleHandler.addToSocialSDK();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /**使用SSO授权必须添加如下代码 */
+        UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode);
+        if (ssoHandler != null) {
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
     }
 
     /**
@@ -340,7 +453,7 @@ public class ZoomProductActivity extends BaseActivity {
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
+        public Object instantiateItem(ViewGroup container, final int position) {
             // TODO Auto-generated method stub
             // 引入自定义布局作为Viewpager子视图
             View view = LayoutInflater.from(getApplicationContext()).inflate(
@@ -398,6 +511,21 @@ public class ZoomProductActivity extends BaseActivity {
                     }
                 }
             });
+
+            imageView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    //配置分享平台
+                    configPlatforms(cartoonObjects.get(position).getTag(), cartoonObjects.get(position).getDesc(),
+                            cartoonObjects.get(position).getImage_url(), "http://www.anzhi.com/soft_2239772.html");
+                    mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT, SHARE_MEDIA.RENREN,
+                            SHARE_MEDIA.DOUBAN);
+                    //默认分享方式
+                    mController.openShare(ZoomProductActivity.this, false);
+                    return false;
+                }
+            });
+
             container.addView(view);
             return view;
         }

@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MobclickAgent.updateOnlineConfig(this);
-        AnalyticsConfig.enableEncrypt(false);  //日志加密,true表示加密，false表示不加密
+        AnalyticsConfig.enableEncrypt(true);  //日志加密,true表示加密，false表示不加密
         initDragLayout();
         findById();
         initFragment();
@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity {
     private void initFragment() {
         replaceFragment(R.id.menu_fragment, new MenuFragment());
         ItemObject itemObject = new ItemObject();
-        itemObject.setTitle("旅游");
+        itemObject.setTitle("明星");
         setCategory(itemObject);
     }
 
