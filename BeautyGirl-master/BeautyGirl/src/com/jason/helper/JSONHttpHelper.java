@@ -57,6 +57,7 @@ public class JSONHttpHelper extends Activity {
                 JSONObject json = new JSONObject(response.trim());
 
                 totalNum = json.getInt("totalNum");
+                Debug.Log("totalNum is ", totalNum + "");
 
                 datas = (JSONArray) json.get("data");
 

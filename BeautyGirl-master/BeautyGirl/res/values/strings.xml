@@ -12,5 +12,6 @@
     <string name="search">输入要搜索的名称</string>
     <string name="check_net">请检查网络是否连接...</string>
     <string name="search_error">没有找到该分类</string>
+    <string name="finish_data">数据已加载完毕</string>
 
 </resources>

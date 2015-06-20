@@ -1,6 +1,5 @@
 package com.jason.hao;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +23,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 瀑布流形式显示图片
@@ -71,15 +71,26 @@ public class DetailActivity extends BaseActivity {
         txt_error = (TextView) findViewById(R.id.txt_error);
         txt_error.setVisibility(View.GONE);
         listView = (WaterFallListView) findViewById(R.id.myListview);
-        listView.setPullLoadEnable(false);
-        listView.setPullRefreshEnable(false);
+        listView.setPullLoadEnable(true);
+        listView.setPullRefreshEnable(true);
         listView.setXListViewListener(new xListViewListener());
         beautyItemAdapter = new BeautyItemAdapter(this, cartoonObjects);
+
+        listView.setAdapter(beautyItemAdapter);
 
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DetailActivity.this.finish();
+            }
+        });
+
+        txt_title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listView != null && listView.getCount() > 0) {
+                    listView.smoothScrollToPosition(0);   //滚动到顶部
+                }
             }
         });
     }
@@ -103,7 +114,8 @@ public class DetailActivity extends BaseActivity {
                 pn = pn + rn;
                 getGridData();
             } else {
-                ToastShow.displayToast(DetailActivity.this, "数据已加载完毕");
+                listView.stopLoadMore();
+                ToastShow.displayToast(DetailActivity.this, getString(R.string.finish_data));
             }
         }
     }
@@ -125,6 +137,7 @@ public class DetailActivity extends BaseActivity {
                     public void Success() {
                         // TODO Auto-generated method stub
                         try {
+
                             if (cartoonObjects != null && cartoonObjects.size() > 0) {
                                 if (isFresh) {
                                     cartoonObjects.clear();
@@ -136,6 +149,7 @@ public class DetailActivity extends BaseActivity {
                                     listView.stopLoadMore();
                                 }
                             }
+
                             progressBar.setVisibility(View.GONE);
                             total = totalNum;
                             if (total == 0) {
@@ -172,7 +186,6 @@ public class DetailActivity extends BaseActivity {
             try {
                 CartoonObject cartoonObject = new CartoonObject();
                 JSONObject d = (JSONObject) datas.get(i);
-                cartoonObject.setId(d.getString("id"));
                 cartoonObject.setDesc(d.getString("desc"));
                 cartoonObject.setColum(d.getString("colum"));
                 cartoonObject.setDate(d.getString("date"));
@@ -186,7 +199,7 @@ public class DetailActivity extends BaseActivity {
             }
         }
 
-        handler.sendMessage(handler.obtainMessage(1));
+        handler.sendMessage(handler.obtainMessage(1, cartoonObjects));
 
     }
 
@@ -196,9 +209,9 @@ public class DetailActivity extends BaseActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    Debug.Log("handler message 1", "success");
-                    listView.setAdapter(beautyItemAdapter);
-                    beautyItemAdapter.updateAdapter(cartoonObjects);
+                    Debug.Log("handler message", "success");
+                    List<CartoonObject> list = (List<CartoonObject>) msg.obj;
+                    beautyItemAdapter.updateAdapter(list);
                     break;
                 default:
                     break;
@@ -206,5 +219,14 @@ public class DetailActivity extends BaseActivity {
         }
     };
 
+    /**
+     * 随机数
+     *
+     * @return
+     */
+    private int getRandom() {
+        Random random = new Random();
+        return random.nextInt(100);
+    }
 
 }

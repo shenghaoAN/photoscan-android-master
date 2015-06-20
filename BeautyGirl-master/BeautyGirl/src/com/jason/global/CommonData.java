@@ -12,6 +12,8 @@ package com.jason.global;
  */
 public class CommonData {
 
+    public static final String SHARE_LINK = "http://shouji.baidu.com/software/item?docid=7801361&from=as";
+
     public static final String BANNER_URL = "url";
     public static final String LIST = "list";
     public static final String POSITION = "pos";

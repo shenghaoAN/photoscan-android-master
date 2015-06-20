@@ -182,7 +182,7 @@ public class ZoomProductActivity extends BaseActivity {
         // 设置分享内容
         mController.setShareContent(content);
         // 设置分享图片, 参数2为图片的url地址
-        mController.setShareImage(new UMImage(this,img_url));
+        mController.setShareImage(new UMImage(this, img_url));
 //        UMusic uMusic = new UMusic("http://music.163.com/song/254270/");
 //        uMusic.setAuthor("GuGu");
 //        uMusic.setTitle("GuGu");
@@ -517,7 +517,7 @@ public class ZoomProductActivity extends BaseActivity {
                 public boolean onLongClick(View v) {
                     //配置分享平台
                     configPlatforms(cartoonObjects.get(position).getTag(), cartoonObjects.get(position).getDesc(),
-                            cartoonObjects.get(position).getImage_url(), "http://www.anzhi.com/soft_2239772.html");
+                            cartoonObjects.get(position).getImage_url(), CommonData.SHARE_LINK);
                     mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT, SHARE_MEDIA.RENREN,
                             SHARE_MEDIA.DOUBAN);
                     //默认分享方式

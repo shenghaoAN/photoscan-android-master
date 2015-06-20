@@ -11,7 +11,7 @@ import android.content.SharedPreferences;
 
 public class Cfg {
 
-	public static String mode = "product"; // sandbox or product
+	public static String mode = "sandbox"; // sandbox or product
 	public static final Integer appVersion = 1;
 
 	public static Integer appVersionInstalled = 0;
