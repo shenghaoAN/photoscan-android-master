@@ -148,7 +148,7 @@ public class ZoomProductActivity extends BaseActivity {
                     popupwindow.dismiss();
                 //配置分享平台
                 configPlatforms(cartoonObjects.get(pagerposition).getTag(), cartoonObjects.get(pagerposition).getDesc(),
-                        cartoonObjects.get(pagerposition).getImage_url(), CommonData.SHARE_LINK);
+                        cartoonObjects.get(pagerposition).getImage_url(), cartoonObjects.get(pagerposition).getShare_url());
                 mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT, SHARE_MEDIA.RENREN,
                         SHARE_MEDIA.DOUBAN);
                 //默认分享方式
@@ -236,12 +236,6 @@ public class ZoomProductActivity extends BaseActivity {
         mController.setShareContent(content);
         // 设置分享图片, 参数2为图片的url地址
         mController.setShareImage(new UMImage(this, img_url));
-//        UMusic uMusic = new UMusic("http://music.163.com/song/254270/");
-//        uMusic.setAuthor("GuGu");
-//        uMusic.setTitle("GuGu");
-//        // 设置音乐缩略图
-//        uMusic.setThumb("http://www.baidu.com/img/bdlogo.png");
-//        mController.setShareMedia(uMusic);
         // 设置新浪SSO handler
         mController.getConfig().setSsoHandler(new SinaSsoHandler());
 //---------------------------------------------QQ好友分享-----------------------------------------------------------
@@ -257,10 +251,10 @@ public class ZoomProductActivity extends BaseActivity {
         qqShareContent.setShareContent(content);
         // 设置分享title
         qqShareContent.setTitle(title);
-        // 设置分享图片
-        qqShareContent.setShareImage(new UMImage(this, img_url));
         // 设置点击分享内容的跳转链接
         qqShareContent.setTargetUrl(link);
+        // 设置分享图片
+        qqShareContent.setShareImage(new UMImage(this, img_url));
         mController.setShareMedia(qqShareContent);
 //-------------------------------------------QQ空间分享-------------------------------------------------------------
         // 参数1为当前Activity，参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.（自己申请）
@@ -290,21 +284,23 @@ public class ZoomProductActivity extends BaseActivity {
         weixinContent.setShareContent(content);
         // 设置title
         weixinContent.setTitle(title);
-        // 设置图片
-        weixinContent.setShareImage(new UMImage(this, img_url));
         // 设置分享内容跳转URL
         weixinContent.setTargetUrl(link);
+        // 设置分享图片
+        weixinContent.setShareImage(new UMImage(this, img_url));
         mController.setShareMedia(weixinContent);
 //------------------------------------------微信朋友圈分享--------------------------------------------------------------
         // 添加微信朋友圈(自会显示title，不会显示内容，官网这样说的)
         UMWXHandler wxCircleHandler = new UMWXHandler(this, wx_appID, wx_appSecret);
-        // 设置微信朋友圈分享内容
         CircleShareContent circleMedia = new CircleShareContent();
+        // 设置微信朋友圈分享内容
         circleMedia.setShareContent(content);
         // 设置朋友圈title
         circleMedia.setTitle(title);
-        circleMedia.setShareImage(new UMImage(this, img_url));
+        // 设置分享内容跳转URL
         circleMedia.setTargetUrl(link);
+        // 设置分享图片
+        circleMedia.setShareImage(new UMImage(this, img_url));
         mController.setShareMedia(circleMedia);
         wxCircleHandler.setToCircle(true);
         wxCircleHandler.addToSocialSDK();

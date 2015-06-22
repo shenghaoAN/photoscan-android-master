@@ -12,6 +12,7 @@ public class CartoonObject implements Serializable {
     private String tag;
     private String date;
     private String image_url;
+    private String share_url;
     private int image_width;
     private int image_height;
     private String colum;
@@ -78,5 +79,13 @@ public class CartoonObject implements Serializable {
 
     public void setImage_height(int image_height) {
         this.image_height = image_height;
+    }
+
+    public String getShare_url() {
+        return share_url;
+    }
+
+    public void setShare_url(String share_url) {
+        this.share_url = share_url;
     }
 }

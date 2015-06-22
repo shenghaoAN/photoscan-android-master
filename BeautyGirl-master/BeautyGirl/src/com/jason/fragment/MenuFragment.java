@@ -100,12 +100,18 @@ public class MenuFragment extends BaseFragment {
             try {
                 ItemObject itemObject = new ItemObject();
                 JSONObject d = (JSONObject) thumbs.get(i);
+                //百度图片助手不允许美女模块
                 if (!d.getString("column").equals("美女")) {
                     itemObject.setIcon(d.getString("thumb_url"));
                     itemObject.setTitle(d.getString("column"));
                     itemObject.setTag(convertTagName(d.getString("tag")));
                     itemObjects.add(itemObject);
                 }
+
+/*              itemObject.setIcon(d.getString("thumb_url"));
+                itemObject.setTitle(d.getString("column"));
+                itemObject.setTag(convertTagName(d.getString("tag")));
+                itemObjects.add(itemObject);*/
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -411,7 +411,10 @@ public class HomeFragment extends BaseFragment {
                 cartoonObject.setColum(d.getString("colum"));
                 cartoonObject.setDate(d.getString("date"));
                 cartoonObject.setImage_url(d.getString("image_url"));
+                cartoonObject.setImage_width(d.getInt("image_width"));
+                cartoonObject.setImage_height(d.getInt("image_height"));
                 cartoonObject.setTag(d.getString("tag"));
+                cartoonObject.setShare_url(d.getString("share_url"));
                 cartoonObjects.add(cartoonObject);
             } catch (Exception e) {
                 e.printStackTrace();
