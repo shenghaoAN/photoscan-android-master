@@ -1,6 +1,7 @@
 package com.jason.hao;
 
 import android.annotation.SuppressLint;
+import android.app.WallpaperManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ import com.jason.global.CommonData;
 import com.jason.photoview.HackyViewPager;
 import com.jason.photoview.PhotoView;
 import com.jason.photoview.PhotoViewAttacher;
+import com.jason.popupwindow.SettingPopupwindow;
+import com.jason.utils.DensityUtils;
 import com.jason.utils.ImageTools;
 import com.jason.utils.ToastShow;
 import com.jason.utils.UniversalImageLoadTool;
@@ -49,6 +52,7 @@ import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +64,7 @@ public class ZoomProductActivity extends BaseActivity {
     private HackyViewPager zoom_viewpager;
     private ImagePagerAdapter adapter;
     private View relative_top;
-    private Button btn_save;
+    private Button btn_setting;
     private Button btn_back;
     private View relative_bottom;
     private TextView txt_title;
@@ -69,6 +73,10 @@ public class ZoomProductActivity extends BaseActivity {
     private List<CartoonObject> cartoonObjects;
     private int pagerposition = 0; // 页面当前位置
     private int currentposition = 0;
+
+    //popupwindow
+    SettingPopupwindow popupwindow;
+    ;
 
     //文件保存
     private Loading loading;
@@ -101,19 +109,65 @@ public class ZoomProductActivity extends BaseActivity {
         pagerposition = bundle.getInt(CommonData.POSITION);
         findViewById();
         initView();
+        initPopWindow();
         showProduct();
         initAnimation();
     }
 
+    /**
+     * findID
+     */
     protected void findViewById() {
         relative_top = (View) findViewById(R.id.relative_top);
         relative_bottom = (View) findViewById(R.id.relative_bottom);
         zoom_viewpager = (HackyViewPager) findViewById(R.id.zoom_viewpager);
         btn_back = (Button) findViewById(R.id.btn_back);
-        btn_save = (Button) findViewById(R.id.btn_save);
+        btn_setting = (Button) findViewById(R.id.btn_setting);
         txt_title = (TextView) findViewById(R.id.txt_title);
     }
 
+    /**
+     * 初始化PopupWindow
+     */
+    private void initPopWindow() {
+        popupwindow = new SettingPopupwindow(ZoomProductActivity.this, DensityUtils.dip2px(ZoomProductActivity.this, 200), DensityUtils.dip2px(ZoomProductActivity.this, 152));
+
+        popupwindow.setOnPopSettingClickListener(new SettingPopupwindow.OnPopSettingClickListener() {
+            @Override
+            public void onSaveClick() {
+                if (popupwindow.isShowing())
+                    popupwindow.dismiss();
+                //保存图片
+                loading.Start("save_img");
+                new Thread(saveFileRunnable).start();
+            }
+
+            @Override
+            public void onShareClick() {
+                if (popupwindow.isShowing())
+                    popupwindow.dismiss();
+                //配置分享平台
+                configPlatforms(cartoonObjects.get(pagerposition).getTag(), cartoonObjects.get(pagerposition).getDesc(),
+                        cartoonObjects.get(pagerposition).getImage_url(), CommonData.SHARE_LINK);
+                mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT, SHARE_MEDIA.RENREN,
+                        SHARE_MEDIA.DOUBAN);
+                //默认分享方式
+                mController.openShare(ZoomProductActivity.this, false);
+            }
+
+            @Override
+            public void onWrapperClick() {
+                if (popupwindow.isShowing())
+                    popupwindow.dismiss();
+                //设置壁纸
+                setWallPaper(imageLoader.loadImageSync(cartoonObjects.get(pagerposition).getImage_url()));
+            }
+        });
+    }
+
+    /**
+     * 初始化initView
+     */
     protected void initView() {
 
         txt_title.setText(cartoonObjects.get(pagerposition).getDesc()
@@ -152,13 +206,12 @@ public class ZoomProductActivity extends BaseActivity {
             }
         });
 
-        btn_save.setOnClickListener(new OnClickListener() {
+        btn_setting.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
-                loading.Start("save_img");
-                new Thread(saveFileRunnable).start();
+                popupwindow.showAsDropDown(findViewById(R.id.btn_setting), 0, 0);
             }
         });
     }
@@ -429,6 +482,20 @@ public class ZoomProductActivity extends BaseActivity {
         });
     }
 
+    //设置壁纸
+    public void setWallPaper(Bitmap bitmap) {
+        WallpaperManager mWallManager = WallpaperManager.getInstance(this);
+        try {
+            if (bitmap != null && !bitmap.isRecycled()) {
+                mWallManager.setBitmap(bitmap);
+                ToastShow.displayToast(this, getString(R.string.success));
+            }
+        } catch (IOException e) {
+            ToastShow.displayToast(this, getString(R.string.failure));
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
@@ -462,6 +529,7 @@ public class ZoomProductActivity extends BaseActivity {
                     .findViewById(R.id.img_zoom_photo);
             final ProgressBar loading = (ProgressBar) view
                     .findViewById(R.id.pb_zoom_photo);
+
             imageLoader.displayImage(cartoonObjects.get(position).getImage_url(), imageView, UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image),
                     new SimpleImageLoadingListener() {
                         @Override
@@ -490,6 +558,7 @@ public class ZoomProductActivity extends BaseActivity {
                             loading.setProgress(Math.round(100.0f * current / total));
                         }
                     });
+
             imageView.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
 
                 @Override
@@ -509,20 +578,6 @@ public class ZoomProductActivity extends BaseActivity {
                         openBottomLayoutAnimation.start();
                         openTopLayoutAnimation.start();
                     }
-                }
-            });
-
-            imageView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    //配置分享平台
-                    configPlatforms(cartoonObjects.get(position).getTag(), cartoonObjects.get(position).getDesc(),
-                            cartoonObjects.get(position).getImage_url(), CommonData.SHARE_LINK);
-                    mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT, SHARE_MEDIA.RENREN,
-                            SHARE_MEDIA.DOUBAN);
-                    //默认分享方式
-                    mController.openShare(ZoomProductActivity.this, false);
-                    return false;
                 }
             });
 

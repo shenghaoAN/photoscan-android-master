@@ -5,7 +5,10 @@
     <string name="title">标题</string>
     <string name="loading">加载中...</string>
     <string name="back">返回</string>
+    <string name="set">. . .</string>
     <string name="save">保存</string>
+    <string name="share">分享</string>
+    <string name="wrapper">设置成壁纸</string>
     <string name="save_img">图片正在保存中，请稍等...</string>
     <string name="save_success">图片已保存至%1$s</string>
     <string name="save_failure">图片保存失败！</string>
@@ -13,5 +16,7 @@
     <string name="check_net">请检查网络是否连接...</string>
     <string name="search_error">没有找到该分类</string>
     <string name="finish_data">数据已加载完毕</string>
+    <string name="success">设置成功</string>
+    <string name="failure">设置失败</string>
 
 </resources>

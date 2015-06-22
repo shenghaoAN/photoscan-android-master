@@ -1120,11 +1120,11 @@ public class PLA_ListView extends PLA_AbsListView {
 				invokeOnItemScrollListener();
 				return;
 			} else if (mItemCount != mAdapter.getCount()) {
-				throw new IllegalStateException("The content of the adapter has changed but "
+/*				throw new IllegalStateException("The content of the adapter has changed but "
 						+ "ListView did not receive a notification. Make sure the content of "
 						+ "your adapter is not modified from a background thread, but only "
 						+ "from the UI thread. [in ListView(" + getId() + ", " + getClass() 
-						+ ") with Adapter(" + mAdapter.getClass() + ")]");
+						+ ") with Adapter(" + mAdapter.getClass() + ")]");*/
 			}
 
 			// Pull all children into the RecycleBin.

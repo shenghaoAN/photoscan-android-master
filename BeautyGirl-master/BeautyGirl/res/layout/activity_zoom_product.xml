@@ -33,7 +33,7 @@
             android:textColor="@drawable/button_menu_text_color" />
 
         <Button
-            android:id="@+id/btn_save"
+            android:id="@+id/btn_setting"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
@@ -41,8 +41,8 @@
             android:background="@android:color/transparent"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:textSize="15sp"
-            android:text="@string/save"
+            android:textSize="20sp"
+            android:text="@string/set"
             android:textColor="@drawable/button_menu_text_color" />
     </RelativeLayout>
 

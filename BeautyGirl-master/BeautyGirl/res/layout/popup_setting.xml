@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_popup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/search_input_bg"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_save"
+            style="@style/PopupButton"
+            android:text="@string/save" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/white" />
+
+        <Button
+            android:id="@+id/btn_share"
+            style="@style/PopupButton"
+            android:text="@string/share" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/white" />
+
+        <Button
+            android:id="@+id/btn_wrapper"
+            style="@style/PopupButton"
+            android:text="@string/wrapper" />
+    </LinearLayout>
+
+</RelativeLayout>

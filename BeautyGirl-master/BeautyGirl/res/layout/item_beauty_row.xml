@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/content_layout"
@@ -11,17 +11,17 @@
         android:background="@drawable/round_corner_item_single_bg"
         android:minHeight="120dp"
         android:orientation="vertical"
-        android:padding="8.0dip" >
+        android:padding="5dip">
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="2dp" >
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/thumbImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:scaleType="centerCrop" />
 
         </FrameLayout>
