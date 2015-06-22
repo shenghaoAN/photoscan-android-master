@@ -15,6 +15,7 @@ import com.jason.view.DragLayout;
 import com.nineoldandroids.view.ViewHelper;
 import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.update.UmengUpdateAgent;
 
 /**
  * @author jason
@@ -34,6 +35,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         MobclickAgent.updateOnlineConfig(this);
         AnalyticsConfig.enableEncrypt(true);  //日志加密,true表示加密，false表示不加密
+        UmengUpdateAgent.update(this);   //友盟更新
         initDragLayout();
         findById();
         initFragment();

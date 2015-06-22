@@ -36,6 +36,7 @@
     <orderEntry type="library" name="SocialSDK_WeiXin_1" level="project" />
     <orderEntry type="library" name="SocialSDK_WeiXin_2" level="project" />
     <orderEntry type="library" name="umeng_social_sdk" level="project" />
+    <orderEntry type="library" name="umeng-update-v2.6.0.1" level="project" />
   </component>
 </module>
 

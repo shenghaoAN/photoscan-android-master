@@ -89,6 +89,15 @@
         <meta-data android:value="55823e9467e58e6e63000e18" android:name="UMENG_APPKEY"></meta-data>
         <!-- 友盟channel -->
         <meta-data android:value="" android:name="UMENG_CHANNEL"/>
+        <!-- 友盟更新 -->
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
 
     </application>
 
