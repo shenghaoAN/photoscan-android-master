@@ -22,8 +22,11 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.jason.Debug;
 import com.jason.animation.DepthPageTransformer;
 import com.jason.bean.CartoonObject;
+import com.jason.bean.FavroiteBean;
+import com.jason.dbservice.FavroiteBeanService;
 import com.jason.global.CommonData;
 import com.jason.photoview.HackyViewPager;
 import com.jason.photoview.PhotoView;
@@ -91,6 +94,8 @@ public class ZoomProductActivity extends BaseActivity {
     private AnimationSet closeTopLayoutAnimation;
     private AnimationSet openTopLayoutAnimation;
 
+    private FavroiteBeanService favroiteBeanService;
+
     //分享
     // 首先在您的Activity中添加如下成员变量
     final UMSocialService mController = UMServiceFactory
@@ -101,6 +106,7 @@ public class ZoomProductActivity extends BaseActivity {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zoom_product);
+        favroiteBeanService = FavroiteBeanService.instance(this);
         loading = new Loading(ZoomProductActivity.this);
         imageLoader = ImageLoader.getInstance();
         Bundle bundle = getIntent().getExtras();
@@ -130,9 +136,21 @@ public class ZoomProductActivity extends BaseActivity {
      * 初始化PopupWindow
      */
     private void initPopWindow() {
-        popupwindow = new SettingPopupwindow(ZoomProductActivity.this, DensityUtils.dip2px(ZoomProductActivity.this, 200), DensityUtils.dip2px(ZoomProductActivity.this, 152));
+        popupwindow = new SettingPopupwindow(ZoomProductActivity.this, DensityUtils.dip2px(ZoomProductActivity.this, 200), DensityUtils.dip2px(ZoomProductActivity.this, 201));
 
         popupwindow.setOnPopSettingClickListener(new SettingPopupwindow.OnPopSettingClickListener() {
+
+            @Override
+            public void onFavroiteClick() {
+                if (popupwindow.isShowing())
+                    popupwindow.dismiss();
+                FavroiteBean favroiteBean = new FavroiteBean();
+                favroiteBean.image_url = cartoonObjects.get(pagerposition).getImage_url();
+                favroiteBean.description = cartoonObjects.get(pagerposition).getDesc();
+                favroiteBeanService.save(favroiteBean);
+                Debug.Log("---->",favroiteBeanService.findAllList().toString());
+            }
+
             @Override
             public void onSaveClick() {
                 if (popupwindow.isShowing())
@@ -147,7 +165,7 @@ public class ZoomProductActivity extends BaseActivity {
                 if (popupwindow.isShowing())
                     popupwindow.dismiss();
                 //配置分享平台
-                configPlatforms(cartoonObjects.get(pagerposition).getTag(), cartoonObjects.get(pagerposition).getDesc(),
+                configPlatforms(cartoonObjects.get(pagerposition).getTag(), cartoonObjects.get(pagerposition).getDesc() + " \n 海量图片，尽在图片汇 \n http://apk.91.com/Soft/Android/com.jason.hao-2.html",
                         cartoonObjects.get(pagerposition).getImage_url(), cartoonObjects.get(pagerposition).getShare_url());
                 mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT, SHARE_MEDIA.RENREN,
                         SHARE_MEDIA.DOUBAN);
@@ -278,14 +296,14 @@ public class ZoomProductActivity extends BaseActivity {
         // 添加微信平台
         UMWXHandler wxHandler = new UMWXHandler(this, wx_appID, wx_appSecret);
         wxHandler.addToSocialSDK();
-        // 设置微信好友分享内容
+//        // 设置微信好友分享内容
         WeiXinShareContent weixinContent = new WeiXinShareContent();
-        // 设置分享文字
-        weixinContent.setShareContent(content);
-        // 设置title
-        weixinContent.setTitle(title);
-        // 设置分享内容跳转URL
-        weixinContent.setTargetUrl(link);
+//        // 设置分享文字
+//        weixinContent.setShareContent(content);
+//        // 设置title
+//        weixinContent.setTitle(title);
+//        // 设置分享内容跳转URL
+//        weixinContent.setTargetUrl(link);
         // 设置分享图片
         weixinContent.setShareImage(new UMImage(this, img_url));
         mController.setShareMedia(weixinContent);

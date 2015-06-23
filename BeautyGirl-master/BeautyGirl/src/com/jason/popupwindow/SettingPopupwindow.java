@@ -12,6 +12,7 @@ import com.jason.hao.R;
  */
 public class SettingPopupwindow extends BasePopupWindow implements View.OnClickListener {
 
+    private Button btn_favroite;
     private Button btn_save;
     private Button btn_share;
     private Button btn_wrapper;
@@ -34,6 +35,7 @@ public class SettingPopupwindow extends BasePopupWindow implements View.OnClickL
 
     @Override
     public void initViews() {
+        btn_favroite = (Button) findViewById(R.id.btn_favroite);
         btn_save = (Button) findViewById(R.id.btn_save);
         btn_share = (Button) findViewById(R.id.btn_share);
         btn_wrapper = (Button) findViewById(R.id.btn_wrapper);
@@ -41,6 +43,7 @@ public class SettingPopupwindow extends BasePopupWindow implements View.OnClickL
 
     @Override
     public void initEvents() {
+        btn_favroite.setOnClickListener(this);
         btn_save.setOnClickListener(this);
         btn_share.setOnClickListener(this);
         btn_wrapper.setOnClickListener(this);
@@ -49,6 +52,10 @@ public class SettingPopupwindow extends BasePopupWindow implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btn_favroite:
+                if(listener != null)
+                    listener.onFavroiteClick();
+                break;
             case R.id.btn_save:
                 if(listener != null)
                     listener.onSaveClick();
@@ -79,10 +86,13 @@ public class SettingPopupwindow extends BasePopupWindow implements View.OnClickL
      */
     public interface OnPopSettingClickListener {
 
+        //收藏
+        void onFavroiteClick();
+        //保存到相册
         void onSaveClick();
-
+        //分享
         void onShareClick();
-
+        //设置壁纸
         void onWrapperClick();
     }
 

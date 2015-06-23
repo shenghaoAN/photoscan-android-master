@@ -12,6 +12,16 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/btn_favroite"
+            style="@style/PopupButton"
+            android:text="@string/favroite" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/white" />
+
+        <Button
             android:id="@+id/btn_save"
             style="@style/PopupButton"
             android:text="@string/save" />

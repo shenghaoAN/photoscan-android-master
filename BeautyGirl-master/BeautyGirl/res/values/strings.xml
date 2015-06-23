@@ -18,5 +18,6 @@
     <string name="finish_data">数据已加载完毕</string>
     <string name="success">设置成功</string>
     <string name="failure">设置失败</string>
+    <string name="favroite">收藏</string>
 
 </resources>

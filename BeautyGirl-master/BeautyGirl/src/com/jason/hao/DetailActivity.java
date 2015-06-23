@@ -15,6 +15,7 @@ import com.jason.bean.CartoonObject;
 import com.jason.global.CommonData;
 import com.jason.helper.HttpClientHelper;
 import com.jason.helper.JSONHttpHelper;
+import com.jason.swipeback.SwipeBackActivity;
 import com.jason.utils.ToastShow;
 import com.loopj.android.http.RequestParams;
 
@@ -30,7 +31,7 @@ import java.util.Random;
  * <p/>
  * Created by shenghao on 2015/6/16.
  */
-public class DetailActivity extends BaseActivity {
+public class DetailActivity extends SwipeBackActivity {
 
     private ImageView img_back;
     private TextView txt_title;

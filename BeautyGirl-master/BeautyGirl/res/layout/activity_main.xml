@@ -59,17 +59,24 @@
     <com.jason.view.MyRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/black">
+        android:background="@android:color/transparent">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:id="@+id/linear_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/ListBgColor"
+                android:orientation="vertical" />
+
             <RelativeLayout
                 android:id="@+id/rl_title"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="48dp"
                 android:background="@color/topbar_bg">
 
                 <ImageView
@@ -83,22 +90,21 @@
 
                 <TextView
                     android:id="@+id/txt_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_centerInParent="true"
                     android:text="@string/title"
-                    android:textColor="#ffffff"
-                    android:textSize="20sp" />
+                    android:gravity="center"
+                    android:paddingRight="50dp"
+                    android:layout_toRightOf="@id/iv_icon"
+                    android:textColor="@android:color/white"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:textSize="18sp" />
             </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/linear_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/ListBgColor"
-                android:orientation="vertical" />
-
-        </LinearLayout>
+        </FrameLayout>
     </com.jason.view.MyRelativeLayout>
 
 </com.jason.view.DragLayout>

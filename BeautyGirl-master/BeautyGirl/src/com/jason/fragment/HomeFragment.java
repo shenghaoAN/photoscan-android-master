@@ -118,7 +118,7 @@ public class HomeFragment extends BaseFragment {
         listView = (NoScrollListView) view.findViewById(R.id.listview);
         itemAdapter = new ItemAdapter(getActivity(), itemObjects);
         //广告显示大小
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ScreenWidth, 331 * ScreenWidth / 584);//图片比例
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ScreenWidth, 6 * ScreenWidth / 5);//图片比例
         frame_ad.setLayoutParams(lp);
         frame_ad.setVisibility(View.GONE);
 
