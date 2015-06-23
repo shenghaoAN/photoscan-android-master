@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -124,7 +123,7 @@ public class HomeFragment extends BaseFragment {
         listView = (NoScrollListView) view.findViewById(R.id.listview);
         itemAdapter = new ItemAdapter(getActivity(), itemObjects);
         //广告显示大小
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ScreenWidth, 6 * ScreenWidth / 5);//图片比例
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ScreenWidth, ScreenWidth);//图片比例
         frame_ad.setLayoutParams(lp);
         frame_ad.setVisibility(View.GONE);
 
@@ -175,7 +174,7 @@ public class HomeFragment extends BaseFragment {
                 searchBean.text = edit_search.getText().toString();
                 searchBean.date = new Date();
                 searchBeanService.save(searchBean);
-                Debug.Log("----search table--->",searchBeanService.findAllList().toString());
+                Debug.Log("----search table--->", searchBeanService.findAllList().toString());
 
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 Bundle bundle = new Bundle();
@@ -405,7 +404,7 @@ public class HomeFragment extends BaseFragment {
 
                     public void Failure() {
                         Debug.Log("banner get", "failed");
-                        ToastShow.displayToast(getActivity(),getString(R.string.check_net));
+                        ToastShow.displayToast(getActivity(), getString(R.string.check_net));
                     }
 
                 });
