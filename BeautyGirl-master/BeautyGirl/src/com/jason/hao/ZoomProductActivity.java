@@ -148,7 +148,7 @@ public class ZoomProductActivity extends BaseActivity {
                 favroiteBean.image_url = cartoonObjects.get(pagerposition).getImage_url();
                 favroiteBean.description = cartoonObjects.get(pagerposition).getDesc();
                 favroiteBeanService.save(favroiteBean);
-                Debug.Log("---->",favroiteBeanService.findAllList().toString());
+                Debug.Log("----favroite table--->",favroiteBeanService.findAllList().toString());
             }
 
             @Override

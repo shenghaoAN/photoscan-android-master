@@ -22,6 +22,8 @@ import com.jason.adapter.ItemAdapter;
 import com.jason.adapter.LunBoAdapter;
 import com.jason.bean.CartoonObject;
 import com.jason.bean.ItemObject;
+import com.jason.bean.SearchBean;
+import com.jason.dbservice.SearchBeanService;
 import com.jason.global.CommonData;
 import com.jason.hao.DetailActivity;
 import com.jason.hao.R;
@@ -41,6 +43,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -75,6 +78,8 @@ public class HomeFragment extends BaseFragment {
 
     private String title;  //post的参数
 
+    private SearchBeanService searchBeanService;
+
     /**
      * 实例化fragment
      * 接收activity的参数
@@ -93,6 +98,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        searchBeanService = SearchBeanService.instance(getActivity());
         cartoonObjects = new ArrayList<CartoonObject>();
         itemObjects = new ArrayList<ItemObject>();
         ScreenWidth = DensityUtils.getWidth(getActivity());
@@ -163,6 +169,14 @@ public class HomeFragment extends BaseFragment {
                     ToastShow.displayToast(getActivity(), getString(R.string.search));
                     return;
                 }
+
+                //保存搜索记录到数据库
+                SearchBean searchBean = new SearchBean();
+                searchBean.text = edit_search.getText().toString();
+                searchBean.date = new Date();
+                searchBeanService.save(searchBean);
+                Debug.Log("----search table--->",searchBeanService.findAllList().toString());
+
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(CommonData.TAG, edit_search.getText().toString());
