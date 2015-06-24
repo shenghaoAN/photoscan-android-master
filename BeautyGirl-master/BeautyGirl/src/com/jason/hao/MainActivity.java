@@ -1,5 +1,6 @@
 package com.jason.hao;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,6 +26,7 @@ public class MainActivity extends BaseActivity {
     private DragLayout dl;
     private ImageView iv_icon;
     private TextView txt_title;
+    private ImageView iv_set;
     private ImageView iv_bottom;
 
     private HomeFragment homeFragment;
@@ -46,6 +48,7 @@ public class MainActivity extends BaseActivity {
         txt_title = (TextView) findViewById(R.id.txt_title);
         iv_icon = (ImageView) findViewById(R.id.iv_icon);
         iv_bottom = (ImageView) findViewById(R.id.iv_bottom);
+        iv_set = (ImageView) findViewById(R.id.iv_set);
         iv_bottom.setImageResource(R.drawable.kenan);
         iv_icon.setImageResource(R.drawable.kenan);
     }
@@ -62,6 +65,14 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 dl.open();
+            }
+        });
+
+        iv_set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+                startActivity(intent);
             }
         });
     }

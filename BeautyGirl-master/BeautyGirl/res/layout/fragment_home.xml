@@ -46,16 +46,19 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
+                    android:minHeight="60dp"
                     android:gravity="center_vertical">
 
-                    <EditText
+                    <AutoCompleteTextView
                         android:id="@+id/edit_search"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:hint="@string/search"
+                        android:completionThreshold="1"
+                        android:minHeight="50dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="48dp"
                         android:layout_marginRight="1dp"

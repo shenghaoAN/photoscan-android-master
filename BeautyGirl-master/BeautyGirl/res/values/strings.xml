@@ -16,8 +16,16 @@
     <string name="check_net">请检查网络是否连接...</string>
     <string name="search_error">没有找到该分类</string>
     <string name="finish_data">数据已加载完毕</string>
-    <string name="success">设置成功</string>
-    <string name="failure">设置失败</string>
+    <string name="success">设置壁纸成功</string>
+    <string name="failure">设置壁纸失败</string>
+    <string name="success_favroite">收藏成功</string>
+    <string name="failure_favroite">收藏失败</string>
     <string name="favroite">收藏</string>
+    <string name="setting_favroite">我的收藏列表</string>
+    <string name="setting_search">我的搜索记录</string>
+    <string name="setting_manager">我的管理</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="delete_confirm">确定删除?</string>
 
 </resources>

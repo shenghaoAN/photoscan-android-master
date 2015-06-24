@@ -23,6 +23,19 @@ public class FavroiteBean {
     @DBField(name = "image_url", type = DBField.Type.TEXT, fineldName = "image_url")
     public String image_url;
 
+    @JsonField(name="colum")
+    @DBField(name = "colum", type = DBField.Type.TEXT, fineldName = "colum")
+    public String colum;
+
+    @JsonField(name="tag")
+    @DBField(name = "tag", type = DBField.Type.TEXT, fineldName = "tag")
+    public String tag;
+
+    @JsonField(name="share_url")
+    @DBField(name = "share_url", type = DBField.Type.TEXT, fineldName = "share_url")
+    public String share_url;
+
+
     @JsonField(name="description")
     @DBField(name = "description", type = DBField.Type.TEXT, fineldName = "description")
     public String description;
@@ -32,6 +45,9 @@ public class FavroiteBean {
         return "FavroiteBean{" +
                 "id=" + id +
                 ", image_url='" + image_url + '\'' +
+                ", colum='" + colum + '\'' +
+                ", tag='" + tag + '\'' +
+                ", share_url='" + share_url + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }

@@ -51,6 +51,23 @@
             android:theme="@style/TranslucentTheme"
             android:screenOrientation="portrait"></activity>
 
+        <activity
+            android:name="com.jason.hao.SettingActivity"
+            android:label="@string/app_name"
+            android:theme="@style/TranslucentTheme"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name="com.jason.hao.FavroiteActivity"
+            android:label="@string/app_name"
+            android:theme="@style/TranslucentTheme"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name="com.jason.hao.SearchRecordActivity"
+            android:label="@string/app_name"
+            android:theme="@style/TranslucentTheme"
+            android:screenOrientation="portrait"></activity>
 
         <!--  分享Activity  -->
         <!-- 分享编辑页 -->

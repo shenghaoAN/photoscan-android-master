@@ -22,7 +22,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.jason.Debug;
 import com.jason.animation.DepthPageTransformer;
 import com.jason.bean.CartoonObject;
 import com.jason.bean.FavroiteBean;
@@ -144,11 +143,19 @@ public class ZoomProductActivity extends BaseActivity {
             public void onFavroiteClick() {
                 if (popupwindow.isShowing())
                     popupwindow.dismiss();
-                FavroiteBean favroiteBean = new FavroiteBean();
-                favroiteBean.image_url = cartoonObjects.get(pagerposition).getImage_url();
-                favroiteBean.description = cartoonObjects.get(pagerposition).getDesc();
-                favroiteBeanService.save(favroiteBean);
-                Debug.Log("----favroite table--->",favroiteBeanService.findAllList().toString());
+                try {
+                    FavroiteBean favroiteBean = new FavroiteBean();
+                    favroiteBean.colum = cartoonObjects.get(pagerposition).getColum();
+                    favroiteBean.tag = cartoonObjects.get(pagerposition).getTag();
+                    favroiteBean.image_url = cartoonObjects.get(pagerposition).getImage_url();
+                    favroiteBean.description = cartoonObjects.get(pagerposition).getDesc();
+                    favroiteBean.share_url = cartoonObjects.get(pagerposition).getShare_url();
+                    favroiteBeanService.save(favroiteBean);
+                    ToastShow.displayToast(ZoomProductActivity.this, getString(R.string.success_favroite));
+                } catch (Exception e) {
+                    ToastShow.displayToast(ZoomProductActivity.this, getString(R.string.failure_favroite));
+                    e.printStackTrace();
+                }
             }
 
             @Override

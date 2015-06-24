@@ -33,6 +33,7 @@ import java.util.Random;
  */
 public class DetailActivity extends SwipeBackActivity {
 
+    private View topbar;
     private ImageView img_back;
     private TextView txt_title;
 
@@ -65,8 +66,9 @@ public class DetailActivity extends SwipeBackActivity {
     }
 
     private void initView() {
-        img_back = (ImageView) findViewById(R.id.img_back);
-        txt_title = (TextView) findViewById(R.id.txt_title);
+        topbar = (View) findViewById(R.id.topbar);
+        img_back = (ImageView) topbar.findViewById(R.id.img_back);
+        txt_title = (TextView) topbar.findViewById(R.id.txt_title);
         txt_title.setText(grid_tag);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         txt_error = (TextView) findViewById(R.id.txt_error);

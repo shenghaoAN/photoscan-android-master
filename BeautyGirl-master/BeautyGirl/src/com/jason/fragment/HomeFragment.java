@@ -6,15 +6,19 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.jason.Debug;
 import com.jason.adapter.ItemAdapter;
@@ -58,8 +62,9 @@ public class HomeFragment extends BaseFragment {
     private ViewPagerFocusView focusView;
     private NoScrollListView listView;
 
-    private EditText edit_search;
+    private AutoCompleteTextView edit_search;
     private ImageButton imgbtn_search;
+    private ArrayAdapter<String> autoCompltetAdapter;
 
     private ItemAdapter itemAdapter;
     private List<ItemObject> itemObjects;
@@ -127,8 +132,13 @@ public class HomeFragment extends BaseFragment {
         frame_ad.setLayoutParams(lp);
         frame_ad.setVisibility(View.GONE);
 
-        edit_search = (EditText) view.findViewById(R.id.edit_search);
+        //搜索
+        edit_search = (AutoCompleteTextView) view.findViewById(R.id.edit_search);
         imgbtn_search = (ImageButton) view.findViewById(R.id.imgbtn_search);
+        if(searchBeanService.findTexts() !=null){
+            autoCompltetAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, android.R.id.text1, searchBeanService.findTexts());
+            edit_search.setAdapter(autoCompltetAdapter);
+        }
 
         parseArgument();
         getBanner();
@@ -164,29 +174,46 @@ public class HomeFragment extends BaseFragment {
         imgbtn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (edit_search.getText().toString().isEmpty()) {
-                    ToastShow.displayToast(getActivity(), getString(R.string.search));
-                    return;
+                SearchText();
+            }
+        });
+
+        edit_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    SearchText();
                 }
-
-                //保存搜索记录到数据库
-                SearchBean searchBean = new SearchBean();
-                searchBean.text = edit_search.getText().toString();
-                searchBean.date = new Date();
-                searchBeanService.save(searchBean);
-                Debug.Log("----search table--->", searchBeanService.findAllList().toString());
-
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString(CommonData.TAG, edit_search.getText().toString());
-                bundle.putString(CommonData.TITLE, title);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                DensityUtils.hideSoftWindow(getActivity(), edit_search);
+                return false;
             }
         });
 
         return view;
+    }
+
+    /**
+     * 搜索
+     */
+    private void SearchText() {
+        if (edit_search.getText().toString().isEmpty()) {
+            ToastShow.displayToast(getActivity(), getString(R.string.search));
+            return;
+        }
+
+        //保存搜索记录到数据库
+        SearchBean searchBean = new SearchBean();
+        searchBean.text = edit_search.getText().toString();
+        searchBean.date = new Date();
+        searchBeanService.save(searchBean);
+        Debug.Log("----search table--->", searchBeanService.findAllList().toString());
+
+        Intent intent = new Intent(getActivity(), DetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(CommonData.TAG, edit_search.getText().toString());
+        bundle.putString(CommonData.TITLE, title);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        DensityUtils.hideSoftWindow(getActivity(), edit_search);
     }
 
     /**
