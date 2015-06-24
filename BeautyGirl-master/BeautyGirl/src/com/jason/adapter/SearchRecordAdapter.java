@@ -55,7 +55,7 @@ public class SearchRecordAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.txt_text.setText(list.get(position).text);
+        viewHolder.txt_text.setText(list.get(position).text + "(" + list.get(position).column + ")");
         viewHolder.txt_date.setText(DateHelper.formatDate(list.get(position).date));
         return convertView;
     }

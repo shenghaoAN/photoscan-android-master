@@ -16,6 +16,7 @@ import com.jason.hao.MainActivity;
 import com.jason.hao.R;
 import com.jason.helper.HttpClientHelper;
 import com.jason.helper.JSONHttpHelper;
+import com.jason.helper.MenuHelper;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -78,6 +79,11 @@ public class MenuFragment extends BaseFragment {
 
                     @Override
                     public void onFailure(int i, Header[] headers, String responseBody, Throwable throwable) {
+                        try {
+                            UpdateItem(MenuHelper.getMenuLocal(getActivity()));  //网络连接失败时，取本地数据
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
