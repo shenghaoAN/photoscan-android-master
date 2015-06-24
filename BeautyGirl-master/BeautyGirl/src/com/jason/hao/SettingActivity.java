@@ -95,10 +95,11 @@ public class SettingActivity extends SwipeBackActivity {
     private void setRowClick(SettingClass settingClass) {
         Intent intent = null;
         if (settingClass.Tag.equals(TAG_FAVROITE)) {
-            intent = new Intent(SettingActivity.this,FavroiteActivity.class);
+            intent = new Intent(SettingActivity.this, FavroiteActivity.class);
             startActivity(intent);
         } else if (settingClass.Tag.equals(TAG_SEARCH)) {
-
+            intent = new Intent(SettingActivity.this, SearchRecordActivity.class);
+            startActivity(intent);
         }
     }
 

@@ -4,6 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.jason.bean.SearchBean;
+import com.jason.utils.DBUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by shenghao on 2015/6/23.
@@ -31,6 +35,11 @@ public class SearchBeanService extends BasisService {
         return service;
     }
 
+    /**
+     * 查找搜索关键字
+     *
+     * @return
+     */
     public String[] findTexts() {
         Cursor cursor = database.rawQuery("SELECT distinct text FROM SearchBean order by id desc", null);
         if (cursor.getCount() > 0) {
@@ -45,6 +54,28 @@ public class SearchBeanService extends BasisService {
         } else {
             return null;
         }
+    }
+
+    /**
+     * 查找不重复的搜索记录
+     *
+     * @return
+     */
+    public List<SearchBean> findDistinctList() {
+        List<SearchBean> list = new ArrayList<SearchBean>();
+        String tableName = DBUtils.getTableName(clazz);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + tableName + " group by text limit 50", null);
+        while (cursor.moveToNext()) {
+            try {
+                SearchBean basisEnter = new SearchBean();
+                DBUtils.setObjectPropertyByCursor(basisEnter, cursor);
+                list.add(basisEnter);
+            } catch (Exception e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+        }
+        cursor.close();
+        return list;
     }
 
 }

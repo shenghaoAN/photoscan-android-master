@@ -44,8 +44,8 @@ public class DetailActivity extends SwipeBackActivity {
 
     private List<CartoonObject> cartoonObjects;
 
-    private String grid_tag;  //小分类标签
-    private String title;  //大分类
+    private String tag;  //小分类标签
+    private String colum;  //大分类
     private int pn = 0;   //从哪一条数据开始
     private int rn = 30;  //每次取多少条
     private int total;
@@ -59,8 +59,8 @@ public class DetailActivity extends SwipeBackActivity {
         setContentView(R.layout.activity_detail);
         cartoonObjects = new ArrayList<CartoonObject>();
         Bundle bundle = getIntent().getExtras();
-        grid_tag = bundle.getString(CommonData.TAG);
-        title = bundle.getString(CommonData.TITLE);
+        tag = bundle.getString(CommonData.TAG);
+        colum = bundle.getString(CommonData.TITLE);
         initView();
         getGridData();
     }
@@ -69,7 +69,7 @@ public class DetailActivity extends SwipeBackActivity {
         topbar = (View) findViewById(R.id.topbar);
         img_back = (ImageView) topbar.findViewById(R.id.img_back);
         txt_title = (TextView) topbar.findViewById(R.id.txt_title);
-        txt_title.setText(grid_tag);
+        txt_title.setText(tag);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         txt_error = (TextView) findViewById(R.id.txt_error);
         txt_error.setVisibility(View.GONE);
@@ -131,8 +131,8 @@ public class DetailActivity extends SwipeBackActivity {
         RequestParams params = new RequestParams();
         params.put("pn", pn);
         params.put("rn", rn);
-        params.put("tag1", title);
-        params.put("tag2", grid_tag);
+        params.put("tag1", colum);
+        params.put("tag2", tag);
         client.get("channel/listjson?ie=utf8", params,
                 new JSONHttpHelper.JSONHttpResponseHandler() {
 

@@ -25,6 +25,10 @@ public class SearchBean {
     @DBField(name = "text", type = DBField.Type.TEXT, fineldName = "text")
     public String text;
 
+    @JsonField(name = "column")
+    @DBField(name = "column", type = DBField.Type.TEXT, fineldName = "column")
+    public String column;
+
     @JsonField(name = "date")
     @DBField(name = "date", type = DBField.Type.DATE, fineldName = "date")
     public Date date;
@@ -34,6 +38,7 @@ public class SearchBean {
         return "SearchBean{" +
                 "id=" + id +
                 ", text='" + text + '\'' +
+                ", column='" + column + '\'' +
                 ", date=" + date +
                 '}';
     }

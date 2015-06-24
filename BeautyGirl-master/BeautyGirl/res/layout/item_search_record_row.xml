@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@drawable/item_bg"
+    android:padding="2dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/txt_text"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="angelababy"
+        android:gravity="left|center"
+        android:paddingLeft="10dp"
+        android:layout_weight="0.7"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/txt_date"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="2015-6-24"
+        android:gravity="right|center"
+        android:paddingRight="5dp"
+        android:textSize="15sp" />
+
+</LinearLayout>

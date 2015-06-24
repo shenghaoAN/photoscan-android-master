@@ -135,7 +135,7 @@ public class HomeFragment extends BaseFragment {
         //搜索
         edit_search = (AutoCompleteTextView) view.findViewById(R.id.edit_search);
         imgbtn_search = (ImageButton) view.findViewById(R.id.imgbtn_search);
-        if(searchBeanService.findTexts() !=null){
+        if (searchBeanService.findTexts() != null) {
             autoCompltetAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, android.R.id.text1, searchBeanService.findTexts());
             edit_search.setAdapter(autoCompltetAdapter);
         }
@@ -203,9 +203,9 @@ public class HomeFragment extends BaseFragment {
         //保存搜索记录到数据库
         SearchBean searchBean = new SearchBean();
         searchBean.text = edit_search.getText().toString();
+        searchBean.column = title;
         searchBean.date = new Date();
         searchBeanService.save(searchBean);
-        Debug.Log("----search table--->", searchBeanService.findAllList().toString());
 
         Intent intent = new Intent(getActivity(), DetailActivity.class);
         Bundle bundle = new Bundle();
