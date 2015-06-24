@@ -31,6 +31,7 @@ import com.jason.photoview.HackyViewPager;
 import com.jason.photoview.PhotoView;
 import com.jason.photoview.PhotoViewAttacher;
 import com.jason.popupwindow.SettingPopupwindow;
+import com.jason.swipeback.SwipeBackActivity;
 import com.jason.utils.DensityUtils;
 import com.jason.utils.ImageTools;
 import com.jason.utils.ToastShow;
@@ -61,7 +62,7 @@ import java.util.List;
 /**
  * @author jason
  */
-public class ZoomProductActivity extends BaseActivity {
+public class ZoomProductActivity extends SwipeBackActivity {
 
     private HackyViewPager zoom_viewpager;
     private ImagePagerAdapter adapter;
