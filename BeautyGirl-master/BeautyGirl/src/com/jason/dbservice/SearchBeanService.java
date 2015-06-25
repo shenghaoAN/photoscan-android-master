@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
+ * 搜索记录
+ *
  * Created by shenghao on 2015/6/23.
  */
 public class SearchBeanService extends BasisService {

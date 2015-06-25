@@ -1,17 +1,14 @@
 package com.jason.adapter;
 
 import android.content.Context;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jason.bean.ItemObject;
+import com.jason.bean.ItemCategoryBean;
 import com.jason.hao.R;
-import com.jason.utils.UniversalImageLoadTool;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
@@ -24,9 +21,9 @@ public class MenuAdapter extends BaseAdapter {
     private Context context;
     private ImageLoader imageLoader;
     private LayoutInflater inflater;
-    private List<ItemObject> list;
+    private List<ItemCategoryBean> list;
 
-    public MenuAdapter(Context context, List<ItemObject> list) {
+    public MenuAdapter(Context context, List<ItemCategoryBean> list) {
         this.context = context;
         this.list = list;
         this.inflater = LayoutInflater.from(context);
@@ -60,13 +57,13 @@ public class MenuAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.txt_title.setText(list.get(position).getTitle());
+        viewHolder.txt_title.setText(list.get(position).title);
 //        imageLoader.displayImage(list.get(position).getIcon(), viewHolder.img_icon, UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
         return convertView;
     }
 
     class ViewHolder {
-//        ImageView img_icon;
+        //        ImageView img_icon;
         TextView txt_title;
     }
 

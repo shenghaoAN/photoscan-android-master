@@ -23,9 +23,10 @@ import android.widget.TextView;
 import com.jason.Debug;
 import com.jason.adapter.ItemAdapter;
 import com.jason.adapter.LunBoAdapter;
-import com.jason.bean.CartoonObject;
-import com.jason.bean.ItemObject;
+import com.jason.bean.ItemCartoonDetailBean;
+import com.jason.bean.ItemCategoryBean;
 import com.jason.bean.SearchBean;
+import com.jason.dbservice.ItemCategoryBeanService;
 import com.jason.dbservice.SearchBeanService;
 import com.jason.global.CommonData;
 import com.jason.hao.DetailActivity;
@@ -55,6 +56,7 @@ import java.util.Random;
  */
 public class HomeFragment extends BaseFragment {
 
+    //view
     private SwipeRefreshLayout swipeRefreshLayout;   //下拉刷新
     private VerticalScrollView scrollView;
     private FrameLayout frame_ad;
@@ -62,17 +64,20 @@ public class HomeFragment extends BaseFragment {
     private ViewPagerFocusView focusView;
     private NoScrollListView listView;
 
+    //搜索栏
     private AutoCompleteTextView edit_search;
     private ImageButton imgbtn_search;
     private ArrayAdapter<String> autoCompltetAdapter;
 
+    //item数据
     private ItemAdapter itemAdapter;
-    private List<ItemObject> itemObjects;
+    private List<ItemCategoryBean> itemCategoryBeans;
 
+    //banner数据
     private LunBoAdapter lunboadapter;
-    private List<CartoonObject> cartoonObjects;
+    private List<ItemCartoonDetailBean> cartoonObjects;
 
-    private int ScreenWidth;
+    private int ScreenWidth;   //屏幕宽度
 
     //标志是否刷新
     private boolean isRefresh = false;
@@ -83,18 +88,19 @@ public class HomeFragment extends BaseFragment {
     private String title;  //post的参数
 
     private SearchBeanService searchBeanService;
+    private ItemCategoryBeanService itemCategoryBeanService;
 
     /**
      * 实例化fragment
      * 接收activity的参数
      *
-     * @param itemObject
+     * @param itemCategoryBean
      * @return
      */
-    public static HomeFragment newInstance(ItemObject itemObject) {
+    public static HomeFragment newInstance(ItemCategoryBean itemCategoryBean) {
         HomeFragment fragment = new HomeFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(CommonData.TITLE, itemObject.getTitle());
+        bundle.putString(CommonData.TITLE, itemCategoryBean.title);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -103,8 +109,9 @@ public class HomeFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         searchBeanService = SearchBeanService.instance(getActivity());
-        cartoonObjects = new ArrayList<CartoonObject>();
-        itemObjects = new ArrayList<ItemObject>();
+        itemCategoryBeanService = ItemCategoryBeanService.instance(getActivity());
+        cartoonObjects = new ArrayList<ItemCartoonDetailBean>();
+        itemCategoryBeans = new ArrayList<ItemCategoryBean>();
         ScreenWidth = DensityUtils.getWidth(getActivity());
     }
 
@@ -126,7 +133,8 @@ public class HomeFragment extends BaseFragment {
         viewpager_ad = (MyViewPager) view.findViewById(R.id.viewpager_ad);
         focusView = (ViewPagerFocusView) view.findViewById(R.id.viewpger_focusview);
         listView = (NoScrollListView) view.findViewById(R.id.listview);
-        itemAdapter = new ItemAdapter(getActivity(), itemObjects);
+        itemAdapter = new ItemAdapter(getActivity(), itemCategoryBeans);
+        listView.setAdapter(itemAdapter);
         //广告显示大小
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ScreenWidth, ScreenWidth);//图片比例
         frame_ad.setLayoutParams(lp);
@@ -153,11 +161,11 @@ public class HomeFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ItemObject itemObject = (ItemObject) parent.getItemAtPosition(position);
+                ItemCategoryBean itemCategoryBean = (ItemCategoryBean) parent.getItemAtPosition(position);
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString(CommonData.TAG, itemObject.getTag());
-                bundle.putString(CommonData.TITLE, itemObject.getTitle());
+                bundle.putString(CommonData.TAG, itemCategoryBean.tag);
+                bundle.putString(CommonData.TITLE, itemCategoryBean.title);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -226,6 +234,7 @@ public class HomeFragment extends BaseFragment {
             isRefresh = true;
             swipeRefreshLayout.setRefreshing(true);
             getItem();
+            getBanner();
         }
     }
 
@@ -335,6 +344,12 @@ public class HomeFragment extends BaseFragment {
                     public void onFailure(int i, Header[] headers, String responseBody, Throwable throwable) {
                         if (swipeRefreshLayout.isRefreshing())
                             swipeRefreshLayout.setRefreshing(false);
+
+                        //取出本地数据
+                        if (itemCategoryBeans.isEmpty()) {
+                            itemCategoryBeans = itemCategoryBeanService.findListByTitle(title);
+                            handler.sendMessage(handler.obtainMessage(2, itemCategoryBeans));
+                        }
                     }
 
                     @Override
@@ -342,10 +357,10 @@ public class HomeFragment extends BaseFragment {
                         Debug.Log("server response:", responseBody);
                         try {
 
-                            if (itemObjects != null && itemObjects.size() > 0) {
+                            if (itemCategoryBeans != null && itemCategoryBeans.size() > 0) {
                                 if (isRefresh) {
                                     isRefresh = false;
-                                    itemObjects.clear();
+                                    itemCategoryBeans.clear();
                                 }
                             }
 
@@ -368,20 +383,25 @@ public class HomeFragment extends BaseFragment {
      * @param thumbs
      */
     private void UpdateItem(JSONArray thumbs) {
+
+        //将itemObjects数据保存到本地数据库ItemCategoryBean,没有互联网时就直接取本地数据
+        itemCategoryBeanService.deleteByTitle(title);
+
         for (int i = 0; i < thumbs.length(); i++) {
             try {
-                ItemObject itemObject = new ItemObject();
+                ItemCategoryBean itemCategoryBean = new ItemCategoryBean();
                 JSONObject d = (JSONObject) thumbs.get(i);
-                itemObject.setIcon(d.getString("thumb_url"));
-                itemObject.setTitle(d.getString("column"));
-                itemObject.setTag(convertTagName(d.getString("tag")));
-                itemObjects.add(itemObject);
+                itemCategoryBean.icon = d.getString("thumb_url");
+                itemCategoryBean.title = d.getString("column");
+                itemCategoryBean.tag = convertTagName(d.getString("tag"));
+                itemCategoryBeanService.save(itemCategoryBean);
+                itemCategoryBeans.add(itemCategoryBean);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        handler.sendMessage(handler.obtainMessage(2));
+        handler.sendMessage(handler.obtainMessage(2, itemCategoryBeans));
 
     }
 
@@ -403,6 +423,9 @@ public class HomeFragment extends BaseFragment {
                         // TODO Auto-generated method stub
                         try {
                             Debug.Log("banner", "success");
+                            if (cartoonObjects != null && !cartoonObjects.isEmpty()) {
+                                cartoonObjects.clear();
+                            }
                             Thread thread = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -445,17 +468,17 @@ public class HomeFragment extends BaseFragment {
     private void UpdateAD(JSONArray datas) {
         for (int i = 0; i < datas.length(); i++) {
             try {
-                CartoonObject cartoonObject = new CartoonObject();
+                ItemCartoonDetailBean itemCartoonDetailBean = new ItemCartoonDetailBean();
                 JSONObject d = (JSONObject) datas.get(i);
-                cartoonObject.setDesc(d.getString("desc"));
-                cartoonObject.setColum(d.getString("colum"));
-                cartoonObject.setDate(d.getString("date"));
-                cartoonObject.setImage_url(d.getString("image_url"));
-                cartoonObject.setImage_width(d.getInt("image_width"));
-                cartoonObject.setImage_height(d.getInt("image_height"));
-                cartoonObject.setTag(d.getString("tag"));
-                cartoonObject.setShare_url(d.getString("share_url"));
-                cartoonObjects.add(cartoonObject);
+                itemCartoonDetailBean.desc = d.getString("desc");
+                itemCartoonDetailBean.colum = d.getString("colum");
+                itemCartoonDetailBean.tag = d.getString("tag");
+                itemCartoonDetailBean.date = d.getString("date");
+                itemCartoonDetailBean.image_url = d.getString("image_url");
+                itemCartoonDetailBean.image_width = d.getInt("image_width");
+                itemCartoonDetailBean.image_height = d.getInt("image_height");
+                itemCartoonDetailBean.share_url = d.getString("share_url");
+                cartoonObjects.add(itemCartoonDetailBean);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -493,8 +516,8 @@ public class HomeFragment extends BaseFragment {
                 case 2:
                     Debug.Log("handler message 2", "success");
                     swipeRefreshLayout.setRefreshing(false);
-                    listView.setAdapter(itemAdapter);
-                    itemAdapter.notifyDataSetChanged();
+                    List<ItemCategoryBean> list = (List<ItemCategoryBean>) msg.obj;
+                    itemAdapter.updateAdapter(list);
                     break;
                 default:
                     break;

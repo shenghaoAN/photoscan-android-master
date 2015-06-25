@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import com.jason.Debug;
 import com.jason.adapter.MenuAdapter;
-import com.jason.bean.ItemObject;
+import com.jason.bean.ItemCategoryBean;
 import com.jason.hao.MainActivity;
 import com.jason.hao.R;
 import com.jason.helper.HttpClientHelper;
@@ -36,12 +36,12 @@ public class MenuFragment extends BaseFragment {
 
     private ListView listView;
     private MenuAdapter menuAdapter;
-    private List<ItemObject> itemObjects;
+    private List<ItemCategoryBean> itemObjects;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        itemObjects = new ArrayList<ItemObject>();
+        itemObjects = new ArrayList<ItemCategoryBean>();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class MenuFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ItemObject itemObject = (ItemObject) parent.getItemAtPosition(position);
+                ItemCategoryBean itemObject = (ItemCategoryBean) parent.getItemAtPosition(position);
                 mActivity.setCategory(itemObject);
             }
         });
@@ -104,7 +104,7 @@ public class MenuFragment extends BaseFragment {
     private void UpdateItem(JSONArray thumbs) {
         for (int i = 0; i < thumbs.length(); i++) {
             try {
-                ItemObject itemObject = new ItemObject();
+                ItemCategoryBean itemObject = new ItemCategoryBean();
                 JSONObject d = (JSONObject) thumbs.get(i);
                 //百度图片助手不允许美女模块
 /*                if (!d.getString("column").equals("美女")) {
@@ -114,9 +114,9 @@ public class MenuFragment extends BaseFragment {
                     itemObjects.add(itemObject);
                 }*/
 
-                itemObject.setIcon(d.getString("thumb_url"));
-                itemObject.setTitle(d.getString("column"));
-                itemObject.setTag(convertTagName(d.getString("tag")));
+                itemObject.icon = d.getString("thumb_url");
+                itemObject.title = d.getString("column");
+                itemObject.tag = convertTagName(d.getString("tag"));
                 itemObjects.add(itemObject);
             } catch (Exception e) {
                 e.printStackTrace();

@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.jason.bean.FavroiteBean;
+import com.jason.bean.ItemCartoonDetailBean;
+import com.jason.bean.ItemCategoryBean;
 import com.jason.bean.SearchBean;
 import com.jason.utils.DBUtils;
 
@@ -26,12 +28,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DBUtils.getCreateSqlByClass(FavroiteBean.class));
         db.execSQL(DBUtils.getCreateSqlByClass(SearchBean.class));
+        db.execSQL(DBUtils.getCreateSqlByClass(ItemCategoryBean.class));
+        db.execSQL(DBUtils.getCreateSqlByClass(ItemCartoonDetailBean.class));
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(DBUtils.getDropSqlByClass(FavroiteBean.class));
         db.execSQL(DBUtils.getDropSqlByClass(SearchBean.class));
+        db.execSQL(DBUtils.getDropSqlByClass(ItemCategoryBean.class));
+        db.execSQL(DBUtils.getCreateSqlByClass(ItemCartoonDetailBean.class));
         onCreate(db);
     }
 

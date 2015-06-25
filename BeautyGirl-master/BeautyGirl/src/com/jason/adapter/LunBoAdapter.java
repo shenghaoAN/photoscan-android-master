@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
-import com.jason.bean.CartoonObject;
+import com.jason.bean.ItemCartoonDetailBean;
 import com.jason.global.CommonData;
 import com.jason.hao.R;
 import com.jason.hao.ZoomProductActivity;
@@ -30,10 +30,10 @@ import java.util.List;
 public class LunBoAdapter extends PagerAdapter {
 
     private Context context;
-    private List<CartoonObject> list;
+    private List<ItemCartoonDetailBean> list;
     private ImageLoader imageLoader;
 
-    public LunBoAdapter(Context context, List<CartoonObject> list) {
+    public LunBoAdapter(Context context, List<ItemCartoonDetailBean> list) {
         this.list = list;
         this.context = context;
         this.imageLoader = ImageLoader.getInstance();
@@ -58,11 +58,11 @@ public class LunBoAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         if (list != null && !list.isEmpty()) {
             final int park = position % list.size();
-            final CartoonObject cartoonObject = list.get(park);
+            final ItemCartoonDetailBean itemCartoonDetailBean = list.get(park);
             ImageView img = new ImageView(context);
             img.setTag(position);
             img.setScaleType(ScaleType.CENTER_CROP);
-            imageLoader.displayImage(cartoonObject.getImage_url(), img, UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
+            imageLoader.displayImage(itemCartoonDetailBean.image_url, img, UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
             img.setOnClickListener(new OnClickListener() {
 
                 @Override

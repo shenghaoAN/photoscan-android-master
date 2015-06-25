@@ -9,7 +9,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jason.bean.ItemObject;
+import com.jason.bean.ItemCategoryBean;
 import com.jason.fragment.HomeFragment;
 import com.jason.fragment.MenuFragment;
 import com.jason.view.DragLayout;
@@ -55,8 +55,8 @@ public class MainActivity extends BaseActivity {
 
     private void initFragment() {
         replaceFragment(R.id.menu_fragment, new MenuFragment());
-        ItemObject itemObject = new ItemObject();
-        itemObject.setTitle("明星");
+        ItemCategoryBean itemObject = new ItemCategoryBean();
+        itemObject.title = "明星";
         setCategory(itemObject);
     }
 
@@ -71,7 +71,7 @@ public class MainActivity extends BaseActivity {
         iv_set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(intent);
             }
         });
@@ -109,12 +109,12 @@ public class MainActivity extends BaseActivity {
     /**
      * 点击菜单时切换fragment
      */
-    public void setCategory(ItemObject itemObject) {
+    public void setCategory(ItemCategoryBean itemCategoryBean) {
         dl.close();
-        if (itemObject == null)
+        if (itemCategoryBean == null)
             return;
-        txt_title.setText(itemObject.getTitle());
-        homeFragment = HomeFragment.newInstance(itemObject);
+        txt_title.setText(itemCategoryBean.title);
+        homeFragment = HomeFragment.newInstance(itemCategoryBean);
         replaceFragment(R.id.linear_fragment, homeFragment);
     }
 

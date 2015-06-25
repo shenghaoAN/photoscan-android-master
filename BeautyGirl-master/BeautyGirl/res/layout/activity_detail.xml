@@ -38,6 +38,7 @@
             android:id="@+id/myListview"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:scrollbars="vertical"
             pla:plaColumnNumber="2"
             pla:plaColumnPaddingLeft="2dp"
             pla:plaColumnPaddingRight="2dp"

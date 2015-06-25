@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jason.bean.CartoonObject;
+import com.jason.bean.ItemCartoonDetailBean;
 import com.jason.global.CommonData;
 import com.jason.hao.R;
 import com.jason.hao.ZoomProductActivity;
@@ -31,19 +31,19 @@ import java.util.List;
 public class BeautyItemAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<CartoonObject> list;
+    private List<ItemCartoonDetailBean> list;
     private ImageLoader imageLoader;
     private ViewHolder viewHolder;
     private int ScreenWidth;
 
-    public BeautyItemAdapter(Context mContext, List<CartoonObject> list) {
+    public BeautyItemAdapter(Context mContext, List<ItemCartoonDetailBean> list) {
         this.mContext = mContext;
         this.list = list;
         imageLoader = ImageLoader.getInstance();
         ScreenWidth = DensityUtils.getWidth(mContext);
     }
 
-    public void updateAdapter(List<CartoonObject> list) {
+    public void updateAdapter(List<ItemCartoonDetailBean> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -82,13 +82,13 @@ public class BeautyItemAdapter extends BaseAdapter {
 
         //计算图片的宽度和高度，防止瀑布流滑动闪烁
         int w = ScreenWidth / 2;
-        int h = (ScreenWidth * (list.get(position).getImage_height())) / (2 * list.get(position).getImage_width());
+        int h = (ScreenWidth * (list.get(position).image_height)) / (2 * list.get(position).image_width);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(w, h);
         viewHolder.thumbImage.setLayoutParams(params);
         //设置图片描述
-        viewHolder.title_tag.setText(list.get(position).getDesc());
+        viewHolder.title_tag.setText(list.get(position).desc);
         //加载图片
-        imageLoader.displayImage(list.get(position).getImage_url(), viewHolder.thumbImage,
+        imageLoader.displayImage(list.get(position).image_url, viewHolder.thumbImage,
                 UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
 
         viewHolder.content_layout.setOnClickListener(new View.OnClickListener() {

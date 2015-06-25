@@ -5,6 +5,9 @@ import android.content.Context;
 import com.jason.bean.FavroiteBean;
 
 /**
+ *
+ * 收藏记录
+ *
  * Created by shenghao on 2015/6/23.
  */
 public class FavroiteBeanService extends BasisService {

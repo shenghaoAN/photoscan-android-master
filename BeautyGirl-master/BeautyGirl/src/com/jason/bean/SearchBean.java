@@ -4,14 +4,17 @@ import com.jason.database.DBField;
 import com.jason.database.DBTable;
 import com.jason.database.JsonField;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * 搜索纪录表
+ * <p/>
  * Created by shenghao on 2015/6/23.
  */
 
 @DBTable(name = "SearchBean")
-public class SearchBean {
+public class SearchBean implements Serializable {
 
     public SearchBean() {
 

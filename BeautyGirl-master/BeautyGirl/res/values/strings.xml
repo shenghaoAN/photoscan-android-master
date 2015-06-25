@@ -15,6 +15,7 @@
     <string name="search">输入要搜索的名称</string>
     <string name="check_net">请检查网络是否连接...</string>
     <string name="search_error">没有找到该分类</string>
+    <string name="net_error">网络连接出错了，请重新连接网络!</string>
     <string name="finish_data">数据已加载完毕</string>
     <string name="success">设置壁纸成功</string>
     <string name="failure">设置壁纸失败</string>

@@ -1,8 +1,10 @@
 package com.jason.hao;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -11,7 +13,8 @@ import android.widget.TextView;
 import com.huewu.pla.lib.WaterFallListView;
 import com.jason.Debug;
 import com.jason.adapter.BeautyItemAdapter;
-import com.jason.bean.CartoonObject;
+import com.jason.bean.ItemCartoonDetailBean;
+import com.jason.dbservice.ItemCartoonDetailBeanService;
 import com.jason.global.CommonData;
 import com.jason.helper.HttpClientHelper;
 import com.jason.helper.JSONHttpHelper;
@@ -42,7 +45,7 @@ public class DetailActivity extends SwipeBackActivity {
     private WaterFallListView listView;
     private BeautyItemAdapter beautyItemAdapter;
 
-    private List<CartoonObject> cartoonObjects;
+    private List<ItemCartoonDetailBean> itemCartoonDetailBeans;
 
     private String tag;  //小分类标签
     private String colum;  //大分类
@@ -53,11 +56,14 @@ public class DetailActivity extends SwipeBackActivity {
     private boolean isFresh = false;
     private boolean isLoadMore = false;
 
+    private ItemCartoonDetailBeanService itemCartoonDetailBeanService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        cartoonObjects = new ArrayList<CartoonObject>();
+        itemCartoonDetailBeans = new ArrayList<ItemCartoonDetailBean>();
+        itemCartoonDetailBeanService = ItemCartoonDetailBeanService.instance(this);
         Bundle bundle = getIntent().getExtras();
         tag = bundle.getString(CommonData.TAG);
         colum = bundle.getString(CommonData.TITLE);
@@ -73,11 +79,12 @@ public class DetailActivity extends SwipeBackActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         txt_error = (TextView) findViewById(R.id.txt_error);
         txt_error.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
         listView = (WaterFallListView) findViewById(R.id.myListview);
         listView.setPullLoadEnable(true);
         listView.setPullRefreshEnable(true);
         listView.setXListViewListener(new xListViewListener());
-        beautyItemAdapter = new BeautyItemAdapter(this, cartoonObjects);
+        beautyItemAdapter = new BeautyItemAdapter(this, itemCartoonDetailBeans);
 
         listView.setAdapter(beautyItemAdapter);
 
@@ -112,7 +119,7 @@ public class DetailActivity extends SwipeBackActivity {
 
         @Override
         public void onLoadMore() {
-            if (cartoonObjects != null && cartoonObjects.size() < total) {
+            if (itemCartoonDetailBeans != null && itemCartoonDetailBeans.size() < total) {
                 isLoadMore = true;
                 pn = pn + rn;
                 getGridData();
@@ -140,24 +147,20 @@ public class DetailActivity extends SwipeBackActivity {
                     public void Success() {
                         // TODO Auto-generated method stub
                         try {
-
-                            if (cartoonObjects != null && cartoonObjects.size() > 0) {
+                            if (itemCartoonDetailBeans != null && itemCartoonDetailBeans.size() > 0) {
                                 if (isFresh) {
-                                    cartoonObjects.clear();
+                                    itemCartoonDetailBeans.clear();
                                     isFresh = false;
                                     listView.stopRefresh();
                                 }
-                                if (isLoadMore) {
-                                    isLoadMore = false;
-                                    listView.stopLoadMore();
-                                }
                             }
 
-                            progressBar.setVisibility(View.GONE);
                             total = totalNum;
+                            //没有找到需要搜索的分类
                             if (total == 0) {
-                                txt_error.setVisibility(View.VISIBLE);
                                 listView.setVisibility(View.GONE);
+                                txt_error.setText(getString(R.string.search_error));
+                                txt_error.setVisibility(View.VISIBLE);
                                 return;
                             }
 
@@ -173,40 +176,81 @@ public class DetailActivity extends SwipeBackActivity {
                             thread.start();
 
                         } catch (Exception e) {
+                            if (isFresh) {
+                                listView.stopRefresh();
+                            }
                             e.printStackTrace();
                         }
                     }
 
                     public void Failure() {
+                        progressBar.setVisibility(View.GONE);
                         ToastShow.displayToast(DetailActivity.this, getString(R.string.check_net));
+                        if (isFresh) {
+                            listView.stopRefresh();
+                        }
+
+                        if (itemCartoonDetailBeans.isEmpty()) {
+                            //取出本地数据
+                            List<ItemCartoonDetailBean> list = itemCartoonDetailBeanService.findListByColumTag(colum, tag);
+                            if (list.size() == 0) {
+                                listView.setVisibility(View.GONE);
+                                txt_error.setVisibility(View.VISIBLE);
+                                txt_error.setText(getString(R.string.net_error));
+                                txt_error.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        //打开网络连接
+                                        startActivity(new Intent(Settings.ACTION_SETTINGS));
+                                    }
+                                });
+                                return;
+                            }
+                            //发送数据到handler中,刷新adapter
+                            handler.sendMessage(handler.obtainMessage(1, list));
+                        }
                     }
 
                 });
     }
 
+    /**
+     * UpdateDatas
+     *
+     * @param datas
+     */
     private void UpdateDatas(JSONArray datas) {
+
+        if (itemCartoonDetailBeans != null && itemCartoonDetailBeans.size() > 0) {
+            itemCartoonDetailBeanService.deleteByColumTag(colum, tag);
+        }
+
         for (int i = 0; i < datas.length(); i++) {
             try {
-                CartoonObject cartoonObject = new CartoonObject();
+                ItemCartoonDetailBean itemCartoonDetailBean = new ItemCartoonDetailBean();
                 JSONObject d = (JSONObject) datas.get(i);
-                cartoonObject.setDesc(d.getString("desc"));
-                cartoonObject.setColum(d.getString("colum"));
-                cartoonObject.setDate(d.getString("date"));
-                cartoonObject.setImage_url(d.getString("image_url"));
-                cartoonObject.setImage_width(d.getInt("image_width"));
-                cartoonObject.setImage_height(d.getInt("image_height"));
-                cartoonObject.setTag(d.getString("tag"));
-                cartoonObject.setShare_url(d.getString("share_url"));
-                cartoonObjects.add(cartoonObject);
+                itemCartoonDetailBean.desc = d.getString("desc");
+                itemCartoonDetailBean.colum = d.getString("colum");
+                itemCartoonDetailBean.tag = d.getString("tag");
+                itemCartoonDetailBean.date = d.getString("date");
+                itemCartoonDetailBean.image_url = d.getString("image_url");
+                itemCartoonDetailBean.image_width = d.getInt("image_width");
+                itemCartoonDetailBean.image_height = d.getInt("image_height");
+                itemCartoonDetailBean.share_url = d.getString("share_url");
+                itemCartoonDetailBeanService.save(itemCartoonDetailBean);
+                itemCartoonDetailBeans.add(itemCartoonDetailBean);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        handler.sendMessage(handler.obtainMessage(1, cartoonObjects));
+        handler.sendMessage(handler.obtainMessage(1, itemCartoonDetailBeans));
 
     }
 
+    /**
+     * handler处理数据
+     */
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -214,7 +258,14 @@ public class DetailActivity extends SwipeBackActivity {
             switch (msg.what) {
                 case 1:
                     Debug.Log("handler message", "success");
-                    List<CartoonObject> list = (List<CartoonObject>) msg.obj;
+                    if (isLoadMore) {
+                        isLoadMore = false;
+                        listView.stopLoadMore();
+                    }
+                    if (progressBar.isShown()) {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                    List<ItemCartoonDetailBean> list = (List<ItemCartoonDetailBean>) msg.obj;
                     beautyItemAdapter.updateAdapter(list);
                     break;
                 default:

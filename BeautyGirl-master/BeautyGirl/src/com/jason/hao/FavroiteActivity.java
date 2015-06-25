@@ -9,8 +9,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jason.adapter.FavroiteAdapter;
-import com.jason.bean.CartoonObject;
 import com.jason.bean.FavroiteBean;
+import com.jason.bean.ItemCartoonDetailBean;
 import com.jason.dbservice.FavroiteBeanService;
 import com.jason.global.CommonData;
 import com.jason.swipeback.SwipeBackActivity;
@@ -30,14 +30,14 @@ public class FavroiteActivity extends SwipeBackActivity {
     private ListView listView;
     private FavroiteAdapter adapter;
     private FavroiteBeanService favroiteBeanService;
-    private List<CartoonObject> cartoonObjects;
+    private List<ItemCartoonDetailBean> itemCartoonDetailBeans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favroite);
         favroiteBeanService = FavroiteBeanService.instance(this);
-        cartoonObjects = new ArrayList<CartoonObject>();
+        itemCartoonDetailBeans = new ArrayList<ItemCartoonDetailBean>();
         initView();
     }
 
@@ -65,7 +65,7 @@ public class FavroiteActivity extends SwipeBackActivity {
                 Intent intent = new Intent(FavroiteActivity.this, ZoomProductActivity.class);
                 Bundle bundle = new Bundle();
                 ArrayList arrayList = new ArrayList();
-                arrayList.add(cartoonObjects);
+                arrayList.add(itemCartoonDetailBeans);
                 bundle.putParcelableArrayList(CommonData.LIST, arrayList);
                 bundle.putInt(CommonData.POSITION, position);
                 intent.putExtras(bundle);
@@ -75,21 +75,21 @@ public class FavroiteActivity extends SwipeBackActivity {
     }
 
     /**
-     * 将数据库获取的数据保存到List<CartoonObject>中
+     * 将数据库获取的数据保存到list中
      */
     private void getDataForFavroiteBean() {
         List<FavroiteBean> list = favroiteBeanService.findAllList();
-        if (cartoonObjects != null && !cartoonObjects.isEmpty())
-            cartoonObjects.clear();
+        if (itemCartoonDetailBeans != null && !itemCartoonDetailBeans.isEmpty())
+            itemCartoonDetailBeans.clear();
         if (list != null && !list.isEmpty()) {
             for (FavroiteBean favroiteBean : list) {
-                CartoonObject cartoonObject = new CartoonObject();
-                cartoonObject.setTag(favroiteBean.tag);
-                cartoonObject.setColum(favroiteBean.colum);
-                cartoonObject.setImage_url(favroiteBean.image_url);
-                cartoonObject.setDesc(favroiteBean.description);
-                cartoonObject.setShare_url(favroiteBean.share_url);
-                cartoonObjects.add(cartoonObject);
+                ItemCartoonDetailBean itemCartoonDetailBean = new ItemCartoonDetailBean();
+                itemCartoonDetailBean.desc = favroiteBean.description;
+                itemCartoonDetailBean.colum = favroiteBean.colum;
+                itemCartoonDetailBean.tag = favroiteBean.tag;
+                itemCartoonDetailBean.image_url = favroiteBean.image_url;
+                itemCartoonDetailBean.share_url = favroiteBean.share_url;
+                itemCartoonDetailBeans.add(itemCartoonDetailBean);
             }
         }
     }

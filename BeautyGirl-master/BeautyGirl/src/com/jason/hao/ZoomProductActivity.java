@@ -23,8 +23,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jason.animation.DepthPageTransformer;
-import com.jason.bean.CartoonObject;
 import com.jason.bean.FavroiteBean;
+import com.jason.bean.ItemCartoonDetailBean;
 import com.jason.dbservice.FavroiteBeanService;
 import com.jason.global.CommonData;
 import com.jason.photoview.HackyViewPager;
@@ -73,7 +73,7 @@ public class ZoomProductActivity extends SwipeBackActivity {
     private TextView txt_title;
 
     private ImageLoader imageLoader;
-    private List<CartoonObject> cartoonObjects;
+    private List<ItemCartoonDetailBean> cartoonObjects;
     private int pagerposition = 0; // 页面当前位置
     private int currentposition = 0;
 
@@ -111,7 +111,7 @@ public class ZoomProductActivity extends SwipeBackActivity {
         imageLoader = ImageLoader.getInstance();
         Bundle bundle = getIntent().getExtras();
         ArrayList arrayList = bundle.getParcelableArrayList(CommonData.LIST);
-        cartoonObjects = (List<CartoonObject>) arrayList.get(0);
+        cartoonObjects = (List<ItemCartoonDetailBean>) arrayList.get(0);
         pagerposition = bundle.getInt(CommonData.POSITION);
         findViewById();
         initView();
@@ -146,11 +146,11 @@ public class ZoomProductActivity extends SwipeBackActivity {
                     popupwindow.dismiss();
                 try {
                     FavroiteBean favroiteBean = new FavroiteBean();
-                    favroiteBean.colum = cartoonObjects.get(pagerposition).getColum();
-                    favroiteBean.tag = cartoonObjects.get(pagerposition).getTag();
-                    favroiteBean.image_url = cartoonObjects.get(pagerposition).getImage_url();
-                    favroiteBean.description = cartoonObjects.get(pagerposition).getDesc();
-                    favroiteBean.share_url = cartoonObjects.get(pagerposition).getShare_url();
+                    favroiteBean.colum = cartoonObjects.get(pagerposition).colum;
+                    favroiteBean.tag = cartoonObjects.get(pagerposition).tag;
+                    favroiteBean.image_url = cartoonObjects.get(pagerposition).image_url;
+                    favroiteBean.description = cartoonObjects.get(pagerposition).desc;
+                    favroiteBean.share_url = cartoonObjects.get(pagerposition).share_url;
                     favroiteBeanService.save(favroiteBean);
                     ToastShow.displayToast(ZoomProductActivity.this, getString(R.string.success_favroite));
                 } catch (Exception e) {
@@ -173,8 +173,8 @@ public class ZoomProductActivity extends SwipeBackActivity {
                 if (popupwindow.isShowing())
                     popupwindow.dismiss();
                 //配置分享平台
-                configPlatforms(cartoonObjects.get(pagerposition).getTag(), cartoonObjects.get(pagerposition).getDesc() + " \n 海量图片，尽在图片汇 \n http://apk.91.com/Soft/Android/com.jason.hao-2.html",
-                        cartoonObjects.get(pagerposition).getImage_url(), cartoonObjects.get(pagerposition).getShare_url());
+                configPlatforms(cartoonObjects.get(pagerposition).tag, cartoonObjects.get(pagerposition).desc + " \n 海量图片，尽在图片汇 \n http://apk.91.com/Soft/Android/com.jason.hao-2.html",
+                        cartoonObjects.get(pagerposition).image_url, cartoonObjects.get(pagerposition).share_url);
                 mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT, SHARE_MEDIA.RENREN,
                         SHARE_MEDIA.DOUBAN);
                 //默认分享方式
@@ -186,7 +186,7 @@ public class ZoomProductActivity extends SwipeBackActivity {
                 if (popupwindow.isShowing())
                     popupwindow.dismiss();
                 //设置壁纸
-                setWallPaper(imageLoader.loadImageSync(cartoonObjects.get(pagerposition).getImage_url()));
+                setWallPaper(imageLoader.loadImageSync(cartoonObjects.get(pagerposition).image_url));
             }
         });
     }
@@ -196,7 +196,7 @@ public class ZoomProductActivity extends SwipeBackActivity {
      */
     protected void initView() {
 
-        txt_title.setText(cartoonObjects.get(pagerposition).getDesc()
+        txt_title.setText(cartoonObjects.get(pagerposition).desc
                 + "(" + (pagerposition + 1) + "/" + cartoonObjects.size() + ")");
         zoom_viewpager.setOnPageChangeListener(new OnPageChangeListener() {
 
@@ -205,7 +205,7 @@ public class ZoomProductActivity extends SwipeBackActivity {
                 // TODO Auto-generated method stub
                 pagerposition = arg0;
                 currentposition = arg0 + 1;
-                txt_title.setText(cartoonObjects.get(pagerposition).getDesc()
+                txt_title.setText(cartoonObjects.get(pagerposition).desc
                         + "(" + currentposition + "/" + cartoonObjects.size() + ")");
 
             }
@@ -350,7 +350,7 @@ public class ZoomProductActivity extends SwipeBackActivity {
         public void run() {
             try {
                 //保存图片到指定路径
-                ImageTools.savePhotoToSDCard(ZoomProductActivity.this, imageLoader.loadImageSync(cartoonObjects.get(pagerposition).getImage_url()),
+                ImageTools.savePhotoToSDCard(ZoomProductActivity.this, imageLoader.loadImageSync(cartoonObjects.get(pagerposition).image_url),
                         SavePath, ImageTools.getFileName(), true);
                 message = String.format(getString(R.string.save_success), SavePath);
             } catch (Exception e) {
@@ -552,7 +552,7 @@ public class ZoomProductActivity extends SwipeBackActivity {
             final ProgressBar loading = (ProgressBar) view
                     .findViewById(R.id.pb_zoom_photo);
 
-            imageLoader.displayImage(cartoonObjects.get(position).getImage_url(), imageView, UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image),
+            imageLoader.displayImage(cartoonObjects.get(position).image_url, imageView, UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image),
                     new SimpleImageLoadingListener() {
                         @Override
                         public void onLoadingStarted(String imageUri, View view) {

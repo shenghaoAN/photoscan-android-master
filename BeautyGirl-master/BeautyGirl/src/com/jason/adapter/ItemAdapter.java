@@ -9,7 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jason.bean.ItemObject;
+import com.jason.bean.ItemCartoonDetailBean;
+import com.jason.bean.ItemCategoryBean;
 import com.jason.hao.R;
 import com.jason.utils.UniversalImageLoadTool;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -24,13 +25,18 @@ public class ItemAdapter extends BaseAdapter {
     private Context context;
     private ImageLoader imageLoader;
     private LayoutInflater inflater;
-    private List<ItemObject> list;
+    private List<ItemCategoryBean> list;
 
-    public ItemAdapter(Context context, List<ItemObject> list) {
+    public ItemAdapter(Context context, List<ItemCategoryBean> list) {
         this.context = context;
         this.list = list;
         this.inflater = LayoutInflater.from(context);
         imageLoader = ImageLoader.getInstance();
+    }
+
+    public void updateAdapter(List<ItemCategoryBean> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -61,9 +67,9 @@ public class ItemAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.txt_title.setText(list.get(position).getTitle());
-        viewHolder.txt_description.setText(Html.fromHtml(list.get(position).getTag()));
-        imageLoader.displayImage(list.get(position).getIcon(), viewHolder.img_icon, UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
+        viewHolder.txt_title.setText(list.get(position).title);
+        viewHolder.txt_description.setText(Html.fromHtml(list.get(position).tag));
+        imageLoader.displayImage(list.get(position).icon, viewHolder.img_icon, UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
         return convertView;
     }
 
