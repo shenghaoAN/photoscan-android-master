@@ -32,6 +32,7 @@ import com.jason.photoview.PhotoView;
 import com.jason.photoview.PhotoViewAttacher;
 import com.jason.popupwindow.SettingPopupwindow;
 import com.jason.swipeback.SwipeBackActivity;
+import com.jason.utils.CharacterParser;
 import com.jason.utils.DensityUtils;
 import com.jason.utils.ImageTools;
 import com.jason.utils.ToastShow;
@@ -148,6 +149,7 @@ public class ZoomProductActivity extends SwipeBackActivity {
                     FavroiteBean favroiteBean = new FavroiteBean();
                     favroiteBean.colum = cartoonObjects.get(pagerposition).colum;
                     favroiteBean.tag = cartoonObjects.get(pagerposition).tag;
+                    favroiteBean.tagpingyin = CharacterParser.getInstance().getSelling(cartoonObjects.get(pagerposition).tag);
                     favroiteBean.image_url = cartoonObjects.get(pagerposition).image_url;
                     favroiteBean.description = cartoonObjects.get(pagerposition).desc;
                     favroiteBean.share_url = cartoonObjects.get(pagerposition).share_url;

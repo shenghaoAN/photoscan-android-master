@@ -57,9 +57,6 @@ public class SearchRecordActivity extends SwipeBackActivity {
         });
 
         listView = (PinnedHeaderListView) findViewById(R.id.listview);
-        adapter = new SearchRecordAdapter(this, searchBeanService, groupList, childList);
-        listView.setAdapter(adapter);
-
         //添加headview
         TextView textView = new TextView(this);
         AbsListView.LayoutParams params = new AbsListView.LayoutParams(
@@ -68,6 +65,9 @@ public class SearchRecordActivity extends SwipeBackActivity {
         textView.setGravity(Gravity.CENTER_VERTICAL);
         textView.setLayoutParams(params);
         listView.addHeaderView(textView);
+        adapter = new SearchRecordAdapter(this, searchBeanService, groupList, childList);
+        listView.setAdapter(adapter);
+
     }
 
     /**

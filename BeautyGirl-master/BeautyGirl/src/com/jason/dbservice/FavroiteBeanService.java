@@ -5,6 +5,7 @@ import android.database.Cursor;
 
 import com.jason.bean.FavroiteBean;
 import com.jason.bean.SearchBean;
+import com.jason.utils.CharacterParser;
 import com.jason.utils.DBUtils;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class FavroiteBeanService extends BasisService {
     public List<String> findGroupTagList() {
         List<String> list = new ArrayList<String>();
         String tableName = DBUtils.getTableName(clazz);
-        Cursor cursor = database.rawQuery("SELECT distinct tag FROM " + tableName, null);
+        Cursor cursor = database.rawQuery("SELECT distinct tag FROM " + tableName + " order by tagpingyin asc", null);
         while (cursor.moveToNext()) {
             try {
                 list.add(cursor.getString(cursor.getColumnIndex("tag")));

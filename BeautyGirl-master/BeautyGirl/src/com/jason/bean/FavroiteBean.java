@@ -35,6 +35,10 @@ public class FavroiteBean implements Serializable {
     @DBField(name = "tag", type = DBField.Type.TEXT, fineldName = "tag")
     public String tag;
 
+    @JsonField(name = "tagpingyin")
+    @DBField(name = "tagpingyin", type = DBField.Type.TEXT, fineldName = "tagpingyin")
+    public String tagpingyin;
+
     @JsonField(name = "share_url")
     @DBField(name = "share_url", type = DBField.Type.TEXT, fineldName = "share_url")
     public String share_url;

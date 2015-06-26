@@ -248,7 +248,6 @@ public class HomeFragment extends BaseFragment {
             public void onClick(View v) {
                 edit_search.setText("");
                 imgbtn_cancel.setVisibility(View.GONE);
-                DensityUtils.hideSoftWindow(getActivity(), edit_search);
             }
         });
     }
