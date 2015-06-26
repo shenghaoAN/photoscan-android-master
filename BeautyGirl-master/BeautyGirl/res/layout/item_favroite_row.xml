@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/item_bg"
@@ -47,7 +48,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/zoom_bar"/>
+        android:background="@color/zoom_bar" />
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -31,7 +31,7 @@ public class SearchRecordActivity extends SwipeBackActivity {
     private SearchBeanService searchBeanService;
 
     private List<String> groupList;
-    private List<List<SearchBean>> lists;
+    private List<List<SearchBean>> childList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class SearchRecordActivity extends SwipeBackActivity {
         setContentView(R.layout.activity_search_record);
         searchBeanService = SearchBeanService.instance(this);
         groupList = new ArrayList<String>();
-        lists = new ArrayList<List<SearchBean>>();
+        childList = new ArrayList<List<SearchBean>>();
         getList();  // 获取数据
         initView();
     }
@@ -57,7 +57,7 @@ public class SearchRecordActivity extends SwipeBackActivity {
         });
 
         listView = (PinnedHeaderListView) findViewById(R.id.listview);
-        adapter = new SearchRecordAdapter(this, searchBeanService, groupList, lists);
+        adapter = new SearchRecordAdapter(this, searchBeanService, groupList, childList);
         listView.setAdapter(adapter);
 
         //添加headview
@@ -77,7 +77,7 @@ public class SearchRecordActivity extends SwipeBackActivity {
         groupList = searchBeanService.findGroupColumList();
         for (int i = 0; i < groupList.size(); i++) {
             List<SearchBean> searchBeans = searchBeanService.findListByColum(groupList.get(i));
-            lists.add(searchBeans);
+            childList.add(searchBeans);
         }
     }
 }

@@ -29,5 +29,6 @@
     <string name="cancel">取消</string>
     <string name="delete_confirm">确定删除?</string>
     <string name="long_click_to_delete_item">长按可删除搜索记录</string>
+    <string name="favroite_head_title">%1$s(%2$d张)</string>
 
 </resources>

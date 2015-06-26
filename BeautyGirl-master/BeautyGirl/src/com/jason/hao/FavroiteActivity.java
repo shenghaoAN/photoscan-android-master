@@ -13,6 +13,7 @@ import com.jason.bean.FavroiteBean;
 import com.jason.bean.ItemCartoonDetailBean;
 import com.jason.dbservice.FavroiteBeanService;
 import com.jason.global.CommonData;
+import com.jason.pinnedheaderlistview.PinnedHeaderListView;
 import com.jason.swipeback.SwipeBackActivity;
 
 import java.util.ArrayList;
@@ -27,10 +28,13 @@ public class FavroiteActivity extends SwipeBackActivity {
     private ImageView img_back;
     private TextView txt_title;
 
-    private ListView listView;
+    private PinnedHeaderListView listView;
     private FavroiteAdapter adapter;
     private FavroiteBeanService favroiteBeanService;
     private List<ItemCartoonDetailBean> itemCartoonDetailBeans;
+
+    private List<String> groupList;
+    private List<List<FavroiteBean>> childList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,9 @@ public class FavroiteActivity extends SwipeBackActivity {
         setContentView(R.layout.activity_favroite);
         favroiteBeanService = FavroiteBeanService.instance(this);
         itemCartoonDetailBeans = new ArrayList<ItemCartoonDetailBean>();
+        groupList = new ArrayList<String>();
+        childList = new ArrayList<List<FavroiteBean>>();
+        getList(); //获取数据源
         initView();
     }
 
@@ -54,11 +61,11 @@ public class FavroiteActivity extends SwipeBackActivity {
             }
         });
 
-        listView = (ListView) findViewById(R.id.listview);
-        adapter = new FavroiteAdapter(this, favroiteBeanService.findAllList(), favroiteBeanService);
+        listView = (PinnedHeaderListView) findViewById(R.id.listview);
+        adapter = new FavroiteAdapter(this, groupList, childList, favroiteBeanService);
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+/*        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 getDataForFavroiteBean();
@@ -71,12 +78,13 @@ public class FavroiteActivity extends SwipeBackActivity {
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     /**
      * 将数据库获取的数据保存到list中
      */
+/*
     private void getDataForFavroiteBean() {
         List<FavroiteBean> list = favroiteBeanService.findAllList();
         if (itemCartoonDetailBeans != null && !itemCartoonDetailBeans.isEmpty())
@@ -93,6 +101,17 @@ public class FavroiteActivity extends SwipeBackActivity {
             }
         }
     }
+*/
 
+    /**
+     * 用于adapter显示的数据源
+     */
+    private void getList() {
+        groupList = favroiteBeanService.findGroupTagList();
+        for (int i = 0; i < groupList.size(); i++) {
+            List<FavroiteBean> list = favroiteBeanService.findListByTag(groupList.get(i));
+            childList.add(list);
+        }
+    }
 
 }

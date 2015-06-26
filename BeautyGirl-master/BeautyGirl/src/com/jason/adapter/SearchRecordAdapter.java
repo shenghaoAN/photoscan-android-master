@@ -28,21 +28,21 @@ public class SearchRecordAdapter extends SectionedBaseAdapter {
 
     private Context context;
     private LayoutInflater inflater;
-    private List<String> grouplist;
-    private List<List<SearchBean>> lists;
+    private List<String> groupList;
+    private List<List<SearchBean>> childList;
     private SearchBeanService searchBeanService;
 
-    public SearchRecordAdapter(Context context, SearchBeanService searchBeanService, List<String> grouplist, List<List<SearchBean>> lists) {
+    public SearchRecordAdapter(Context context, SearchBeanService searchBeanService, List<String> groupList, List<List<SearchBean>> childList) {
         this.context = context;
         this.searchBeanService = searchBeanService;
-        this.grouplist = grouplist;
-        this.lists = lists;
+        this.groupList = groupList;
+        this.childList = childList;
         inflater = LayoutInflater.from(context);
     }
 
     @Override
     public Object getItem(int section, int position) {
-        return lists.get(section).get(position);
+        return childList.get(section).get(position);
     }
 
     @Override
@@ -52,12 +52,12 @@ public class SearchRecordAdapter extends SectionedBaseAdapter {
 
     @Override
     public int getSectionCount() {
-        return grouplist.size();
+        return groupList.size();
     }
 
     @Override
     public int getCountForSection(int section) {
-        return lists.get(section).size();
+        return childList.get(section).size();
     }
 
     @Override
@@ -73,12 +73,12 @@ public class SearchRecordAdapter extends SectionedBaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.txt_text.setText(lists.get(section).get(position).text);
-        viewHolder.txt_date.setText(DateHelper.formatDate(lists.get(section).get(position).date));
+        final SearchBean searchBean = childList.get(section).get(position);
+        viewHolder.txt_text.setText(searchBean.text);
+        viewHolder.txt_date.setText(DateHelper.formatDate(searchBean.date));
         viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchBean searchBean = lists.get(section).get(position);
                 Intent intent = new Intent(context, DetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(CommonData.TAG, searchBean.text);
@@ -97,7 +97,7 @@ public class SearchRecordAdapter extends SectionedBaseAdapter {
                             public void onClick(DialogInterface dialog, int which) {
                                 //To change body of implemented methods use File | Settings | File Templates.
                                 ConfirmDialog.Hide();
-                                DeleteItem(lists.get(section).get(position), section);
+                                DeleteItem(searchBean, section);
                             }
                         }, new DialogInterface.OnClickListener() {
                             @Override
@@ -118,7 +118,7 @@ public class SearchRecordAdapter extends SectionedBaseAdapter {
      */
     private void DeleteItem(SearchBean searchBean, int section) {
         searchBeanService.delete(searchBean.id);
-        lists.get(section).remove(searchBean);
+        childList.get(section).remove(searchBean);
         notifyDataSetChanged();
     }
 
@@ -130,7 +130,7 @@ public class SearchRecordAdapter extends SectionedBaseAdapter {
         } else {
             layout = (LinearLayout) convertView;
         }
-        ((TextView) layout.findViewById(R.id.txt_header_item)).setText(grouplist.get(section));
+        ((TextView) layout.findViewById(R.id.txt_header_item)).setText(groupList.get(section));
         return layout;
     }
 
