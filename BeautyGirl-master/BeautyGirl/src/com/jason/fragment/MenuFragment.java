@@ -18,6 +18,7 @@ import com.jason.helper.HttpClientHelper;
 import com.jason.helper.JSONHttpHelper;
 import com.jason.helper.MenuHelper;
 import com.loopj.android.http.RequestParams;
+import com.umeng.analytics.MobclickAgent;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -47,6 +48,13 @@ public class MenuFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("onPageStart MenuFragment");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("onPageEnd MenuFragment");
     }
 
     @Override

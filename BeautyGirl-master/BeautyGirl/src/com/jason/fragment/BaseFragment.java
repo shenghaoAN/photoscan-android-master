@@ -27,13 +27,11 @@ public class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart("fragment");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd("fragment");
     }
 
 }

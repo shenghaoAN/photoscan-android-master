@@ -1,18 +1,21 @@
 package com.jason.hao;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.AbsListView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jason.adapter.SearchRecordAdapter;
 import com.jason.bean.SearchBean;
 import com.jason.dbservice.SearchBeanService;
-import com.jason.global.CommonData;
+import com.jason.pinnedheaderlistview.PinnedHeaderListView;
 import com.jason.swipeback.SwipeBackActivity;
+import com.jason.utils.DensityUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by shenghao on 2015/6/24.
@@ -23,15 +26,21 @@ public class SearchRecordActivity extends SwipeBackActivity {
     private ImageView img_back;
     private TextView txt_title;
 
-    private ListView listView;
+    private PinnedHeaderListView listView;
     private SearchRecordAdapter adapter;
     private SearchBeanService searchBeanService;
+
+    private List<String> groupList;
+    private List<List<SearchBean>> lists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_record);
         searchBeanService = SearchBeanService.instance(this);
+        groupList = new ArrayList<String>();
+        lists = new ArrayList<List<SearchBean>>();
+        getList();  // 获取数据
         initView();
     }
 
@@ -47,20 +56,28 @@ public class SearchRecordActivity extends SwipeBackActivity {
             }
         });
 
-        listView = (ListView) findViewById(R.id.listview);
-        adapter = new SearchRecordAdapter(this, searchBeanService.findDistinctList());
+        listView = (PinnedHeaderListView) findViewById(R.id.listview);
+        adapter = new SearchRecordAdapter(this, searchBeanService, groupList, lists);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SearchBean searchBean = (SearchBean) parent.getItemAtPosition(position);
-                Intent intent = new Intent(SearchRecordActivity.this, DetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString(CommonData.TAG, searchBean.text);
-                bundle.putString(CommonData.TITLE, searchBean.column);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+
+        //添加headview
+        TextView textView = new TextView(this);
+        AbsListView.LayoutParams params = new AbsListView.LayoutParams(
+                DensityUtils.getWidth(this), DensityUtils.dip2px(this, 40));
+        textView.setText(getString(R.string.long_click_to_delete_item));
+        textView.setGravity(Gravity.CENTER_VERTICAL);
+        textView.setLayoutParams(params);
+        listView.addHeaderView(textView);
+    }
+
+    /**
+     * 用于adapter显示的数据源
+     */
+    private void getList() {
+        groupList = searchBeanService.findGroupColumList();
+        for (int i = 0; i < groupList.size(); i++) {
+            List<SearchBean> searchBeans = searchBeanService.findListByColum(groupList.get(i));
+            lists.add(searchBeans);
+        }
     }
 }

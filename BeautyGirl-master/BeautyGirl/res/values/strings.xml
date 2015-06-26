@@ -22,11 +22,12 @@
     <string name="success_favroite">收藏成功</string>
     <string name="failure_favroite">收藏失败</string>
     <string name="favroite">收藏</string>
-    <string name="setting_favroite">我的收藏列表</string>
-    <string name="setting_search">我的搜索记录</string>
+    <string name="setting_favroite">收藏列表</string>
+    <string name="setting_search">搜索记录</string>
     <string name="setting_manager">我的管理</string>
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
     <string name="delete_confirm">确定删除?</string>
+    <string name="long_click_to_delete_item">长按可删除搜索记录</string>
 
 </resources>

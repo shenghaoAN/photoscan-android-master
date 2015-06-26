@@ -24,6 +24,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:visibility="gone"
+                    android:layout_gravity="center" />
+
                 <!--  banner  -->
                 <FrameLayout
                     android:id="@+id/frame_ad"
@@ -60,7 +67,7 @@
                         android:completionThreshold="1"
                         android:minHeight="50dp"
                         android:paddingLeft="4dp"
-                        android:paddingRight="48dp"
+                        android:paddingRight="95dp"
                         android:layout_marginRight="1dp"
                         android:imeOptions="actionSearch"
                         android:text=""
@@ -75,6 +82,18 @@
                         android:layout_alignRight="@id/edit_search"
                         android:padding="5dp"
                         android:src="@drawable/main_search" />
+
+                    <ImageButton
+                        android:id="@+id/imgbtn_cancel"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_toLeftOf="@id/imgbtn_search"
+                        android:background="@android:color/transparent"
+                        android:clickable="true"
+                        android:padding="5dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/button_close_selector"
+                        android:visibility="visible"/>
                 </RelativeLayout>
 
                 <com.jason.view.NoScrollListView

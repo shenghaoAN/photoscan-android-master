@@ -158,6 +158,7 @@ public class DetailActivity extends SwipeBackActivity {
                             total = totalNum;
                             //没有找到需要搜索的分类
                             if (total == 0) {
+                                progressBar.setVisibility(View.GONE);
                                 listView.setVisibility(View.GONE);
                                 txt_error.setText(getString(R.string.search_error));
                                 txt_error.setVisibility(View.VISIBLE);

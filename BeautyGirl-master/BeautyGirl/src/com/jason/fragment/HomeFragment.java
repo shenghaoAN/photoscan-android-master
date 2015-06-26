@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,6 +20,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jason.Debug;
@@ -26,6 +29,7 @@ import com.jason.adapter.LunBoAdapter;
 import com.jason.bean.ItemCartoonDetailBean;
 import com.jason.bean.ItemCategoryBean;
 import com.jason.bean.SearchBean;
+import com.jason.dbservice.ItemCartoonDetailBeanService;
 import com.jason.dbservice.ItemCategoryBeanService;
 import com.jason.dbservice.SearchBeanService;
 import com.jason.global.CommonData;
@@ -40,6 +44,7 @@ import com.jason.view.NoScrollListView;
 import com.jason.view.VerticalScrollView;
 import com.jason.view.ViewPagerFocusView;
 import com.loopj.android.http.RequestParams;
+import com.umeng.analytics.MobclickAgent;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -63,10 +68,12 @@ public class HomeFragment extends BaseFragment {
     private MyViewPager viewpager_ad;
     private ViewPagerFocusView focusView;
     private NoScrollListView listView;
+    private ProgressBar progressBar;
 
     //搜索栏
     private AutoCompleteTextView edit_search;
     private ImageButton imgbtn_search;
+    private ImageButton imgbtn_cancel;
     private ArrayAdapter<String> autoCompltetAdapter;
 
     //item数据
@@ -75,7 +82,7 @@ public class HomeFragment extends BaseFragment {
 
     //banner数据
     private LunBoAdapter lunboadapter;
-    private List<ItemCartoonDetailBean> cartoonObjects;
+    private List<ItemCartoonDetailBean> itemCartoonDetailBeans;
 
     private int ScreenWidth;   //屏幕宽度
 
@@ -87,8 +94,10 @@ public class HomeFragment extends BaseFragment {
 
     private String title;  //post的参数
 
+    //数据库处理
     private SearchBeanService searchBeanService;
     private ItemCategoryBeanService itemCategoryBeanService;
+    private ItemCartoonDetailBeanService itemCartoonDetailBeanService;
 
     /**
      * 实例化fragment
@@ -110,7 +119,8 @@ public class HomeFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         searchBeanService = SearchBeanService.instance(getActivity());
         itemCategoryBeanService = ItemCategoryBeanService.instance(getActivity());
-        cartoonObjects = new ArrayList<ItemCartoonDetailBean>();
+        itemCartoonDetailBeanService = ItemCartoonDetailBeanService.instance(getActivity());
+        itemCartoonDetailBeans = new ArrayList<ItemCartoonDetailBean>();
         itemCategoryBeans = new ArrayList<ItemCategoryBean>();
         ScreenWidth = DensityUtils.getWidth(getActivity());
     }
@@ -129,6 +139,8 @@ public class HomeFragment extends BaseFragment {
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
         scrollView = (VerticalScrollView) view.findViewById(R.id.scrollview);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
         frame_ad = (FrameLayout) view.findViewById(R.id.frame_ad);
         viewpager_ad = (MyViewPager) view.findViewById(R.id.viewpager_ad);
         focusView = (ViewPagerFocusView) view.findViewById(R.id.viewpger_focusview);
@@ -143,6 +155,10 @@ public class HomeFragment extends BaseFragment {
         //搜索
         edit_search = (AutoCompleteTextView) view.findViewById(R.id.edit_search);
         imgbtn_search = (ImageButton) view.findViewById(R.id.imgbtn_search);
+        imgbtn_cancel = (ImageButton) view.findViewById(R.id.imgbtn_cancel);
+        if (edit_search.getText().toString().isEmpty()) {
+            imgbtn_cancel.setVisibility(View.GONE);
+        }
         if (searchBeanService.findTexts() != null) {
             autoCompltetAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, android.R.id.text1, searchBeanService.findTexts());
             edit_search.setAdapter(autoCompltetAdapter);
@@ -158,6 +174,15 @@ public class HomeFragment extends BaseFragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
+        setClickListener();
+
+        return view;
+    }
+
+    /**
+     * 事件监听器
+     */
+    private void setClickListener() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -196,7 +221,36 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
-        return view;
+        edit_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String str = edit_search.getText().toString();
+                if (str.isEmpty()) {
+                    imgbtn_cancel.setVisibility(View.GONE);
+                } else {
+                    imgbtn_cancel.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        imgbtn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit_search.setText("");
+                imgbtn_cancel.setVisibility(View.GONE);
+                DensityUtils.hideSoftWindow(getActivity(), edit_search);
+            }
+        });
     }
 
     /**
@@ -241,12 +295,14 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd("onPageEnd HomeFragment");
         pauseLunbo();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart("onPageStart HomeFragment");
         startLunbo();
     }
 
@@ -281,18 +337,18 @@ public class HomeFragment extends BaseFragment {
      * 轮播广告显示
      */
     private void initLunBoView() {
-        lunboadapter = new LunBoAdapter(getActivity(), cartoonObjects);
+        lunboadapter = new LunBoAdapter(getActivity(), itemCartoonDetailBeans);
         viewpager_ad.setAdapter(lunboadapter);
         viewpager_ad.setOnPageChangeListener(new GuidePageChangeListener());
 
         // 总的点数
-        focusView.setCount(cartoonObjects.size());
-        int gbs = 1000 / cartoonObjects.size();
-        int totalMax = gbs * cartoonObjects.size();
+        focusView.setCount(itemCartoonDetailBeans.size());
+        int gbs = 1000 / itemCartoonDetailBeans.size();
+        int totalMax = gbs * itemCartoonDetailBeans.size();
         viewpager_ad.setCurrentItem(totalMax); // 初始位置在靠近1000的整个整除的数字
 
         // 当前位置
-        int currentIndex = viewpager_ad.getCurrentItem() % cartoonObjects.size();
+        int currentIndex = viewpager_ad.getCurrentItem() % itemCartoonDetailBeans.size();
         focusView.setCurrentIndex(currentIndex);
         startLunbo();
     }
@@ -313,7 +369,7 @@ public class HomeFragment extends BaseFragment {
 
         @Override
         public void onPageSelected(final int arg0) {
-            int currentIndex = arg0 % cartoonObjects.size();
+            int currentIndex = arg0 % itemCartoonDetailBeans.size();
             focusView.setCurrentIndex(currentIndex);
         }
     }
@@ -345,6 +401,7 @@ public class HomeFragment extends BaseFragment {
                         if (swipeRefreshLayout.isRefreshing())
                             swipeRefreshLayout.setRefreshing(false);
 
+                        progressBar.setVisibility(View.GONE);
                         //取出本地数据
                         if (itemCategoryBeans.isEmpty()) {
                             itemCategoryBeans = itemCategoryBeanService.findListByTitle(title);
@@ -356,7 +413,7 @@ public class HomeFragment extends BaseFragment {
                     public void onSuccess(int i, Header[] headers, String responseBody) {
                         Debug.Log("server response:", responseBody);
                         try {
-
+                            progressBar.setVisibility(View.GONE);
                             if (itemCategoryBeans != null && itemCategoryBeans.size() > 0) {
                                 if (isRefresh) {
                                     isRefresh = false;
@@ -369,6 +426,7 @@ public class HomeFragment extends BaseFragment {
                             JSONArray thumbs = data.getJSONArray("thumbs");
                             UpdateItem(thumbs);
                         } catch (JSONException e) {
+                            progressBar.setVisibility(View.GONE);
                             if (swipeRefreshLayout.isRefreshing())
                                 swipeRefreshLayout.setRefreshing(false);
                             e.printStackTrace();
@@ -423,8 +481,8 @@ public class HomeFragment extends BaseFragment {
                         // TODO Auto-generated method stub
                         try {
                             Debug.Log("banner", "success");
-                            if (cartoonObjects != null && !cartoonObjects.isEmpty()) {
-                                cartoonObjects.clear();
+                            if (itemCartoonDetailBeans != null && !itemCartoonDetailBeans.isEmpty()) {
+                                itemCartoonDetailBeans.clear();
                             }
                             Thread thread = new Thread(new Runnable() {
                                 @Override
@@ -453,8 +511,13 @@ public class HomeFragment extends BaseFragment {
                     }
 
                     public void Failure() {
-                        Debug.Log("banner get", "failed");
                         ToastShow.displayToast(getActivity(), getString(R.string.check_net));
+                        Debug.Log("banner", "获取本地数据库");
+                        //取出本地数据
+                        if (itemCartoonDetailBeans.isEmpty()) {
+                            itemCartoonDetailBeans = itemCartoonDetailBeanService.findListByColumTag(title, "全部");
+                            handler.sendMessage(handler.obtainMessage(1));
+                        }
                     }
 
                 });
@@ -466,6 +529,9 @@ public class HomeFragment extends BaseFragment {
      * @param datas
      */
     private void UpdateAD(JSONArray datas) {
+
+        itemCartoonDetailBeanService.deleteByColumTag(title, "全部");
+
         for (int i = 0; i < datas.length(); i++) {
             try {
                 ItemCartoonDetailBean itemCartoonDetailBean = new ItemCartoonDetailBean();
@@ -478,7 +544,8 @@ public class HomeFragment extends BaseFragment {
                 itemCartoonDetailBean.image_width = d.getInt("image_width");
                 itemCartoonDetailBean.image_height = d.getInt("image_height");
                 itemCartoonDetailBean.share_url = d.getString("share_url");
-                cartoonObjects.add(itemCartoonDetailBean);
+                itemCartoonDetailBeanService.save(itemCartoonDetailBean);
+                itemCartoonDetailBeans.add(itemCartoonDetailBean);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -509,7 +576,7 @@ public class HomeFragment extends BaseFragment {
                 case 1:
                     Debug.Log("handler message 1", "success");
                     frame_ad.setVisibility(View.VISIBLE);
-                    if (cartoonObjects != null && cartoonObjects.size() > 0) {
+                    if (itemCartoonDetailBeans != null && itemCartoonDetailBeans.size() > 0) {
                         initLunBoView();
                     }
                     break;
