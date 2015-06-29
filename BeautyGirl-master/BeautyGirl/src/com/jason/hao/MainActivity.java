@@ -16,6 +16,8 @@ import com.jason.view.DragLayout;
 import com.nineoldandroids.view.ViewHelper;
 import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.fb.FeedbackAgent;
+import com.umeng.message.PushAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 /**
@@ -31,6 +33,8 @@ public class MainActivity extends BaseActivity {
 
     private HomeFragment homeFragment;
 
+    String device_token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +42,32 @@ public class MainActivity extends BaseActivity {
         MobclickAgent.updateOnlineConfig(this);
         AnalyticsConfig.enableEncrypt(true);  //日志加密,true表示加密，false表示不加密
         UmengUpdateAgent.update(this);   //友盟更新
+        setUpUmengFeedback();  //友盟反馈
+        setUpUmengPush(); //友盟推送
         initDragLayout();
         findById();
         initFragment();
         initView();
+    }
+
+    /**
+     * 友盟推送
+     */
+    private void setUpUmengPush() {
+        PushAgent mPushAgent = PushAgent.getInstance(this);
+        mPushAgent.enable();
+//        device_token = UmengRegistrar.getRegistrationId(this);
+//        Debug.Log("device_token",device_token);
+    }
+
+    /**
+     * 友盟反馈
+     */
+    private void setUpUmengFeedback() {
+        FeedbackAgent fb = new FeedbackAgent(this);
+        // check if the app developer has replied to the feedback or not.
+        fb.sync();
+        fb.openAudioFeedback();
     }
 
     private void findById() {

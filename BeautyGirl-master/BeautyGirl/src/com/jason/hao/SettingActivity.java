@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jason.swipeback.SwipeBackActivity;
+import com.umeng.fb.FeedbackAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class SettingActivity extends SwipeBackActivity {
 
     private static final String TAG_FAVROITE = "favroite";
     private static final String TAG_SEARCH = "search";
+    private static final String TAG_FEEDBACK = "feedback";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class SettingActivity extends SwipeBackActivity {
         list = new ArrayList<SettingClass>();
         list.add(setSettingClass(R.string.setting_favroite, TAG_FAVROITE));
         list.add(setSettingClass(R.string.setting_search, TAG_SEARCH));
+        list.add(setSettingClass(R.string.setting_feedback, TAG_FEEDBACK));
     }
 
     private SettingClass setSettingClass(Integer id, String tag) {
@@ -100,6 +103,9 @@ public class SettingActivity extends SwipeBackActivity {
         } else if (settingClass.Tag.equals(TAG_SEARCH)) {
             intent = new Intent(SettingActivity.this, SearchRecordActivity.class);
             startActivity(intent);
+        } else if (settingClass.Tag.equals(TAG_FEEDBACK)) {
+            FeedbackAgent agent = new FeedbackAgent(SettingActivity.this);
+            agent.startFeedbackActivity();
         }
     }
 

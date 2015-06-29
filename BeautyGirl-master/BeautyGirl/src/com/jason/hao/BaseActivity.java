@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 /**
  * Created by shenghao on 2015/6/18.
@@ -16,6 +17,9 @@ public class BaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //如果不调用此方法，将会导致按照"几天不活跃"条件来推送失效。
+        //可以只在应用的主Activity中调用此方法，但是由于SDK的日志发送策略，不能保证一定可以统计到日活数据。
+        PushAgent.getInstance(this).onAppStart();
     }
 
     @Override

@@ -24,6 +24,7 @@
     <string name="favroite">收藏</string>
     <string name="setting_favroite">收藏列表</string>
     <string name="setting_search">搜索记录</string>
+    <string name="setting_feedback">用户反馈</string>
     <string name="setting_manager">我的管理</string>
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
