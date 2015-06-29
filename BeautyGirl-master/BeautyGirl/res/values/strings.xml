@@ -25,12 +25,13 @@
     <string name="setting_favroite">收藏列表</string>
     <string name="setting_search">搜索记录</string>
     <string name="setting_feedback">用户反馈</string>
-    <string name="setting_manager">我的管理</string>
+    <string name="setting_manager">设置</string>
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
     <string name="delete_confirm">确定删除?</string>
     <string name="long_click_to_delete_item">长按可删除搜索记录</string>
     <string name="favroite_head_title">%1$s(%2$d张)</string>
     <string name="start_use">开始使用</string>
+    <string name="no_data">暂无数据</string>
 
 </resources>

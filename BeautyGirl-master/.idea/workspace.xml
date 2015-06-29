@@ -28,7 +28,6 @@
     </layouts>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="atd" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.jason.hao" />
   </component>
   <component name="ChangeListManager">
@@ -54,34 +53,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/MainActivity.java">
+      <file leaf-file-name="GuideActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/GuideActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.2837838" vertical-offset="0" max-vertical-offset="2470">
-              <caret line="53" column="11" selection-start-line="53" selection-start-column="11" selection-end-line="53" selection-end-column="11" />
-              <folding>
-                <element signature="e#3437#3438#0" expanded="true" />
-                <element signature="e#3476#3477#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BaseActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/BaseActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="185" max-vertical-offset="836">
-              <caret line="21" column="27" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SettingActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/SettingActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1040" max-vertical-offset="1938">
-              <caret line="108" column="9" selection-start-line="108" selection-start-column="9" selection-end-line="108" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.038610037" vertical-offset="873" max-vertical-offset="3097">
+              <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="78" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -102,12 +78,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/adapter/AutoCompltetAdapter.java" />
-        <option value="$PROJECT_DIR$/BeautyGirl/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/BeautyGirl/res/layout/setting_row.xml" />
-        <option value="$PROJECT_DIR$/BeautyGirl/res/layout/activity_setting.xml" />
-        <option value="$PROJECT_DIR$/BeautyGirl/res/layout/topbar.xml" />
-        <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/view/ConfirmDilaog.java" />
         <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/helper/DateHelper.java" />
         <option value="$PROJECT_DIR$/BeautyGirl/res/raw/menu.json" />
         <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/helper/MenuHelper.java" />
@@ -129,30 +99,36 @@
         <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/fragment/MenuFragment.java" />
         <option value="$PROJECT_DIR$/BeautyGirl/res/layout/fragment_home.xml" />
         <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/pinnedheaderlistview/SectionedBaseAdapter.java" />
-        <option value="$PROJECT_DIR$/BeautyGirl/res/layout/activity_search_record.xml" />
         <option value="$PROJECT_DIR$/BeautyGirl/res/layout/item_header.xml" />
-        <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/DetailActivity.java" />
         <option value="$PROJECT_DIR$/BeautyGirl/res/layout/item_search_record_row.xml" />
         <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/dbservice/SearchBeanService.java" />
         <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/adapter/SearchRecordAdapter.java" />
-        <option value="$PROJECT_DIR$/BeautyGirl/res/layout/activity_favroite.xml" />
         <option value="$PROJECT_DIR$/BeautyGirl/res/layout/item_favroite_row.xml" />
         <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/adapter/FavroiteAdapter.java" />
         <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/utils/CharacterParser.java" />
         <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/bean/FavroiteBean.java" />
         <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/ZoomProductActivity.java" />
         <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/dbservice/FavroiteBeanService.java" />
-        <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/fragment/HomeFragment.java" />
-        <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/FavroiteActivity.java" />
-        <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/SearchRecordActivity.java" />
-        <option value="$PROJECT_DIR$/BeautyGirl/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/SettingActivity.java" />
         <option value="$PROJECT_DIR$/BeautyGirl/res/layout/umeng_fb_activity_conversation.xml" />
         <option value="$PROJECT_DIR$/BeautyGirl/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/BeautyGirl/res/values-zh/umeng_fb_strings.xml" />
         <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/BaseActivity.java" />
         <option value="$PROJECT_DIR$/BeautyGirl/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/BeautyGirl/res/drawable-hdpi/button_close_selector.xml" />
+        <option value="$PROJECT_DIR$/BeautyGirl/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/BeautyGirl/res/layout/activity_favroite.xml" />
+        <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/FavroiteActivity.java" />
+        <option value="$PROJECT_DIR$/BeautyGirl/res/layout/activity_search_record.xml" />
+        <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/SearchRecordActivity.java" />
+        <option value="$PROJECT_DIR$/BeautyGirl/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/MainActivity.java" />
+        <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/DetailActivity.java" />
+        <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/fragment/HomeFragment.java" />
+        <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/GuideActivity.java" />
+        <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/WelcomeActivity.java" />
+        <option value="$PROJECT_DIR$/BeautyGirl/res/layout/item_image_btn.xml" />
+        <option value="$PROJECT_DIR$/BeautyGirl/src/com/jason/Cfg.java" />
       </list>
     </option>
   </component>
@@ -197,8 +173,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -233,6 +207,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -251,6 +226,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -282,10 +258,10 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\androidstudio workspace\BeautyGirl-master\BeautyGirl\res\drawable-nodpi" />
       <recent name="F:\androidstudio workspace\BeautyGirl-master\BeautyGirl\res\raw" />
       <recent name="F:\androidstudio workspace\BeautyGirl-master\BeautyGirl\src\com\jason\utils" />
       <recent name="F:\androidstudio workspace\BeautyGirl-master\BeautyGirl\src\com\jason\pinnedheaderlistview" />
-      <recent name="F:\androidstudio workspace\BeautyGirl-master\BeautyGirl\res\drawable-nodpi" />
       <recent name="F:\androidstudio workspace\BeautyGirl-master\BeautyGirl\res\drawable-hdpi" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -487,7 +463,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="699" extended-state="6" />
+    <frame x="-8" y="-8" width="1296" height="699" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -500,6 +476,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5302752" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51376146" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32844037" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -516,7 +493,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32844037" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -542,98 +518,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/dbservice/ItemCategoryBeanService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33267328" vertical-offset="877" max-vertical-offset="1520">
-          <caret line="55" column="34" selection-start-line="55" selection-start-column="34" selection-end-line="55" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/fragment/BaseFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8277228" vertical-offset="76" max-vertical-offset="684">
-          <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/fragment/MenuFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3980198" vertical-offset="255" max-vertical-offset="2698">
-          <caret line="50" column="46" selection-start-line="50" selection-start-column="35" selection-end-line="50" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/umeng_common_download_notification.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2128">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/umeng_update_dialog.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2774">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/umeng_socialize_post_share.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.0229645" vertical-offset="969" max-vertical-offset="2850">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/umeng_socialize_shareboard_item.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="627">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/swipeback/SwipeBackActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="33" max-vertical-offset="893">
-          <caret line="9" column="45" selection-start-line="9" selection-start-column="45" selection-end-line="9" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/drawable-hdpi/button_close_selector.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="518">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/fragment_home.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49796748" vertical-offset="325" max-vertical-offset="2223">
-          <caret line="30" column="44" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
-          <folding>
-            <element signature="e#2764#2780#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/activity_detail.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -666,14 +550,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3030888" vertical-offset="470" max-vertical-offset="988">
-          <caret line="33" column="32" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/item_header.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -682,13 +558,6 @@
         <state vertical-scroll-proportion="0.19308943" vertical-offset="0" max-vertical-offset="492">
           <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/DetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1037" max-vertical-offset="4750">
-          <caret line="160" column="69" selection-start-line="160" selection-start-column="69" selection-end-line="160" selection-end-column="69" />
         </state>
       </provider>
     </entry>
@@ -717,28 +586,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/activity_search_record.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18902439" vertical-offset="2" max-vertical-offset="494">
-          <caret line="5" column="44" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/activity_favroite.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.961538" vertical-offset="0" max-vertical-offset="494">
-          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/item_favroite_row.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -757,24 +604,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/fragment/HomeFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.1524754" vertical-offset="4317" max-vertical-offset="10165">
-          <caret line="238" column="59" selection-start-line="238" selection-start-column="59" selection-end-line="238" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/ZoomProductActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.46336633" vertical-offset="1704" max-vertical-offset="10298">
           <caret line="160" column="17" selection-start-line="160" selection-start-column="17" selection-end-line="160" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/SearchRecordActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7799228" vertical-offset="603" max-vertical-offset="1406">
-          <caret line="68" column="12" selection-start-line="68" selection-start-column="12" selection-end-line="68" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -793,13 +626,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/FavroiteActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.503861" vertical-offset="912" max-vertical-offset="1463">
-          <caret line="7" column="41" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/adapter/FavroiteAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2478" max-vertical-offset="3173">
@@ -811,17 +637,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.26336634" vertical-offset="0" max-vertical-offset="1539">
           <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/activity_setting.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="456">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -858,14 +673,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="505">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.5030426" vertical-offset="305" max-vertical-offset="798">
-          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -936,45 +743,245 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/Cfg.java">
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/view/DragLayout.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3301887" vertical-offset="117" max-vertical-offset="1368">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/SettingActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1458" max-vertical-offset="2033">
-          <caret line="108" column="9" selection-start-line="108" selection-start-column="9" selection-end-line="108" selection-end-column="9" />
-          <folding />
+        <state vertical-scroll-proportion="0.15049505" vertical-offset="228" max-vertical-offset="5244">
+          <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
+          <folding>
+            <element signature="e#4778#4779#0" expanded="true" />
+            <element signature="e#4808#4809#0" expanded="true" />
+            <element signature="e#8862#8863#0" expanded="true" />
+            <element signature="e#8889#8890#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/BaseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="836">
-          <caret line="21" column="27" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.67722774" vertical-offset="0" max-vertical-offset="836">
+          <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/drawable-nodpi/close.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/drawable-hdpi/button_close_selector.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.25675675" vertical-offset="0" max-vertical-offset="518">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/activity_setting.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="456">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.64" vertical-offset="305" max-vertical-offset="817">
+          <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="470" max-vertical-offset="988">
+          <caret line="40" column="28" selection-start-line="40" selection-start-column="17" selection-end-line="40" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/SearchRecordActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.07335907" vertical-offset="627" max-vertical-offset="1425">
+          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding>
+            <element signature="e#2206#2251#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/FavroiteActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.55984557" vertical-offset="945" max-vertical-offset="1691">
+          <caret line="65" column="36" selection-start-line="65" selection-start-column="36" selection-end-line="65" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1688#1724#0" expanded="false" />
+            <element signature="e#1763#1905#0" expanded="false" />
+            <element signature="e#1894#1895#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/activity_favroite.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.652439" vertical-offset="192" max-vertical-offset="684">
+          <caret line="27" column="33" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/activity_search_record.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.92276424" vertical-offset="78" max-vertical-offset="684">
+          <caret line="28" column="40" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
+          <folding>
+            <element signature="e#1036#1053#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/fragment/MenuFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3009901" vertical-offset="627" max-vertical-offset="2755">
+          <caret line="67" column="40" selection-start-line="67" selection-start-column="40" selection-end-line="67" selection-end-column="40" />
+          <folding>
+            <element signature="e#1941#2273#0" expanded="false" />
+            <element signature="e#2262#2263#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/activity_welcome.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="492">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.6504066" vertical-offset="235" max-vertical-offset="2394">
+          <caret line="81" column="16" selection-start-line="81" selection-start-column="16" selection-end-line="81" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/SettingActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5965251" vertical-offset="698" max-vertical-offset="1938">
+          <caret line="70" column="5" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
+          <folding>
+            <element signature="e#1299#1334#0" expanded="false" />
+            <element signature="e#1704#1729#0" expanded="false" />
+            <element signature="e#1780#1803#0" expanded="false" />
+            <element signature="e#1852#1877#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/WelcomeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44015443" vertical-offset="228" max-vertical-offset="1482">
+          <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+          <folding>
+            <element signature="e#1025#1776#0" expanded="false" />
+            <element signature="e#1765#1766#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/DetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18811882" vertical-offset="285" max-vertical-offset="4750">
+          <caret line="47" column="61" selection-start-line="47" selection-start-column="61" selection-end-line="47" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/fragment/HomeFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21980198" vertical-offset="2701" max-vertical-offset="10241">
+          <caret line="208" column="28" selection-start-line="208" selection-start-column="28" selection-end-line="208" selection-end-column="28" />
+          <folding>
+            <element signature="e#7624#7625#0" expanded="true" />
+            <element signature="e#7685#8002#0" expanded="true" />
+            <element signature="e#7991#7992#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.9903475" vertical-offset="1021" max-vertical-offset="2451">
+          <caret line="137" column="23" selection-start-line="137" selection-start-column="23" selection-end-line="137" selection-end-column="23" />
+          <folding>
+            <element signature="e#3598#3599#0" expanded="false" />
+            <element signature="e#3671#3672#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/item_image_btn.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="513">
+          <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BeautyGirl/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.8435644" vertical-offset="0" max-vertical-offset="4579">
-          <caret line="49" column="52" selection-start-line="49" selection-start-column="52" selection-end-line="49" selection-end-column="52" />
+        <state vertical-scroll-proportion="0.15049505" vertical-offset="0" max-vertical-offset="4579">
+          <caret line="4" column="23" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/Cfg.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2837838" vertical-offset="0" max-vertical-offset="2470">
-          <caret line="53" column="11" selection-start-line="53" selection-start-column="11" selection-end-line="53" selection-end-column="11" />
-          <folding>
-            <element signature="e#3437#3438#0" expanded="true" />
-            <element signature="e#3476#3477#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.5868726" vertical-offset="0" max-vertical-offset="1368">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/res/layout/activity_guide.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38617885" vertical-offset="0" max-vertical-offset="1064">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BeautyGirl/src/com/jason/hao/GuideActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.038610037" vertical-offset="873" max-vertical-offset="3097">
+          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="78" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>

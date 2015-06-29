@@ -602,5 +602,4 @@ public class HomeFragment extends BaseFragment {
 
         return str;
     }
-
 }

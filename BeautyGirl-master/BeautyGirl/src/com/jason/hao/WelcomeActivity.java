@@ -67,7 +67,7 @@ public class WelcomeActivity extends BaseActivity {
             preferences.edit().putBoolean("is_first_run", false).commit();
             handler.sendEmptyMessage(0);
         } else {
-            handler.sendEmptyMessageDelayed(1, 2000);
+            handler.sendEmptyMessageDelayed(1, 1500);
         }
     }
 

@@ -50,7 +50,7 @@ public class DetailActivity extends SwipeBackActivity {
     private String tag;  //小分类标签
     private String colum;  //大分类
     private int pn = 0;   //从哪一条数据开始
-    private int rn = 30;  //每次取多少条
+    private int rn = 50;  //每次取多少条
     private int total;
 
     private boolean isFresh = false;

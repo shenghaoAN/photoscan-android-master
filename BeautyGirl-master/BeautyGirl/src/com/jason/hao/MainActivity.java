@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jason.Cfg;
 import com.jason.bean.ItemCategoryBean;
 import com.jason.fragment.HomeFragment;
 import com.jason.fragment.MenuFragment;
@@ -30,10 +31,9 @@ public class MainActivity extends BaseActivity {
     private TextView txt_title;
     private ImageView iv_set;
     private ImageView iv_bottom;
+    private TextView txt_version;
 
     private HomeFragment homeFragment;
-
-    String device_token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +56,8 @@ public class MainActivity extends BaseActivity {
     private void setUpUmengPush() {
         PushAgent mPushAgent = PushAgent.getInstance(this);
         mPushAgent.enable();
-//        device_token = UmengRegistrar.getRegistrationId(this);
-//        Debug.Log("device_token",device_token);
+//      String device_token = UmengRegistrar.getRegistrationId(this);
+//      Debug.Log("device_token",device_token);
     }
 
     /**
@@ -75,8 +75,8 @@ public class MainActivity extends BaseActivity {
         iv_icon = (ImageView) findViewById(R.id.iv_icon);
         iv_bottom = (ImageView) findViewById(R.id.iv_bottom);
         iv_set = (ImageView) findViewById(R.id.iv_set);
-        iv_bottom.setImageResource(R.drawable.kenan);
-        iv_icon.setImageResource(R.drawable.kenan);
+        txt_version = (TextView) findViewById(R.id.txt_version);
+        txt_version.setText("Version:" + Cfg.VersionName);
     }
 
     private void initFragment() {

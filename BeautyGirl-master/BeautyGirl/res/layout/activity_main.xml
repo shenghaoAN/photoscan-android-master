@@ -23,7 +23,7 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/kenan" />
+                android:src="@drawable/huoying" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -36,19 +36,19 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_mail"
+            android:id="@+id/txt_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="jason20131121@gmail.com"
-            android:textColor="#ffffff"
+            android:text=""
+            android:textColor="@android:color/white"
             android:textSize="15sp" />
 
         <LinearLayout
             android:id="@+id/menu_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/tv_mail"
+            android:layout_above="@id/txt_version"
             android:layout_below="@id/ll1"
             android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
@@ -86,7 +86,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/kenan" />
+                    android:src="@drawable/huoying" />
 
                 <ImageView
                     android:id="@+id/iv_set"
@@ -95,8 +95,9 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:layout_alignParentRight="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/huoying" />
+                    android:scaleType="fitCenter"
+                    android:padding="5dp"
+                    android:src="@drawable/icon_set" />
 
                 <TextView
                     android:id="@+id/txt_title"

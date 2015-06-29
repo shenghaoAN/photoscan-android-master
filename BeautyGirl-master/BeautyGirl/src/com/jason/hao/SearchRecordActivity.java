@@ -26,6 +26,7 @@ public class SearchRecordActivity extends SwipeBackActivity {
     private ImageView img_back;
     private TextView txt_title;
 
+    private TextView txt_no_data;
     private PinnedHeaderListView listView;
     private SearchRecordAdapter adapter;
     private SearchBeanService searchBeanService;
@@ -56,6 +57,7 @@ public class SearchRecordActivity extends SwipeBackActivity {
             }
         });
 
+        txt_no_data = (TextView) findViewById(R.id.txt_no_data);
         listView = (PinnedHeaderListView) findViewById(R.id.listview);
         //添加headview
         TextView textView = new TextView(this);
@@ -68,6 +70,10 @@ public class SearchRecordActivity extends SwipeBackActivity {
         adapter = new SearchRecordAdapter(this, searchBeanService, groupList, childList);
         listView.setAdapter(adapter);
 
+        if (adapter.getCount() == 0) {
+            listView.setVisibility(View.GONE);
+            txt_no_data.setVisibility(View.VISIBLE);
+        }
     }
 
     /**

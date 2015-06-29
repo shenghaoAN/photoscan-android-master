@@ -24,6 +24,7 @@ public class FavroiteActivity extends SwipeBackActivity {
     private ImageView img_back;
     private TextView txt_title;
 
+    private TextView txt_no_data;
     private PinnedHeaderListView listView;
     private FavroiteAdapter adapter;
     private FavroiteBeanService favroiteBeanService;
@@ -57,9 +58,15 @@ public class FavroiteActivity extends SwipeBackActivity {
             }
         });
 
+        txt_no_data = (TextView) findViewById(R.id.txt_no_data);
         listView = (PinnedHeaderListView) findViewById(R.id.listview);
         adapter = new FavroiteAdapter(this, groupList, childList, favroiteBeanService);
         listView.setAdapter(adapter);
+
+        if(adapter.getCount() == 0){
+            listView.setVisibility(View.GONE);
+            txt_no_data.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
