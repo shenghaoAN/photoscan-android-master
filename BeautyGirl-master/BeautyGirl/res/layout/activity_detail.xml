@@ -39,10 +39,10 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:scrollbars="vertical"
-            pla:plaColumnNumber="2"
+            pla:plaColumnNumber="@integer/column_count"
             pla:plaColumnPaddingLeft="2dp"
             pla:plaColumnPaddingRight="2dp"
-            pla:plaLandscapeColumnNumber="3" />
+            pla:plaLandscapeColumnNumber="@integer/column_count" />
     </LinearLayout>
 
 </LinearLayout>

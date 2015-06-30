@@ -81,7 +81,7 @@ public class BeautyItemAdapter extends BaseAdapter {
         }
 
         //计算图片的宽度和高度，防止瀑布流滑动闪烁
-        int w = ScreenWidth / 2;
+        int w = ScreenWidth / mContext.getResources().getInteger(R.integer.column_count);
         int h = (ScreenWidth * (list.get(position).image_height)) / (2 * list.get(position).image_width);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(w, h);
         viewHolder.thumbImage.setLayoutParams(params);
