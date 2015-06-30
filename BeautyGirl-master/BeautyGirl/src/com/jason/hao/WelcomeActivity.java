@@ -3,11 +3,17 @@ package com.jason.hao;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
+import com.jason.bean.Device;
+
 import java.util.Random;
+
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.listener.SaveListener;
 
 /**
  * 欢迎页面 判断是否第一次启动应用
@@ -30,7 +36,30 @@ public class WelcomeActivity extends BaseActivity {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        //初始化BmobSDK
+        Bmob.initialize(this, "c8ca6baff4ca7663b39cb5e3975a2adc");
+        Save2Bmob();
         initView();
+    }
+
+    /**
+     * 保存设备型号到云端Bmob数据库
+     */
+    private void Save2Bmob() {
+        final Device device = new Device();
+        device.setSdk(Build.VERSION.SDK_INT);
+        device.setModel(android.os.Build.MODEL);
+        device.setRelease(android.os.Build.VERSION.RELEASE);
+
+        device.save(this, new SaveListener() {
+            @Override
+            public void onSuccess() {
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+            }
+        });
     }
 
     protected void initView() {

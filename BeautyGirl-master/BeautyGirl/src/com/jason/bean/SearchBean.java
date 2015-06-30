@@ -7,6 +7,8 @@ import com.jason.database.JsonField;
 import java.io.Serializable;
 import java.util.Date;
 
+import cn.bmob.v3.BmobObject;
+
 /**
  * 搜索纪录表
  * <p/>
@@ -14,7 +16,7 @@ import java.util.Date;
  */
 
 @DBTable(name = "SearchBean")
-public class SearchBean implements Serializable {
+public class SearchBean extends BmobObject implements Serializable {
 
     public SearchBean() {
 

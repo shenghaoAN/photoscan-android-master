@@ -56,6 +56,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import cn.bmob.v3.listener.SaveListener;
+
 /**
  * Created by shenghao on 2015/6/16.
  */
@@ -267,6 +269,19 @@ public class HomeFragment extends BaseFragment {
         searchBean.column = title;
         searchBean.date = new Date();
         searchBeanService.save(searchBean);
+
+        //保存到云端Bmob服务器
+        searchBean.save(getActivity(), new SaveListener() {
+            @Override
+            public void onSuccess() {
+//                ToastShow.displayToast(getActivity(),"成功");
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+//                ToastShow.displayToast(getActivity(),"失败");
+            }
+        });
 
         Intent intent = new Intent(getActivity(), DetailActivity.class);
         Bundle bundle = new Bundle();
