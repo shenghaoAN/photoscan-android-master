@@ -20,7 +20,8 @@ public class Cfg {
     private static SharedPreferences.Editor editor;
     private static Context context;
 
-    public static String BaseUrl = "http://image.baidu.com/";
+    public static String BaseUrl = "http://image.baidu.com/";    //百度图片url
+    public static String GagUrl = "http://infinigag-us.aws.af.cm/";  //9Gag搞笑图片url
 
     public static void setContext(Context ctx) {
         context = ctx;
