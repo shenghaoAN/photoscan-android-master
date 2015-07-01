@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.jason.bean.Device;
+import com.jason.bean.DeviceObject;
 import com.jason.helper.BaiduLocationHelper;
 
 import java.util.Random;
@@ -67,12 +67,12 @@ public class WelcomeActivity extends BaseActivity {
      * 保存设备型号到云端Bmob数据库
      */
     private void Save2Bmob() {
-        final Device device = new Device();
-        device.setSdk(Build.VERSION.SDK_INT);
-        device.setModel(android.os.Build.MODEL);
-        device.setRelease(android.os.Build.VERSION.RELEASE);
+        final DeviceObject deviceObject = new DeviceObject();
+        deviceObject.setSdk(Build.VERSION.SDK_INT);
+        deviceObject.setModel(android.os.Build.MODEL);
+        deviceObject.setRelease(android.os.Build.VERSION.RELEASE);
 
-        device.save(this, new SaveListener() {
+        deviceObject.save(this, new SaveListener() {
             @Override
             public void onSuccess() {
             }
@@ -128,7 +128,7 @@ public class WelcomeActivity extends BaseActivity {
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//设置定位模式
         option.setCoorType("gcj02");  //返回的定位结果是百度经纬度，默认值gcj02
-        int span = 1000;   //span < 1000 则为 app主动请求定位,span >= 1000 则表示定时定位
+        int span = 900;   //span < 1000 则为 app主动请求定位,span >= 1000 则表示定时定位
         option.setScanSpan(span);  //设置发起定位请求的间隔时间
         option.setIsNeedAddress(true);  //设置是否需要转换成地址
         option.setProdName("BeautyGirl");  //设置prod字段

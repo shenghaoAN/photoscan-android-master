@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.jason.Cfg;
 import com.jason.bean.ItemCategoryBean;
+import com.jason.fragment.GagFragment;
+import com.jason.fragment.GagListFragment;
 import com.jason.fragment.HomeFragment;
 import com.jason.fragment.MenuFragment;
 import com.jason.view.DragLayout;
@@ -83,7 +85,8 @@ public class MainActivity extends BaseActivity {
         replaceFragment(R.id.menu_fragment, new MenuFragment());
         ItemCategoryBean itemObject = new ItemCategoryBean();
         itemObject.title = "明星";
-        setCategory(itemObject);
+//        setCategory(itemObject);
+        replaceFragment(R.id.linear_fragment, new GagFragment());
     }
 
     private void initView() {

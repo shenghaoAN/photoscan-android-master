@@ -43,4 +43,11 @@
     <color name="drawer_bg">#FFFFFFcc</color>
     <color name="zoom_bar">#70666666</color>
 
+    <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="light_gray_text">#949494</color>
+    <color name="red">#fa3e36</color>
+    <color name="new_tex_content">#676564</color>
+    <color name="menu_bottom_bg">#f9f9f9</color>
+    <color name="common_list_divider">#dfdfdf</color>
+
 </resources>

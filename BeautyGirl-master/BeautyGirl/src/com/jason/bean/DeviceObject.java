@@ -7,7 +7,7 @@ import cn.bmob.v3.BmobObject;
  * <p/>
  * Created by shenghao on 2015/6/30.
  */
-public class Device extends BmobObject {
+public class DeviceObject extends BmobObject {
 
     private Integer id;
     private Integer sdk;   //sdk版本号
