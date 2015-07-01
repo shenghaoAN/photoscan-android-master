@@ -1,0 +1,2 @@
+cmd命令行定位到当前目录  输入
+keytool -list -v -keystore beautyKeyStore.jks
