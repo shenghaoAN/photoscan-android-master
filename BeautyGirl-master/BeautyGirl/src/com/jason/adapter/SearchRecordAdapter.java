@@ -14,6 +14,7 @@ import com.jason.bean.SearchBean;
 import com.jason.dbservice.SearchBeanService;
 import com.jason.global.CommonData;
 import com.jason.hao.DetailActivity;
+import com.jason.hao.PhotoSearchActivity;
 import com.jason.hao.R;
 import com.jason.helper.DateHelper;
 import com.jason.pinnedheaderlistview.SectionedBaseAdapter;
@@ -79,10 +80,11 @@ public class SearchRecordAdapter extends SectionedBaseAdapter {
         viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DetailActivity.class);
+                Intent intent = new Intent(context, PhotoSearchActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString(CommonData.TAG, searchBean.text);
-                bundle.putString(CommonData.TITLE, searchBean.column);
+//                bundle.putString(CommonData.TAG, searchBean.text);
+//                bundle.putString(CommonData.TITLE, searchBean.column);
+                bundle.putString(CommonData.WORD, searchBean.text);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }

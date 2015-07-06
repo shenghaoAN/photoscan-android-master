@@ -11,11 +11,11 @@ import android.view.ViewGroup;
 import com.jason.Cfg;
 import com.jason.Debug;
 import com.jason.adapter.ItemGagAdapter;
-import com.jason.object.GagObject;
 import com.jason.global.CommonData;
 import com.jason.hao.R;
 import com.jason.helper.HttpClientHelper;
 import com.jason.helper.JSONHttpHelper;
+import com.jason.object.GagObject;
 import com.jason.view.LoadingFooter;
 import com.jason.view.PageListView;
 import com.loopj.android.http.RequestParams;
@@ -138,14 +138,15 @@ public class GagListFragment extends BaseFragment {
         RequestParams params = new RequestParams();
         client.post(Cfg.GagUrl + title + "/" + page, params, new JSONHttpHelper.JSONHttpResponseHandler() {
             @Override
-            public void onFailure(int i, Header[] headers, String responseBody, Throwable throwable) {
+            public void onFailure(int i, Header[] headers, byte[] responseBody, Throwable throwable) {
                 if (swipeRefreshLayout.isRefreshing())
                     swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
-            public void onSuccess(int i, Header[] headers, String responseBody) {
-                Debug.Log("server response:", responseBody);
+            public void onSuccess(int i, Header[] headers, byte[] responseBody) {
+                String response = new String(responseBody);
+                Debug.Log("server response:", response);
                 try {
 
                     if (gagObjects != null && gagObjects.size() > 0) {
@@ -157,7 +158,7 @@ public class GagListFragment extends BaseFragment {
                         }
                     }
 
-                    JSONObject jsonObject = new JSONObject(responseBody.trim());
+                    JSONObject jsonObject = new JSONObject(response.trim());
                     JSONArray data = (JSONArray) jsonObject.get("data");
                     page = jsonObject.getJSONObject("paging").getString("next");
                     UpdateItem(data);

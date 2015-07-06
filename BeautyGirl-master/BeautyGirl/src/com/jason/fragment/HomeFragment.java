@@ -419,7 +419,7 @@ public class HomeFragment extends BaseFragment {
                 new JSONHttpHelper.JSONHttpResponseHandler() {
 
                     @Override
-                    public void onFailure(int i, Header[] headers, String responseBody, Throwable throwable) {
+                    public void onFailure(int i, Header[] headers, byte[] responseBody, Throwable throwable) {
                         if (swipeRefreshLayout.isRefreshing())
                             swipeRefreshLayout.setRefreshing(false);
 
@@ -432,8 +432,9 @@ public class HomeFragment extends BaseFragment {
                     }
 
                     @Override
-                    public void onSuccess(int i, Header[] headers, String responseBody) {
-                        Debug.Log("server response:", responseBody);
+                    public void onSuccess(int i, Header[] headers, byte[] responseBody) {
+                        String response = new String(responseBody);
+                        Debug.Log("server response:", response);
                         try {
                             progressBar.setVisibility(View.GONE);
                             if (itemCategoryBeans != null && itemCategoryBeans.size() > 0) {
@@ -443,7 +444,7 @@ public class HomeFragment extends BaseFragment {
                                 }
                             }
 
-                            JSONObject jsonObject = new JSONObject(responseBody.trim());
+                            JSONObject jsonObject = new JSONObject(response.trim());
                             JSONObject data = (JSONObject) jsonObject.get("data");
                             JSONArray thumbs = data.getJSONArray("thumbs");
                             UpdateItem(thumbs);

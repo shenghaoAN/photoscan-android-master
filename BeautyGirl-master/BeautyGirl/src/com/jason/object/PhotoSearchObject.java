@@ -10,11 +10,20 @@ import java.io.Serializable;
  */
 public class PhotoSearchObject implements Serializable {
 
+    private String queryExt;
     private String objURL;
     private int width;
     private int height;
     private String fromPageTitleEnc;
     private String bdImgnewsDate;
+
+    public String getQueryExt() {
+        return queryExt;
+    }
+
+    public void setQueryExt(String queryExt) {
+        this.queryExt = queryExt;
+    }
 
     public String getObjURL() {
         return objURL;

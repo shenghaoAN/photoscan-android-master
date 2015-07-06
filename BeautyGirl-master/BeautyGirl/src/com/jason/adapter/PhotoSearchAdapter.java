@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.jason.global.CommonData;
 import com.jason.hao.R;
 import com.jason.hao.ZoomProductActivity;
+import com.jason.hao.ZoomSearchActivity;
 import com.jason.object.PhotoSearchObject;
 import com.jason.utils.DensityUtils;
 import com.jason.utils.UniversalImageLoadTool;
@@ -92,7 +93,7 @@ public class PhotoSearchAdapter extends BaseAdapter {
         viewHolder.content_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ZoomProductActivity.class);
+                Intent intent = new Intent(mContext, ZoomSearchActivity.class);
                 Bundle bundle = new Bundle();
                 ArrayList arrayList = new ArrayList();
                 arrayList.add(list);

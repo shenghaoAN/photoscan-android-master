@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.jason.Debug;
-import com.loopj.android.http.TextHttpResponseHandler;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
  */
 public class JSONHttpHelper extends Activity {
 
-    public static class JSONHttpResponseHandler extends TextHttpResponseHandler {
+    public static class JSONHttpResponseHandler extends AsyncHttpResponseHandler {
         public Context context1;
         public String error = "";
         public String response;
@@ -39,7 +39,7 @@ public class JSONHttpHelper extends Activity {
         }
 
         @Override
-        public void onFailure(int i, Header[] headers, String responseBody, Throwable throwable) {
+        public void onFailure(int i, Header[] headers, byte[] responseBody, Throwable throwable) {
             // Response failed :(
             error = throwable.getMessage();
             Debug.Log(error, response);
@@ -47,11 +47,10 @@ public class JSONHttpHelper extends Activity {
         }
 
         @Override
-        public void onSuccess(int i, Header[] headers, String responseBody) {
+        public void onSuccess(int i, Header[] headers, byte[] responseBody) {
 
             // 获取文件响应类型
             String contentType_value = null;
-
             // 遍历头部信息
             for (Header header : headers) {
                 // 获取contentType_value的头部信息
@@ -60,7 +59,7 @@ public class JSONHttpHelper extends Activity {
                     contentType_value = header.getValue();
                 }
             }
-            Debug.Log("contentType_value", contentType_value);
+            Debug.Log("contentType_value", contentType_value.trim());
             // 定义服务器端缺省的编码方式
             String default_charset = "UTF-8";
             // 处理contentType_value来获取编码方式
@@ -85,12 +84,14 @@ public class JSONHttpHelper extends Activity {
 
 
             try {
-                response = new String(responseBody.getBytes(), "UTF-8");
-                Debug.Log("server response:", response);
+                //编码转换
+                response = new String(responseBody, default_charset);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
-                response = responseBody;
+                response = new String(responseBody);
             }
+
+            Debug.Log("server response:", response);
 
             if (rawResponse) {
                 Success();
@@ -149,10 +150,8 @@ public class JSONHttpHelper extends Activity {
                     defaultCharset = "GB2312";
                 } else if (result.contains("charset=\"UTF-8\"")) {
                     defaultCharset = "UTF-8";
-                } else if (result.contains("charset=\"UTF-8\"")) {
-                    defaultCharset = "GBK";
                 } else if (result.contains("charset=\"gb18030\"")) {
-                    defaultCharset = "UTF-8";
+                    defaultCharset = "gb18030";
                 }
             }
             return defaultCharset;

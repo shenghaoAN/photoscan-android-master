@@ -193,6 +193,7 @@ public class PhotoSearchActivity extends SwipeBackActivity {
             try {
                 PhotoSearchObject photoSearchObject = new PhotoSearchObject();
                 JSONObject d = (JSONObject) datas.get(i);
+                photoSearchObject.setQueryExt(word);
                 photoSearchObject.setObjURL(d.getString("objURL"));
                 photoSearchObject.setFromPageTitleEnc(d.getString("fromPageTitleEnc"));
                 photoSearchObject.setWidth(d.getInt("width"));
