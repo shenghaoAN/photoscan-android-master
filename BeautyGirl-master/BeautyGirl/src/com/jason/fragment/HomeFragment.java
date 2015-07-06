@@ -34,6 +34,7 @@ import com.jason.dbservice.ItemCategoryBeanService;
 import com.jason.dbservice.SearchBeanService;
 import com.jason.global.CommonData;
 import com.jason.hao.DetailActivity;
+import com.jason.hao.PhotoSearchActivity;
 import com.jason.hao.R;
 import com.jason.helper.HttpClientHelper;
 import com.jason.helper.JSONHttpHelper;
@@ -283,10 +284,17 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
-        Intent intent = new Intent(getActivity(), DetailActivity.class);
+//        Intent intent = new Intent(getActivity(), DetailActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putString(CommonData.TAG, edit_search.getText().toString());
+//        bundle.putString(CommonData.TITLE, title);
+//        intent.putExtras(bundle);
+//        startActivity(intent);
+//        DensityUtils.hideSoftWindow(getActivity(), edit_search);
+
+        Intent intent = new Intent(getActivity(), PhotoSearchActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(CommonData.TAG, edit_search.getText().toString());
-        bundle.putString(CommonData.TITLE, title);
+        bundle.putString(CommonData.WORD, edit_search.getText().toString());
         intent.putExtras(bundle);
         startActivity(intent);
         DensityUtils.hideSoftWindow(getActivity(), edit_search);

@@ -19,5 +19,6 @@ public class CommonData {
     public static final String POSITION = "pos";
     public static final String TAG = "tag";
     public static final String TITLE = "title";
+    public static final String WORD = "word";
 
 }

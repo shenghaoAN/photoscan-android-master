@@ -6,11 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jason.bean.GagObject;
-import com.jason.bean.ItemCategoryBean;
+import com.jason.object.GagObject;
 import com.jason.hao.R;
+import com.jason.utils.DensityUtils;
 import com.jason.utils.UniversalImageLoadTool;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -25,12 +26,14 @@ public class ItemGagAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private List<GagObject> list;
     private ImageLoader imageLoader;
+    private int width;
 
     public ItemGagAdapter(Context context, List<GagObject> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
         imageLoader = ImageLoader.getInstance();
+        width = DensityUtils.getWidth(context);
     }
 
     public void updateAdapter(List<GagObject> list) {
@@ -61,6 +64,10 @@ public class ItemGagAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.item_gag_row, null);
             viewHolder.img_normal = (ImageView) convertView.findViewById(R.id.img_normal);
             viewHolder.txt_caption = (TextView) convertView.findViewById(R.id.txt_caption);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width - DensityUtils.dip2px(context, 10), 2 * width / 3);
+            params.leftMargin = DensityUtils.dip2px(context, 5);
+            params.rightMargin = DensityUtils.dip2px(context, 5);
+            viewHolder.img_normal.setLayoutParams(params);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();

@@ -7,16 +7,17 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.jason.Cfg;
 import com.jason.Debug;
 import com.jason.adapter.ItemGagAdapter;
-import com.jason.bean.GagObject;
+import com.jason.object.GagObject;
 import com.jason.global.CommonData;
 import com.jason.hao.R;
 import com.jason.helper.HttpClientHelper;
 import com.jason.helper.JSONHttpHelper;
+import com.jason.view.LoadingFooter;
+import com.jason.view.PageListView;
 import com.loopj.android.http.RequestParams;
 import com.umeng.analytics.MobclickAgent;
 
@@ -34,7 +35,7 @@ import java.util.List;
 public class GagListFragment extends BaseFragment {
 
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ListView listView;
+    private PageListView listView;
     private ItemGagAdapter adapter;
 
     private List<GagObject> gagObjects;
@@ -43,6 +44,8 @@ public class GagListFragment extends BaseFragment {
     private boolean isRefresh = false;
 
     private String title = "";
+
+    private String page = "0";
 
     /**
      * 实例化fragment
@@ -86,11 +89,12 @@ public class GagListFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_gag_list, container, false);
         parseArgument();
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
-        listView = (ListView) view.findViewById(R.id.listview);
+        listView = (PageListView) view.findViewById(R.id.listview);
         adapter = new ItemGagAdapter(getActivity(), gagObjects);
         listView.setAdapter(adapter);
 
         swipeRefreshLayout.setOnRefreshListener(new onRefreshListener());
+        listView.setLoadNextListener(new onNextListener());
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -109,6 +113,19 @@ public class GagListFragment extends BaseFragment {
         public void onRefresh() {
             isRefresh = true;
             swipeRefreshLayout.setRefreshing(true);
+            page = "0";
+            getGagData();
+        }
+    }
+
+    /**
+     * 加载更多监听器
+     */
+    class onNextListener implements PageListView.OnLoadNextListener {
+
+        @Override
+        public void onLoadNext() {
+            isRefresh = false;
             getGagData();
         }
     }
@@ -119,7 +136,7 @@ public class GagListFragment extends BaseFragment {
     private void getGagData() {
         HttpClientHelper client = new HttpClientHelper();
         RequestParams params = new RequestParams();
-        client.post(Cfg.GagUrl + title + "/", params, new JSONHttpHelper.JSONHttpResponseHandler() {
+        client.post(Cfg.GagUrl + title + "/" + page, params, new JSONHttpHelper.JSONHttpResponseHandler() {
             @Override
             public void onFailure(int i, Header[] headers, String responseBody, Throwable throwable) {
                 if (swipeRefreshLayout.isRefreshing())
@@ -135,15 +152,21 @@ public class GagListFragment extends BaseFragment {
                         if (isRefresh) {
                             isRefresh = false;
                             gagObjects.clear();
+                        } else {
+                            listView.setState(LoadingFooter.State.Idle, 3000);
                         }
                     }
 
                     JSONObject jsonObject = new JSONObject(responseBody.trim());
                     JSONArray data = (JSONArray) jsonObject.get("data");
+                    page = jsonObject.getJSONObject("paging").getString("next");
                     UpdateItem(data);
                 } catch (JSONException e) {
-                    if (swipeRefreshLayout.isRefreshing())
+                    if (swipeRefreshLayout.isRefreshing()) {
                         swipeRefreshLayout.setRefreshing(false);
+                    } else {
+                        listView.setState(LoadingFooter.State.Idle, 3000);
+                    }
                     e.printStackTrace();
                 }
             }

@@ -51,19 +51,16 @@ public class MenuAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.item_menu_row, null);
-//            viewHolder.img_icon = (ImageView) convertView.findViewById(R.id.img_icon);
             viewHolder.txt_title = (TextView) convertView.findViewById(R.id.txt_title);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.txt_title.setText(list.get(position).title);
-//        imageLoader.displayImage(list.get(position).getIcon(), viewHolder.img_icon, UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
         return convertView;
     }
 
     class ViewHolder {
-        //        ImageView img_icon;
         TextView txt_title;
     }
 

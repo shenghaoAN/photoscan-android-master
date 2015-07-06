@@ -9,21 +9,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.jason.Debug;
 import com.jason.adapter.MenuAdapter;
 import com.jason.bean.ItemCategoryBean;
 import com.jason.hao.MainActivity;
 import com.jason.hao.R;
-import com.jason.helper.HttpClientHelper;
-import com.jason.helper.JSONHttpHelper;
-import com.jason.helper.MenuHelper;
-import com.loopj.android.http.RequestParams;
 import com.umeng.analytics.MobclickAgent;
-
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +29,13 @@ public class MenuFragment extends BaseFragment {
     private MenuAdapter menuAdapter;
     private List<ItemCategoryBean> itemObjects;
 
+    private String[] item_menus;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         itemObjects = new ArrayList<ItemCategoryBean>();
+        item_menus = getActivity().getResources().getStringArray(R.array.item_menus);
     }
 
     @Override
@@ -69,7 +62,7 @@ public class MenuFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ItemCategoryBean itemObject = (ItemCategoryBean) parent.getItemAtPosition(position);
-                if (itemObject.tag.equals("9GAG")) {
+                if (itemObject.title.equals("9GAG")) {
                     mActivity.showGagFragment();
                 } else {
                     mActivity.setCategory(itemObject);
@@ -80,9 +73,9 @@ public class MenuFragment extends BaseFragment {
     }
 
     /**
-     * 获取item
+     * 网络获取item
      */
-    private void getItem() {
+/*    private void getItem() {
         Debug.Log("Item", "get");
         HttpClientHelper client = new HttpClientHelper();
         RequestParams params = new RequestParams();
@@ -111,9 +104,9 @@ public class MenuFragment extends BaseFragment {
                         }
                     }
                 });
-    }
+    }*/
 
-    private void UpdateItem(JSONArray thumbs) {
+    /*    private void UpdateItem(JSONArray thumbs) {
 
         ItemCategoryBean itemCategoryBean = new ItemCategoryBean();
         itemCategoryBean.icon = "";
@@ -136,6 +129,19 @@ public class MenuFragment extends BaseFragment {
 
         handler.sendMessage(handler.obtainMessage(1));
 
+    }*/
+
+    /**
+     * 自定义item
+     */
+    private void getItem() {
+        for (int i = 0; i < item_menus.length; i++) {
+            ItemCategoryBean itemObject = new ItemCategoryBean();
+            itemObject.title = item_menus[i];
+            itemObjects.add(itemObject);
+        }
+
+        handler.sendMessage(handler.obtainMessage(1));
     }
 
     Handler handler = new Handler() {

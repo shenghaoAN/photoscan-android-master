@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.jason.bean.DeviceObject;
+import com.jason.object.DeviceObject;
 import com.jason.helper.BaiduLocationHelper;
 
 import java.util.Random;

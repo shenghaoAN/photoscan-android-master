@@ -33,5 +33,26 @@
     <string name="favroite_head_title">%1$s(%2$d张)</string>
     <string name="start_use">开始使用</string>
     <string name="no_data">暂无数据</string>
+    <string name="the_end">加载完毕</string>
+
+    <string-array name="item_menus">
+        <item>9GAG</item>
+        <item>明星</item>
+        <item>美女</item>
+        <item>动漫</item>
+        <item>搞笑</item>
+        <item>美食</item>
+        <item>亲子</item>
+        <item>壁纸</item>
+        <item>资讯</item>
+        <item>旅游</item>
+        <item>宠物</item>
+        <item>摄影</item>
+        <item>设计</item>
+        <item>汽车</item>
+        <item>家居</item>
+        <item>服饰</item>
+        <item>DIY</item>
+    </string-array>
 
 </resources>

@@ -1,10 +1,8 @@
 package com.jason.hao;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -12,12 +10,11 @@ import android.widget.TextView;
 
 import com.huewu.pla.lib.WaterFallListView;
 import com.jason.Debug;
-import com.jason.adapter.BeautyItemAdapter;
-import com.jason.bean.ItemCartoonDetailBean;
-import com.jason.dbservice.ItemCartoonDetailBeanService;
+import com.jason.adapter.PhotoSearchAdapter;
 import com.jason.global.CommonData;
 import com.jason.helper.HttpClientHelper;
 import com.jason.helper.JSONHttpHelper;
+import com.jason.object.PhotoSearchObject;
 import com.jason.swipeback.SwipeBackActivity;
 import com.jason.utils.ToastShow;
 import com.loopj.android.http.RequestParams;
@@ -27,14 +24,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
- * 瀑布流形式显示图片
- * <p/>
- * Created by shenghao on 2015/6/16.
+ * Created by shenghao on 2015/7/6.
  */
-public class DetailActivity extends SwipeBackActivity {
+public class PhotoSearchActivity extends SwipeBackActivity {
 
     private View topbar;
     private ImageView img_back;
@@ -43,30 +37,25 @@ public class DetailActivity extends SwipeBackActivity {
     private ProgressBar progressBar;
     private TextView txt_error;
     private WaterFallListView listView;
-    private BeautyItemAdapter beautyItemAdapter;
+    private PhotoSearchAdapter adapter;
 
-    private List<ItemCartoonDetailBean> itemCartoonDetailBeans;
-
-    private String tag;  //小分类标签
-    private String colum;  //大分类
     private int pn = 0;   //从哪一条数据开始
     private int rn = 30;  //每次取多少条
-    private int total;
+    private int total = 0;
 
     private boolean isFresh = false;
     private boolean isLoadMore = false;
 
-    private ItemCartoonDetailBeanService itemCartoonDetailBeanService;
+    private String word = "";   //搜索关键字
+    private List<PhotoSearchObject> photoSearchObjects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        itemCartoonDetailBeans = new ArrayList<ItemCartoonDetailBean>();
-        itemCartoonDetailBeanService = ItemCartoonDetailBeanService.instance(this);
+        photoSearchObjects = new ArrayList<PhotoSearchObject>();
         Bundle bundle = getIntent().getExtras();
-        tag = bundle.getString(CommonData.TAG);
-        colum = bundle.getString(CommonData.TITLE);
+        word = bundle.getString(CommonData.WORD);
         initView();
         getGridData();
     }
@@ -75,7 +64,7 @@ public class DetailActivity extends SwipeBackActivity {
         topbar = (View) findViewById(R.id.topbar);
         img_back = (ImageView) topbar.findViewById(R.id.img_back);
         txt_title = (TextView) topbar.findViewById(R.id.txt_title);
-        txt_title.setText(tag);
+        txt_title.setText(word);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         txt_error = (TextView) findViewById(R.id.txt_error);
         txt_error.setVisibility(View.GONE);
@@ -84,14 +73,14 @@ public class DetailActivity extends SwipeBackActivity {
         listView.setPullLoadEnable(true);
         listView.setPullRefreshEnable(true);
         listView.setXListViewListener(new xListViewListener());
-        beautyItemAdapter = new BeautyItemAdapter(this, itemCartoonDetailBeans);
+        adapter = new PhotoSearchAdapter(this, photoSearchObjects);
 
-        listView.setAdapter(beautyItemAdapter);
+        listView.setAdapter(adapter);
 
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DetailActivity.this.finish();
+                PhotoSearchActivity.this.finish();
             }
         });
 
@@ -119,37 +108,36 @@ public class DetailActivity extends SwipeBackActivity {
 
         @Override
         public void onLoadMore() {
-            if (itemCartoonDetailBeans != null && itemCartoonDetailBeans.size() < total) {
+            if (photoSearchObjects != null && photoSearchObjects.size() < total) {
                 isLoadMore = true;
                 pn = pn + rn;
                 getGridData();
             } else {
                 listView.stopLoadMore();
-                ToastShow.displayToast(DetailActivity.this, getString(R.string.finish_data));
+                ToastShow.displayToast(PhotoSearchActivity.this, getString(R.string.finish_data));
             }
         }
     }
 
     /**
-     * 获取分类详细数据
+     * 获取搜索图片的详细数据
      */
     private void getGridData() {
         HttpClientHelper client = new HttpClientHelper();
         RequestParams params = new RequestParams();
         params.put("pn", pn);
         params.put("rn", rn);
-        params.put("tag1", colum);
-        params.put("tag2", tag);
-        client.get("channel/listjson?ie=utf8", params,
+        params.put("word", word);
+        client.get("i?tn=baiduimagejson&width=&height=&face=0&istype=2&ie=utf-8", params,
                 new JSONHttpHelper.JSONHttpResponseHandler() {
 
                     @Override
                     public void Success() {
                         // TODO Auto-generated method stub
                         try {
-                            if (itemCartoonDetailBeans != null && itemCartoonDetailBeans.size() > 0) {
+                            if (photoSearchObjects != null && photoSearchObjects.size() > 0) {
                                 if (isFresh) {
-                                    itemCartoonDetailBeans.clear();
+                                    photoSearchObjects.clear();
                                     isFresh = false;
                                     listView.stopRefresh();
                                 }
@@ -186,32 +174,12 @@ public class DetailActivity extends SwipeBackActivity {
 
                     public void Failure() {
                         progressBar.setVisibility(View.GONE);
-                        ToastShow.displayToast(DetailActivity.this, getString(R.string.check_net));
+                        ToastShow.displayToast(PhotoSearchActivity.this, getString(R.string.check_net));
                         if (isFresh) {
                             listView.stopRefresh();
                         }
 
-                        if (itemCartoonDetailBeans.isEmpty()) {
-                            //取出本地数据
-                            List<ItemCartoonDetailBean> list = itemCartoonDetailBeanService.findListByColumTag(colum, tag);
-                            if (list.size() == 0) {
-                                listView.setVisibility(View.GONE);
-                                txt_error.setVisibility(View.VISIBLE);
-                                txt_error.setText(getString(R.string.net_error));
-                                txt_error.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        //打开网络连接
-                                        startActivity(new Intent(Settings.ACTION_SETTINGS));
-                                    }
-                                });
-                                return;
-                            }
-                            //发送数据到handler中,刷新adapter
-                            handler.sendMessage(handler.obtainMessage(1, list));
-                        }
                     }
-
                 });
     }
 
@@ -221,31 +189,22 @@ public class DetailActivity extends SwipeBackActivity {
      * @param datas
      */
     private void UpdateDatas(JSONArray datas) {
-
-        if (itemCartoonDetailBeans != null && itemCartoonDetailBeans.size() > 0) {
-            itemCartoonDetailBeanService.deleteByColumTag(colum, tag);
-        }
-
         for (int i = 0; i < datas.length(); i++) {
             try {
-                ItemCartoonDetailBean itemCartoonDetailBean = new ItemCartoonDetailBean();
+                PhotoSearchObject photoSearchObject = new PhotoSearchObject();
                 JSONObject d = (JSONObject) datas.get(i);
-                itemCartoonDetailBean.desc = d.getString("desc");
-                itemCartoonDetailBean.colum = d.getString("colum");
-                itemCartoonDetailBean.tag = d.getString("tag");
-                itemCartoonDetailBean.date = d.getString("date");
-                itemCartoonDetailBean.image_url = d.getString("image_url");
-                itemCartoonDetailBean.image_width = d.getInt("image_width");
-                itemCartoonDetailBean.image_height = d.getInt("image_height");
-                itemCartoonDetailBean.share_url = d.getString("share_url");
-                itemCartoonDetailBeanService.save(itemCartoonDetailBean);
-                itemCartoonDetailBeans.add(itemCartoonDetailBean);
+                photoSearchObject.setObjURL(d.getString("objURL"));
+                photoSearchObject.setFromPageTitleEnc(d.getString("fromPageTitleEnc"));
+                photoSearchObject.setWidth(d.getInt("width"));
+                photoSearchObject.setHeight(d.getInt("height"));
+                photoSearchObject.setBdImgnewsDate(d.getString("bdImgnewsDate"));
+                photoSearchObjects.add(photoSearchObject);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        handler.sendMessage(handler.obtainMessage(1, itemCartoonDetailBeans));
+        handler.sendMessage(handler.obtainMessage(1, photoSearchObjects));
 
     }
 
@@ -266,8 +225,8 @@ public class DetailActivity extends SwipeBackActivity {
                     if (progressBar.isShown()) {
                         progressBar.setVisibility(View.GONE);
                     }
-                    List<ItemCartoonDetailBean> list = (List<ItemCartoonDetailBean>) msg.obj;
-                    beautyItemAdapter.updateAdapter(list);
+                    List<PhotoSearchObject> list = (List<PhotoSearchObject>) msg.obj;
+                    adapter.updateAdapter(list);
                     break;
                 default:
                     break;
@@ -275,14 +234,5 @@ public class DetailActivity extends SwipeBackActivity {
         }
     };
 
-    /**
-     * 随机数
-     *
-     * @return
-     */
-    private int getRandom() {
-        Random random = new Random();
-        return random.nextInt(100);
-    }
 
 }

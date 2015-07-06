@@ -10,6 +10,8 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * Created by shenghao on 2015/5/14.
  */
@@ -46,9 +48,50 @@ public class JSONHttpHelper extends Activity {
 
         @Override
         public void onSuccess(int i, Header[] headers, String responseBody) {
-            response = responseBody;
 
-            Debug.Log("server response:", response);
+            // 获取文件响应类型
+            String contentType_value = null;
+
+            // 遍历头部信息
+            for (Header header : headers) {
+                // 获取contentType_value的头部信息
+                if (header.getName().equals("Content-Type")) {
+                    // 获取他的value值
+                    contentType_value = header.getValue();
+                }
+            }
+            Debug.Log("contentType_value", contentType_value);
+            // 定义服务器端缺省的编码方式
+            String default_charset = "UTF-8";
+            // 处理contentType_value来获取编码方式
+            // 判断是否为null
+            if (contentType_value != null) {
+                // 判断是否有=字符
+                if (contentType_value.contains("=")) {
+                    // 获取=字符位置
+                    int index = contentType_value.indexOf("=");
+                    // 从=所在位置的下一个字符开始截取，返回服务器端的编码
+                    default_charset = contentType_value.substring(
+                            index + 1, contentType_value.length());
+                } else {
+                    String result = new String(responseBody);
+                    default_charset = getCharSet(result);
+                }
+            } else {
+                String result = new String(responseBody);
+                default_charset = getCharSet(result);
+            }
+            Debug.Log("编码是：", default_charset + "");
+
+
+            try {
+                response = new String(responseBody.getBytes(), "UTF-8");
+                Debug.Log("server response:", response);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                response = responseBody;
+            }
+
             if (rawResponse) {
                 Success();
                 return;
@@ -56,7 +99,11 @@ public class JSONHttpHelper extends Activity {
             try {
                 JSONObject json = new JSONObject(response.trim());
 
-                totalNum = json.getInt("totalNum");
+                if (json.has("totalNum")) {
+                    totalNum = json.getInt("totalNum");
+                } else if (json.has("displayNum")) {
+                    totalNum = json.getInt("displayNum");
+                }
                 Debug.Log("totalNum is ", totalNum + "");
 
                 datas = (JSONArray) json.get("data");
@@ -78,5 +125,38 @@ public class JSONHttpHelper extends Activity {
                 return;
             }
         }
+
+        /**
+         * 获取网页源代码中默认的编码
+         *
+         * @param result
+         * @return
+         */
+        public String getCharSet(String result) {
+            String defaultCharset = null;
+            // <mate http-equiv="Content-Type"
+            // content="text/html; charset=GBK" /> //html4
+            // <mate charset="UTF-8">
+            if (result != null) {
+                if (result
+                        .contains("content=\"text/html; charset=GBK\"")) {
+                    defaultCharset = "GBK";
+                } else if (result
+                        .contains("content=\"text/html; charset=UTF-8\"")) {
+                    defaultCharset = "UTF-8";
+                } else if (result
+                        .contains("content=\"text/html; charset=GB2312\"")) {
+                    defaultCharset = "GB2312";
+                } else if (result.contains("charset=\"UTF-8\"")) {
+                    defaultCharset = "UTF-8";
+                } else if (result.contains("charset=\"UTF-8\"")) {
+                    defaultCharset = "GBK";
+                } else if (result.contains("charset=\"gb18030\"")) {
+                    defaultCharset = "UTF-8";
+                }
+            }
+            return defaultCharset;
+        }
+
     }
 }
