@@ -69,7 +69,11 @@ public class MenuFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ItemCategoryBean itemObject = (ItemCategoryBean) parent.getItemAtPosition(position);
-                mActivity.setCategory(itemObject);
+                if (itemObject.tag.equals("9GAG")) {
+                    mActivity.showGagFragment();
+                } else {
+                    mActivity.setCategory(itemObject);
+                }
             }
         });
         return view;
@@ -110,18 +114,17 @@ public class MenuFragment extends BaseFragment {
     }
 
     private void UpdateItem(JSONArray thumbs) {
+
+        ItemCategoryBean itemCategoryBean = new ItemCategoryBean();
+        itemCategoryBean.icon = "";
+        itemCategoryBean.title = "9GAG";
+        itemCategoryBean.tag = "9GAG";
+        itemObjects.add(itemCategoryBean);
+
         for (int i = 0; i < thumbs.length(); i++) {
             try {
                 ItemCategoryBean itemObject = new ItemCategoryBean();
                 JSONObject d = (JSONObject) thumbs.get(i);
-                //百度图片助手不允许美女模块
-/*                if (!d.getString("column").equals("美女")) {
-                    itemObject.setIcon(d.getString("thumb_url"));
-                    itemObject.setTitle(d.getString("column"));
-                    itemObject.setTag(convertTagName(d.getString("tag")));
-                    itemObjects.add(itemObject);
-                }*/
-
                 itemObject.icon = d.getString("thumb_url");
                 itemObject.title = d.getString("column");
                 itemObject.tag = convertTagName(d.getString("tag"));

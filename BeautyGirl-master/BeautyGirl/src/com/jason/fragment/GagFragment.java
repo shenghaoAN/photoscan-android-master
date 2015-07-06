@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jason.animation.ZoomOutPageTransformer;
-import com.jason.bean.ItemCategoryBean;
-import com.jason.global.CommonData;
 import com.jason.hao.R;
 import com.jason.view.PagerSlidingTabStrip;
 import com.umeng.analytics.MobclickAgent;
@@ -74,8 +72,7 @@ public class GagFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int arg0) {
-            int[] id = {5, 18, 27, 37, 21, 36, 23, 24};
-            return new GagListFragment();
+            return GagListFragment.newInstance(Title[arg0].toLowerCase());
         }
 
         @Override

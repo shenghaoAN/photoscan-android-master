@@ -83,9 +83,17 @@ public class MainActivity extends BaseActivity {
 
     private void initFragment() {
         replaceFragment(R.id.menu_fragment, new MenuFragment());
-        ItemCategoryBean itemObject = new ItemCategoryBean();
-        itemObject.title = "明星";
+//        ItemCategoryBean itemObject = new ItemCategoryBean();
+//        itemObject.title = "明星";
 //        setCategory(itemObject);
+        showGagFragment();
+    }
+
+    /**
+     * 显示GagFragment页面
+     */
+    public void showGagFragment(){
+        dl.close();
         replaceFragment(R.id.linear_fragment, new GagFragment());
     }
 
@@ -118,7 +126,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onClose() {
-                shake();
+//                shake();
             }
 
             @Override
