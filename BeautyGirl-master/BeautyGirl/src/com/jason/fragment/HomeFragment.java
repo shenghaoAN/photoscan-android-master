@@ -260,7 +260,9 @@ public class HomeFragment extends BaseFragment {
      */
     private void SearchText() {
         if (edit_search.getText().toString().isEmpty()) {
-            ToastShow.displayToast(getActivity(), getString(R.string.search));
+            if (isAdded()) {
+                ToastShow.displayToast(getActivity(), getActivity().getResources().getString(R.string.search));
+            }
             return;
         }
 
@@ -363,16 +365,21 @@ public class HomeFragment extends BaseFragment {
         viewpager_ad.setAdapter(lunboadapter);
         viewpager_ad.setOnPageChangeListener(new GuidePageChangeListener());
 
-        // 总的点数
-        focusView.setCount(itemCartoonDetailBeans.size());
-        int gbs = 1000 / itemCartoonDetailBeans.size();
-        int totalMax = gbs * itemCartoonDetailBeans.size();
-        viewpager_ad.setCurrentItem(totalMax); // 初始位置在靠近1000的整个整除的数字
+        if (itemCartoonDetailBeans != null && itemCartoonDetailBeans.size() > 0) {
+            // 总的点数
+            focusView.setCount(itemCartoonDetailBeans.size());
+            int gbs = 1000 / itemCartoonDetailBeans.size();
+            int totalMax = gbs * itemCartoonDetailBeans.size();
+            viewpager_ad.setCurrentItem(totalMax); // 初始位置在靠近1000的整个整除的数字
 
-        // 当前位置
-        int currentIndex = viewpager_ad.getCurrentItem() % itemCartoonDetailBeans.size();
-        focusView.setCurrentIndex(currentIndex);
-        startLunbo();
+            // 当前位置
+            int currentIndex = viewpager_ad.getCurrentItem() % itemCartoonDetailBeans.size();
+            focusView.setCurrentIndex(currentIndex);
+            // 描述文字
+            focusView.setTitle(itemCartoonDetailBeans.get(currentIndex).desc.trim());
+//          focusView.getBackground().setAlpha(100);
+            startLunbo();
+        }
     }
 
     /**
@@ -393,6 +400,8 @@ public class HomeFragment extends BaseFragment {
         public void onPageSelected(final int arg0) {
             int currentIndex = arg0 % itemCartoonDetailBeans.size();
             focusView.setCurrentIndex(currentIndex);
+            // 描述文字
+            focusView.setTitle(itemCartoonDetailBeans.get(currentIndex).desc.trim());
         }
     }
 
@@ -534,7 +543,9 @@ public class HomeFragment extends BaseFragment {
                     }
 
                     public void Failure() {
-                        ToastShow.displayToast(getActivity(), getString(R.string.check_net));
+                        if (isAdded()) {
+                            ToastShow.displayToast(getActivity(), getActivity().getResources().getString(R.string.check_net));
+                        }
                         Debug.Log("banner", "获取本地数据库");
                         //取出本地数据
                         if (itemCartoonDetailBeans.isEmpty()) {

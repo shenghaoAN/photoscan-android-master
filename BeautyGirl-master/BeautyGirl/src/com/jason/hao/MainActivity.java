@@ -4,15 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jason.Cfg;
+import com.jason.Debug;
 import com.jason.bean.ItemCategoryBean;
 import com.jason.fragment.GagFragment;
-import com.jason.fragment.GagListFragment;
 import com.jason.fragment.HomeFragment;
 import com.jason.fragment.MenuFragment;
 import com.jason.view.DragLayout;
@@ -21,6 +23,7 @@ import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.message.PushAgent;
+import com.umeng.message.UmengRegistrar;
 import com.umeng.update.UmengUpdateAgent;
 
 /**
@@ -58,8 +61,8 @@ public class MainActivity extends BaseActivity {
     private void setUpUmengPush() {
         PushAgent mPushAgent = PushAgent.getInstance(this);
         mPushAgent.enable();
-//      String device_token = UmengRegistrar.getRegistrationId(this);
-//      Debug.Log("device_token",device_token);
+        String device_token = UmengRegistrar.getRegistrationId(this);
+        Debug.Log("device_token", device_token);
     }
 
     /**
@@ -83,18 +86,19 @@ public class MainActivity extends BaseActivity {
 
     private void initFragment() {
         replaceFragment(R.id.menu_fragment, new MenuFragment());
-//        ItemCategoryBean itemObject = new ItemCategoryBean();
-//        itemObject.title = "明星";
-//        setCategory(itemObject);
-        showGagFragment();
+        ItemCategoryBean itemObject = new ItemCategoryBean();
+        itemObject.title = "明星";
+        setCategory(itemObject);
+//        showGagFragment();  //显示Menu gag页面
     }
 
     /**
      * 显示GagFragment页面
      */
-    public void showGagFragment(){
+    public void showGagFragment() {
         dl.close();
         replaceFragment(R.id.linear_fragment, new GagFragment());
+        txt_title.setText(getString(R.string.app_name));
     }
 
     private void initView() {
@@ -158,6 +162,24 @@ public class MainActivity extends BaseActivity {
     public void replaceFragment(int viewId, Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(viewId, fragment).commit();
+    }
+
+    private long exitTime = 0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(getApplicationContext(), this.getString(R.string.out_app), Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

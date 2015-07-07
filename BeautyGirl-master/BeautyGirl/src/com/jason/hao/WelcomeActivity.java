@@ -8,10 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.jason.object.DeviceObject;
-import com.jason.helper.BaiduLocationHelper;
 
 import java.util.Random;
 
@@ -34,8 +31,8 @@ public class WelcomeActivity extends BaseActivity {
     private int[] pics = {R.drawable.default1, R.drawable.default2,
             R.drawable.default3, R.drawable.default4, R.drawable.default5};
 
-    private LocationClient locationClient;
-    private BaiduLocationHelper baiduLocationHelper;
+//    private LocationClient locationClient;
+//    private BaiduLocationHelper baiduLocationHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +41,12 @@ public class WelcomeActivity extends BaseActivity {
         setContentView(R.layout.activity_welcome);
         //初始化BmobSDK
         Bmob.initialize(this, "c8ca6baff4ca7663b39cb5e3975a2adc");
-        locationClient = new LocationClient(this);
-        baiduLocationHelper = new BaiduLocationHelper(this, locationClient);
+//        locationClient = new LocationClient(this);
+//        baiduLocationHelper = new BaiduLocationHelper(this, locationClient);
 
         Save2Bmob();   //保存数据到bmob后台服务器
         initView();   //初始化view
-        initLocation();   //开始定位
+//        initLocation();   //开始定位
     }
 
 
@@ -124,22 +121,22 @@ public class WelcomeActivity extends BaseActivity {
     /**
      * 初始化定位
      */
-    private void initLocation() {
-        LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//设置定位模式
-        option.setCoorType("gcj02");  //返回的定位结果是百度经纬度，默认值gcj02
-        int span = 900;   //span < 1000 则为 app主动请求定位,span >= 1000 则表示定时定位
-        option.setScanSpan(span);  //设置发起定位请求的间隔时间
-        option.setIsNeedAddress(true);  //设置是否需要转换成地址
-        option.setProdName("BeautyGirl");  //设置prod字段
-        locationClient.setLocOption(option);
-        locationClient.start();
-    }
+//    private void initLocation() {
+//        LocationClientOption option = new LocationClientOption();
+//        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//设置定位模式
+//        option.setCoorType("gcj02");  //返回的定位结果是百度经纬度，默认值gcj02
+//        int span = 900;   //span < 1000 则为 app主动请求定位,span >= 1000 则表示定时定位
+//        option.setScanSpan(span);  //设置发起定位请求的间隔时间
+//        option.setIsNeedAddress(true);  //设置是否需要转换成地址
+//        option.setProdName("BeautyGirl");  //设置prod字段
+//        locationClient.setLocOption(option);
+//        locationClient.start();
+//    }
 
     @Override
     protected void onStop() {
         // TODO Auto-generated method stub
-        locationClient.stop();
+//        locationClient.stop();
         super.onStop();
     }
 

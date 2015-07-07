@@ -4,4 +4,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- 轮播 -->
+    <dimen name="lunbo_fontsize">13sp</dimen>
+    <dimen name="viewpager_focusview_paddingleft_size">5dp</dimen>
+    <dimen name="viewpager_focusview_paddingright_size">20dp</dimen>
+    <dimen name="viewpager_focusview_text_padding_font">4dp</dimen>
+
 </resources>

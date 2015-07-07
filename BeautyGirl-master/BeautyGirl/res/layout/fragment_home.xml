@@ -48,7 +48,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:layout_gravity="bottom"
-                        android:background="@android:color/transparent" />
+                        android:background="@color/zoom_bar" />
                 </FrameLayout>
 
                 <RelativeLayout

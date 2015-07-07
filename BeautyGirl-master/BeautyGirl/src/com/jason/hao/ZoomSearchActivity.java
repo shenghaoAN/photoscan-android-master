@@ -176,7 +176,7 @@ public class ZoomSearchActivity extends SwipeBackActivity {
                 if (popupwindow.isShowing())
                     popupwindow.dismiss();
                 //配置分享平台
-                configPlatforms(photoSearchObjects.get(pagerposition).getQueryExt(), photoSearchObjects.get(pagerposition).getFromPageTitleEnc() + " \n 海量图片，尽在图片汇 \n http://apk.91.com/Soft/Android/com.jason.hao-2.html",
+                configPlatforms(photoSearchObjects.get(pagerposition).getQueryExt(), photoSearchObjects.get(pagerposition).getFromPageTitleEnc() + " \n 海量图片，尽在图片汇 \n",
                         photoSearchObjects.get(pagerposition).getObjURL(), photoSearchObjects.get(pagerposition).getObjURL());
                 mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT, SHARE_MEDIA.RENREN,
                         SHARE_MEDIA.DOUBAN);

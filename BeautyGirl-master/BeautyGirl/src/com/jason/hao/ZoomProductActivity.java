@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.jason.Debug;
 import com.jason.animation.DepthPageTransformer;
 import com.jason.bean.FavroiteBean;
 import com.jason.bean.ItemCartoonDetailBean;
@@ -61,6 +62,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 图片显示
+ *
  * @author jason
  */
 public class ZoomProductActivity extends SwipeBackActivity {
@@ -175,7 +178,7 @@ public class ZoomProductActivity extends SwipeBackActivity {
                 if (popupwindow.isShowing())
                     popupwindow.dismiss();
                 //配置分享平台
-                configPlatforms(cartoonObjects.get(pagerposition).tag, cartoonObjects.get(pagerposition).desc + " \n 海量图片，尽在图片汇 \n http://apk.91.com/Soft/Android/com.jason.hao-2.html",
+                configPlatforms(cartoonObjects.get(pagerposition).tag, cartoonObjects.get(pagerposition).desc + " \n 海量图片，尽在图片汇 \n",
                         cartoonObjects.get(pagerposition).image_url, cartoonObjects.get(pagerposition).share_url);
                 mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT, SHARE_MEDIA.RENREN,
                         SHARE_MEDIA.DOUBAN);
@@ -209,19 +212,19 @@ public class ZoomProductActivity extends SwipeBackActivity {
                 currentposition = arg0 + 1;
                 txt_title.setText(cartoonObjects.get(pagerposition).desc
                         + "(" + currentposition + "/" + cartoonObjects.size() + ")");
-
+                if (arg0 == cartoonObjects.size() - 1) {
+                    Debug.Log("onPageScrolled", " " + arg0);
+                }
             }
 
             @Override
             public void onPageScrolled(int arg0, float arg1, int arg2) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void onPageScrollStateChanged(int arg0) {
                 // TODO Auto-generated method stub
-
             }
         });
 

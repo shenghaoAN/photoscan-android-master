@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -24,22 +25,38 @@ public class ViewPagerFocusView extends View {
     private Bitmap losesFocus;            //没有获得焦点的圆点
     private Bitmap getFocus;            //获得焦点的圆点
     private Paint paint;
+    private String title = "";                //标题
+    private int textPaddingTop = 20;
+
+    private int textPaddingFont; // 文字间距
 
     private Context context;
+
+    private int paddingLeftSize;
+    private int paddingRightSize;
 
     public ViewPagerFocusView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         this.context = context;
+        initPaddingSize();
     }
 
     public ViewPagerFocusView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
+        initPaddingSize();
     }
 
     public ViewPagerFocusView(Context context) {
         super(context);
         this.context = context;
+        initPaddingSize();
+    }
+
+    private void initPaddingSize() {
+        paddingLeftSize = context.getResources().getDimensionPixelSize(R.dimen.viewpager_focusview_paddingleft_size);
+        paddingRightSize = context.getResources().getDimensionPixelSize(R.dimen.viewpager_focusview_paddingright_size);
+        textPaddingFont = context.getResources().getDimensionPixelSize(R.dimen.viewpager_focusview_text_padding_font);
     }
 
     /**
@@ -54,7 +71,9 @@ public class ViewPagerFocusView extends View {
             getFocus = BitmapFactory.decodeResource(getResources(), R.drawable.page_indicator_focused);
             paint = new Paint(Paint.ANTI_ALIAS_FLAG);
             paint.setColor(Color.WHITE);
-            paint.setTextAlign(Align.CENTER);
+//			paint.setTextAlign(Align.CENTER);
+            paint.setTextAlign(Align.LEFT);
+            paint.setTextSize((int) context.getResources().getDimensionPixelSize(R.dimen.lunbo_fontsize));
         }
     }
 
@@ -75,24 +94,44 @@ public class ViewPagerFocusView extends View {
     }
 
     /**
-     * 画点
+     * 设置标题
      *
-     * @param canvas
+     * @param title
      */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    private String getText(int width) {
+        Rect rect = new Rect();
+
+        //返回包围整个字符串的最小的一个Rect区域
+        paint.getTextBounds("中", 0, 1, rect); //测量一个中文字体的宽度
+        int maxLength = width / (rect.width() + 2);
+        textPaddingTop = (getHeight() - rect.height()) / 2 + rect.height();
+        if (!"".equals(title) && title.length() > maxLength) {
+            return title.substring(0, maxLength - 6);
+        } else {
+            return title;
+        }
+    }
+
     private void drawRound(Canvas canvas) {
         if (losesFocus == null) return;
 
         int height = getHeight();
         int ratioPaddingTop = height / 2 - losesFocus.getHeight() / 2;
 
-        //居右
-//        int start = (getWidth() - (count + 1) * interval - losesFocus.getWidth() * count - paddingRightSize);//居右时的起始坐标
+        int start = (getWidth() - (count + 1) * interval - losesFocus.getWidth() * count - paddingRightSize);//居右时的起始坐标
 
-        int focusWidth = (count + 1) * interval + losesFocus.getWidth() * count;//所有小点，加间隙的总长度
-        int start = getWidth() / 2 - focusWidth / 2;//居中时起始坐标
+//		int focusWidth = (count+1)*interval + losesFocus.getWidth()*count;//所有小点，加间隙的总长度
+//		int start = getWidth()/2 - focusWidth/2;//居中时起始坐标
 
         for (int i = 0; i < count; i++) {
             int left = (start + i * interval + interval + i * losesFocus.getWidth());
+            if (i == 0 && !isEmpty(title)) {
+                canvas.drawText(getText(left - textPaddingFont * 2), paddingLeftSize, textPaddingTop, paint);
+            }
             if (i == currentIndex) {
                 canvas.drawBitmap(getFocus, left, ratioPaddingTop, paint);
             } else {
