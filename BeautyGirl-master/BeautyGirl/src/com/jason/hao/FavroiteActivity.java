@@ -9,6 +9,7 @@ import com.jason.adapter.FavroiteAdapter;
 import com.jason.bean.FavroiteBean;
 import com.jason.bean.ItemCartoonDetailBean;
 import com.jason.dbservice.FavroiteBeanService;
+import com.jason.dbservice.ManagerService;
 import com.jason.pinnedheaderlistview.PinnedHeaderListView;
 import com.jason.swipeback.SwipeBackActivity;
 
@@ -37,7 +38,7 @@ public class FavroiteActivity extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favroite);
-        favroiteBeanService = FavroiteBeanService.instance(this);
+        favroiteBeanService = ManagerService.instance(this).getFavroiteBeanService();
         itemCartoonDetailBeans = new ArrayList<ItemCartoonDetailBean>();
         groupList = new ArrayList<String>();
         childList = new ArrayList<List<FavroiteBean>>();

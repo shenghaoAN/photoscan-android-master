@@ -29,8 +29,13 @@ public class BasisService<T> {
 
     public BasisService(Context context) {
         this.context = context;
-        this.databaseHelper = new DatabaseHelper(context);
-        this.database = this.databaseHelper.getWritableDatabase();
+        if (this.databaseHelper == null) {
+            this.databaseHelper = new DatabaseHelper(context);
+        }
+
+        if (this.database == null) {
+            this.database = this.databaseHelper.getWritableDatabase();
+        }
     }
 
     // Ìí¼Ó

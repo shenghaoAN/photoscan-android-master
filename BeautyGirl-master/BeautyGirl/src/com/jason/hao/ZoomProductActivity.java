@@ -27,6 +27,7 @@ import com.jason.animation.DepthPageTransformer;
 import com.jason.bean.FavroiteBean;
 import com.jason.bean.ItemCartoonDetailBean;
 import com.jason.dbservice.FavroiteBeanService;
+import com.jason.dbservice.ManagerService;
 import com.jason.global.CommonData;
 import com.jason.photoview.HackyViewPager;
 import com.jason.photoview.PhotoView;
@@ -110,7 +111,7 @@ public class ZoomProductActivity extends SwipeBackActivity {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zoom_product);
-        favroiteBeanService = FavroiteBeanService.instance(this);
+        favroiteBeanService = ManagerService.instance(this).getFavroiteBeanService();
         loading = new Loading(ZoomProductActivity.this);
         imageLoader = ImageLoader.getInstance();
         Bundle bundle = getIntent().getExtras();

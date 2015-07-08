@@ -15,6 +15,7 @@ import com.jason.Debug;
 import com.jason.adapter.BeautyItemAdapter;
 import com.jason.bean.ItemCartoonDetailBean;
 import com.jason.dbservice.ItemCartoonDetailBeanService;
+import com.jason.dbservice.ManagerService;
 import com.jason.global.CommonData;
 import com.jason.helper.HttpClientHelper;
 import com.jason.helper.JSONHttpHelper;
@@ -63,7 +64,7 @@ public class DetailActivity extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         itemCartoonDetailBeans = new ArrayList<ItemCartoonDetailBean>();
-        itemCartoonDetailBeanService = ItemCartoonDetailBeanService.instance(this);
+        itemCartoonDetailBeanService = ManagerService.instance(this).getItemCartoonDetailBeanService();
         Bundle bundle = getIntent().getExtras();
         tag = bundle.getString(CommonData.TAG);
         colum = bundle.getString(CommonData.TITLE);

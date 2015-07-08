@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.jason.adapter.SearchRecordAdapter;
 import com.jason.bean.SearchBean;
+import com.jason.dbservice.ManagerService;
 import com.jason.dbservice.SearchBeanService;
 import com.jason.pinnedheaderlistview.PinnedHeaderListView;
 import com.jason.swipeback.SwipeBackActivity;
@@ -38,7 +39,7 @@ public class SearchRecordActivity extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_record);
-        searchBeanService = SearchBeanService.instance(this);
+        searchBeanService = ManagerService.instance(this).getSearchBeanService();
         groupList = new ArrayList<String>();
         childList = new ArrayList<List<SearchBean>>();
         getList();  // 获取数据

@@ -31,6 +31,7 @@ import com.jason.bean.ItemCategoryBean;
 import com.jason.bean.SearchBean;
 import com.jason.dbservice.ItemCartoonDetailBeanService;
 import com.jason.dbservice.ItemCategoryBeanService;
+import com.jason.dbservice.ManagerService;
 import com.jason.dbservice.SearchBeanService;
 import com.jason.global.CommonData;
 import com.jason.hao.DetailActivity;
@@ -120,9 +121,9 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        searchBeanService = SearchBeanService.instance(getActivity());
-        itemCategoryBeanService = ItemCategoryBeanService.instance(getActivity());
-        itemCartoonDetailBeanService = ItemCartoonDetailBeanService.instance(getActivity());
+        searchBeanService = ManagerService.instance(getActivity()).getSearchBeanService();
+        itemCategoryBeanService = ManagerService.instance(getActivity()).getItemCategoryBeanService();
+        itemCartoonDetailBeanService = ManagerService.instance(getActivity()).getItemCartoonDetailBeanService();
         itemCartoonDetailBeans = new ArrayList<ItemCartoonDetailBean>();
         itemCategoryBeans = new ArrayList<ItemCategoryBean>();
         ScreenWidth = DensityUtils.getWidth(getActivity());

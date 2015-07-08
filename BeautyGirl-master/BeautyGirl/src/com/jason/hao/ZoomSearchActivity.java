@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.jason.animation.DepthPageTransformer;
 import com.jason.bean.FavroiteBean;
 import com.jason.dbservice.FavroiteBeanService;
+import com.jason.dbservice.ManagerService;
 import com.jason.global.CommonData;
 import com.jason.object.PhotoSearchObject;
 import com.jason.photoview.HackyViewPager;
@@ -108,7 +109,7 @@ public class ZoomSearchActivity extends SwipeBackActivity {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zoom_product);
-        favroiteBeanService = FavroiteBeanService.instance(this);
+        favroiteBeanService = ManagerService.instance(this).getFavroiteBeanService();
         loading = new Loading(ZoomSearchActivity.this);
         imageLoader = ImageLoader.getInstance();
         Bundle bundle = getIntent().getExtras();

@@ -2,8 +2,11 @@ package com.jason.dbservice;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
+import com.jason.bean.ItemCartoonDetailBean;
 import com.jason.bean.ItemCategoryBean;
+import com.jason.database.DatabaseHelper;
 import com.jason.utils.DBUtils;
 
 import java.util.ArrayList;
@@ -24,13 +27,17 @@ public class ItemCategoryBeanService extends BasisService {
         this.clazz = ItemCategoryBean.class;
     }
 
+    public ItemCategoryBeanService(Context context, DatabaseHelper sqlHelper, SQLiteDatabase database) {
+        super(context, sqlHelper, database, ItemCategoryBean.class);
+    }
+
     /**
      * 单例模式
      *
      * @param context
      * @return
      */
-    public static ItemCategoryBeanService instance(Context context) {
+    public static synchronized ItemCategoryBeanService instance(Context context) {
         if (service == null) {
             service = new ItemCategoryBeanService(context);
         }

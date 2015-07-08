@@ -2,8 +2,10 @@ package com.jason.dbservice;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.jason.bean.SearchBean;
+import com.jason.database.DatabaseHelper;
 import com.jason.utils.DBUtils;
 
 import java.util.ArrayList;
@@ -24,13 +26,17 @@ public class SearchBeanService extends BasisService {
         this.clazz = SearchBean.class;
     }
 
+    public SearchBeanService(Context context, DatabaseHelper sqlHelper, SQLiteDatabase database) {
+        super(context, sqlHelper, database, SearchBean.class);
+    }
+
     /**
      * 单例模式
      *
      * @param context
      * @return
      */
-    public static SearchBeanService instance(Context context) {
+    public static synchronized SearchBeanService instance(Context context) {
         if (service == null) {
             service = new SearchBeanService(context);
         }

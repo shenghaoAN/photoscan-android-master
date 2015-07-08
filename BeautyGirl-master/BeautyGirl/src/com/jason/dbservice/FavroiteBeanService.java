@@ -2,10 +2,10 @@ package com.jason.dbservice;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.jason.bean.FavroiteBean;
-import com.jason.bean.SearchBean;
-import com.jason.utils.CharacterParser;
+import com.jason.database.DatabaseHelper;
 import com.jason.utils.DBUtils;
 
 import java.util.ArrayList;
@@ -26,13 +26,17 @@ public class FavroiteBeanService extends BasisService {
         this.clazz = FavroiteBean.class;
     }
 
+    public FavroiteBeanService(Context context, DatabaseHelper sqlHelper, SQLiteDatabase database) {
+        super(context, sqlHelper, database, FavroiteBean.class);
+    }
+
     /**
      * 单例模式
      *
      * @param context
      * @return
      */
-    public static FavroiteBeanService instance(Context context) {
+    public static synchronized FavroiteBeanService instance(Context context) {
         if (service == null) {
             service = new FavroiteBeanService(context);
         }
