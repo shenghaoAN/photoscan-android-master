@@ -177,7 +177,7 @@ public class ZoomSearchActivity extends SwipeBackActivity {
                 if (popupwindow.isShowing())
                     popupwindow.dismiss();
                 //配置分享平台
-                configPlatforms(photoSearchObjects.get(pagerposition).getQueryExt(), photoSearchObjects.get(pagerposition).getFromPageTitleEnc() + " \n 海量图片，尽在图片汇 \n",
+                configPlatforms(photoSearchObjects.get(pagerposition).getQueryExt(), photoSearchObjects.get(pagerposition).getFromPageTitleEnc() + " \n 海量图片，尽在图片汇 \n http://www.anzhi.com/soft_2262498.html",
                         photoSearchObjects.get(pagerposition).getObjURL(), photoSearchObjects.get(pagerposition).getObjURL());
                 mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT, SHARE_MEDIA.RENREN,
                         SHARE_MEDIA.DOUBAN);

@@ -38,6 +38,10 @@ public class SearchBean extends BmobObject implements Serializable {
     @DBField(name = "date", type = DBField.Type.DATE, fineldName = "date")
     public Date date;
 
+    @JsonField(name = "tagpingyin")
+    @DBField(name = "tagpingyin", type = DBField.Type.TEXT, fineldName = "tagpingyin")
+    public String tagpingyin;
+
     @Override
     public String toString() {
         return "SearchBean{" +

@@ -132,7 +132,6 @@ public class WelcomeActivity extends BaseActivity {
 //        locationClient.setLocOption(option);
 //        locationClient.start();
 //    }
-
     @Override
     protected void onStop() {
         // TODO Auto-generated method stub

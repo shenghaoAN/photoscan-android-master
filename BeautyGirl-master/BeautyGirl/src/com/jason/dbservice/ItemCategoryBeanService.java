@@ -4,8 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.jason.bean.FavroiteBean;
 import com.jason.bean.ItemCartoonDetailBean;
 import com.jason.bean.ItemCategoryBean;
+import com.jason.bean.SearchBean;
 import com.jason.database.DatabaseHelper;
 import com.jason.utils.DBUtils;
 
