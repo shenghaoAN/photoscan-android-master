@@ -39,6 +39,13 @@ public class BaseActivity extends FragmentActivity {
         return super.onCreateView(parent, name, context, attrs);
     }
 
+    //onStop之前调用，用于保存信息
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //注释掉，让其不再保存Fragment的状态，达到其随着Activity一起被回收的效果！
+//        super.onSaveInstanceState(outState);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

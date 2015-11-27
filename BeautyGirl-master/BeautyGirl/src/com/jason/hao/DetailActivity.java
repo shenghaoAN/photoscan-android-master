@@ -7,10 +7,12 @@ import android.os.Message;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.huewu.pla.lib.WaterFallListView;
+import com.jason.Cfg;
 import com.jason.Debug;
 import com.jason.adapter.BeautyItemAdapter;
 import com.jason.bean.ItemCartoonDetailBean;
@@ -22,6 +24,10 @@ import com.jason.helper.JSONHttpHelper;
 import com.jason.swipeback.SwipeBackActivity;
 import com.jason.utils.ToastShow;
 import com.loopj.android.http.RequestParams;
+
+import net.youmi.android.banner.AdSize;
+import net.youmi.android.banner.AdView;
+import net.youmi.android.spot.SpotManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -68,11 +74,35 @@ public class DetailActivity extends SwipeBackActivity {
         Bundle bundle = getIntent().getExtras();
         tag = bundle.getString(CommonData.TAG);
         colum = bundle.getString(CommonData.TITLE);
+        initAD();
         initView();
         getGridData();
     }
 
+    /**
+     * 设置插屏广告
+     */
+    private void initAD() {
+        if (Cfg.showDetailAdNum % Cfg.adNum == 0) {
+            SpotManager.getInstance(this).setSpotOrientation(
+                    SpotManager.ORIENTATION_LANDSCAPE);
+            SpotManager.getInstance(this).showSpotAds(this);
+        }
+        Cfg.showDetailAdNum++;
+    }
+
+    /**
+     * initView
+     */
     private void initView() {
+
+        // 实例化广告条
+        AdView adView = new AdView(this, AdSize.FIT_SCREEN);
+        // 获取要嵌入广告条的布局
+        LinearLayout adLayout = (LinearLayout) findViewById(R.id.adLayout);
+        // 将广告条加入到布局中
+        adLayout.addView(adView);
+
         topbar = (View) findViewById(R.id.topbar);
         img_back = (ImageView) topbar.findViewById(R.id.img_back);
         txt_title = (TextView) topbar.findViewById(R.id.txt_title);
@@ -284,6 +314,13 @@ public class DetailActivity extends SwipeBackActivity {
     private int getRandom() {
         Random random = new Random();
         return random.nextInt(100);
+    }
+
+    @Override
+    protected void onStop() {
+        // 如果不调用此方法，则按home键的时候会出现图标无法显示的情况。
+        SpotManager.getInstance(this).onStop();
+        super.onStop();
     }
 
 }

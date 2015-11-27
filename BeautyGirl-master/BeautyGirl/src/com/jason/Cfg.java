@@ -9,9 +9,9 @@ import android.content.SharedPreferences;
 
 public class Cfg {
 
-    public static String mode = "sandbox"; // sandbox or product
-    public static final Integer appVersion = 4;
-    public static String VersionName = "1.5.0";
+    public static String mode = "product"; // sandbox or product
+    public static final Integer appVersion = 5;
+    public static String VersionName = "1.6.0";
 
     public static Integer appVersionInstalled = 0;
     public static boolean first = true;
@@ -22,6 +22,10 @@ public class Cfg {
 
     public static String BaseUrl = "http://image.baidu.com/";    //百度图片url
     public static String GagUrl = "http://infinigag-us.aws.af.cm/";  //9Gag搞笑图片url
+
+    public static int showHomeAdNum = 0;   //达到一定数量展示插屏广告
+    public static int showDetailAdNum = 0;   //达到一定数量展示插屏广告
+    public static int adNum = 5;     //adNum的倍数时展示插屏广告
 
     public static void setContext(Context ctx) {
         context = ctx;

@@ -14,7 +14,6 @@ import com.jason.bean.SearchBean;
 import com.jason.dbservice.SearchBeanService;
 import com.jason.global.CommonData;
 import com.jason.hao.DetailActivity;
-import com.jason.hao.PhotoSearchActivity;
 import com.jason.hao.R;
 import com.jason.helper.DateHelper;
 import com.jason.pinnedheaderlistview.SectionedBaseAdapter;
@@ -80,13 +79,18 @@ public class SearchRecordAdapter extends SectionedBaseAdapter {
         viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, PhotoSearchActivity.class);
+                Intent intent = new Intent(context, DetailActivity.class);
                 Bundle bundle = new Bundle();
-//                bundle.putString(CommonData.TAG, searchBean.text);
-//                bundle.putString(CommonData.TITLE, searchBean.column);
-                bundle.putString(CommonData.WORD, searchBean.text);
+                bundle.putString(CommonData.TAG, searchBean.text);
+                bundle.putString(CommonData.TITLE, searchBean.column);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
+
+/*                Intent intent = new Intent(context, PhotoSearchActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(CommonData.WORD, searchBean.text);
+                intent.putExtras(bundle);
+                context.startActivity(intent);*/
             }
         });
 
@@ -99,7 +103,7 @@ public class SearchRecordAdapter extends SectionedBaseAdapter {
                             public void onClick(DialogInterface dialog, int which) {
                                 //To change body of implemented methods use File | Settings | File Templates.
                                 ConfirmDialog.Hide();
-                                DeleteItem(searchBean, section);
+                                deleteItem(searchBean, section);
                             }
                         }, new DialogInterface.OnClickListener() {
                             @Override
@@ -118,9 +122,11 @@ public class SearchRecordAdapter extends SectionedBaseAdapter {
     /**
      * 删除搜索记录
      */
-    private void DeleteItem(SearchBean searchBean, int section) {
+    private void deleteItem(SearchBean searchBean, int section) {
         searchBeanService.delete(searchBean.id);
         childList.get(section).remove(searchBean);
+        if (childList.get(section).isEmpty())
+            groupList.remove(section);
         notifyDataSetChanged();
     }
 

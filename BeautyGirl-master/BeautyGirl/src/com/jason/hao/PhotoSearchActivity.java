@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 根据关键字搜索图片
+ *
  * Created by shenghao on 2015/7/6.
  */
 public class PhotoSearchActivity extends SwipeBackActivity {

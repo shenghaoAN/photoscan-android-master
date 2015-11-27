@@ -26,6 +26,8 @@ import com.umeng.message.PushAgent;
 import com.umeng.message.UmengRegistrar;
 import com.umeng.update.UmengUpdateAgent;
 
+import net.youmi.android.spot.SpotManager;
+
 /**
  * @author jason
  */
@@ -181,5 +183,18 @@ public class MainActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+//    @Override
+//    protected void onStop() {
+//        // 如果不调用此方法，则按home键的时候会出现图标无法显示的情况。
+//        SpotManager.getInstance(this).onStop();
+//        super.onStop();
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        SpotManager.getInstance(this).onDestroy();
+//        super.onDestroy();
+//    }
 
 }

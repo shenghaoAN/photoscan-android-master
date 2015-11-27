@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jason.hao"
-    android:versionCode="4"
-    android:versionName="1.5.0">
+    android:versionCode="5"
+    android:versionName="1.6.0">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -34,6 +34,12 @@
     <!-- 如果需要设置前台是否显示通知，需要设置这个权限 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- 如果使用积分墙广告,还需要配置下面权限 -->
+    <!--    <uses-permission
+            android:name="android.permission.PACKAGE_USAGE_STATS"
+            tools:ignore="ProtectedPermissions" />-->
 
     <application
         android:name="com.jason.MyApplication"
@@ -256,6 +262,22 @@
         <meta-data
             android:value=""
             android:name="UMENG_CHANNEL" />
+
+
+        <!-- 有米广告配置  -->
+        <activity
+            android:name="net.youmi.android.AdBrowser"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+        <service
+            android:name="net.youmi.android.AdService"
+            android:exported="false"></service>
+        <receiver android:name="net.youmi.android.AdReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

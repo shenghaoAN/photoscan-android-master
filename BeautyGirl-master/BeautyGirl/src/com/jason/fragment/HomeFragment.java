@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.jason.Cfg;
 import com.jason.Debug;
 import com.jason.adapter.ItemAdapter;
 import com.jason.adapter.LunBoAdapter;
@@ -35,7 +36,6 @@ import com.jason.dbservice.ManagerService;
 import com.jason.dbservice.SearchBeanService;
 import com.jason.global.CommonData;
 import com.jason.hao.DetailActivity;
-import com.jason.hao.PhotoSearchActivity;
 import com.jason.hao.R;
 import com.jason.helper.HttpClientHelper;
 import com.jason.helper.JSONHttpHelper;
@@ -47,6 +47,10 @@ import com.jason.view.VerticalScrollView;
 import com.jason.view.ViewPagerFocusView;
 import com.loopj.android.http.RequestParams;
 import com.umeng.analytics.MobclickAgent;
+
+import net.youmi.android.banner.AdSize;
+import net.youmi.android.banner.AdView;
+import net.youmi.android.spot.SpotManager;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -141,6 +145,43 @@ public class HomeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        initAD();
+        initView(view);
+        parseArgument();
+        getBanner();
+        getItem();
+        setClickListener();
+
+        return view;
+    }
+
+    /**
+     * 设置插屏广告
+     */
+    private void initAD() {
+        if (Cfg.showHomeAdNum % Cfg.adNum == 0) {
+            // 加载插播资源
+            SpotManager.getInstance(getActivity()).loadSpotAds();
+            SpotManager.getInstance(getActivity()).setSpotOrientation(
+                    SpotManager.ORIENTATION_LANDSCAPE);
+            SpotManager.getInstance(getActivity()).showSpotAds(getActivity());
+        }
+        Cfg.showHomeAdNum++;
+    }
+
+    /**
+     * initView
+     *
+     * @param view
+     */
+    private void initView(View view) {
+        // 实例化广告条
+        AdView adView = new AdView(getActivity(), AdSize.FIT_SCREEN);
+        // 获取要嵌入广告条的布局
+        LinearLayout adLayout = (LinearLayout) view.findViewById(R.id.adLayout);
+        // 将广告条加入到布局中
+        adLayout.addView(adView);
+
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
         scrollView = (VerticalScrollView) view.findViewById(R.id.scrollview);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
@@ -168,19 +209,11 @@ public class HomeFragment extends BaseFragment {
             edit_search.setAdapter(autoCompltetAdapter);
         }
 
-        parseArgument();
-        getBanner();
-        getItem();
-
         swipeRefreshLayout.setOnRefreshListener(new onRefreshListener());
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
-        setClickListener();
-
-        return view;
     }
 
     /**
@@ -287,20 +320,20 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
-//        Intent intent = new Intent(getActivity(), DetailActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putString(CommonData.TAG, edit_search.getText().toString());
-//        bundle.putString(CommonData.TITLE, title);
-//        intent.putExtras(bundle);
-//        startActivity(intent);
-//        DensityUtils.hideSoftWindow(getActivity(), edit_search);
-
-        Intent intent = new Intent(getActivity(), PhotoSearchActivity.class);
+        Intent intent = new Intent(getActivity(), DetailActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(CommonData.WORD, edit_search.getText().toString());
+        bundle.putString(CommonData.TAG, edit_search.getText().toString());
+        bundle.putString(CommonData.TITLE, title);
         intent.putExtras(bundle);
         startActivity(intent);
         DensityUtils.hideSoftWindow(getActivity(), edit_search);
+
+//        Intent intent = new Intent(getActivity(), PhotoSearchActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putString(CommonData.WORD, edit_search.getText().toString());
+//        intent.putExtras(bundle);
+//        startActivity(intent);
+//        DensityUtils.hideSoftWindow(getActivity(), edit_search);
     }
 
     /**

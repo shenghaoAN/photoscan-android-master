@@ -1,48 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/transparent">
 
-    <include
-        android:id="@+id/topbar"
-        layout="@layout/topbar"/>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
-        xmlns:pla="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/ListBgColor">
+        android:layout_marginBottom="50dp"
+        android:background="@android:color/transparent">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center" />
+        <include
+            android:id="@+id/topbar"
+            layout="@layout/topbar" />
 
-        <TextView
-            android:id="@+id/txt_error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/search_error"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"
-            android:textColor="@color/search_input_bg"
-            android:visibility="gone"
-            android:textSize="18sp" />
+        <LinearLayout xmlns:pla="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/ListBgColor">
 
-        <com.huewu.pla.lib.WaterFallListView
-            android:id="@+id/myListview"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scrollbars="vertical"
-            pla:plaColumnNumber="@integer/column_count"
-            pla:plaColumnPaddingLeft="2dp"
-            pla:plaColumnPaddingRight="2dp"
-            pla:plaLandscapeColumnNumber="@integer/column_count" />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/txt_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/search_error"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:textColor="@color/search_input_bg"
+                android:visibility="gone"
+                android:textSize="18sp" />
+
+            <com.huewu.pla.lib.WaterFallListView
+                android:id="@+id/myListview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scrollbars="vertical"
+                pla:plaColumnNumber="@integer/column_count"
+                pla:plaColumnPaddingLeft="2dp"
+                pla:plaColumnPaddingRight="2dp"
+                pla:plaLandscapeColumnNumber="@integer/column_count" />
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/adLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:layout_gravity="bottom"
+        android:gravity="center_horizontal"
+        android:background="@color/ListBgColor"></LinearLayout>
+
+</FrameLayout>
