@@ -48,7 +48,7 @@ public class WelcomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //有米广告
-        AdManager.getInstance(WelcomeActivity.this).init("5b834e4202318ff6", "36de673ce82c34e7", true);
+        AdManager.getInstance(WelcomeActivity.this).init("5b834e4202318ff6", "36de673ce82c34e7", false);
 
         //初始化BmobSDK
         Bmob.initialize(this, "c8ca6baff4ca7663b39cb5e3975a2adc");
