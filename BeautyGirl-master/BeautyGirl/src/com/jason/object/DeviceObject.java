@@ -37,4 +37,14 @@ public class DeviceObject extends BmobObject {
     public void setRelease(String release) {
         this.release = release;
     }
+
+    @Override
+    public String toString() {
+        return "DeviceObject{" +
+                "id=" + id +
+                ", sdk=" + sdk +
+                ", model='" + model + '\'' +
+                ", release='" + release + '\'' +
+                '}';
+    }
 }

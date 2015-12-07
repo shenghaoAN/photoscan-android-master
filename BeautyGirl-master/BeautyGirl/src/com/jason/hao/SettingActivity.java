@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,10 +18,6 @@ import java.util.List;
  */
 public class SettingActivity extends SwipeBackActivity {
 
-    private View topbar;
-    private ImageView img_back;
-    private TextView txt_title;
-
     private LinearLayout Layout_View;
 
     private List<SettingClass> list;
@@ -30,11 +25,14 @@ public class SettingActivity extends SwipeBackActivity {
     private static final String TAG_FAVROITE = "favroite";
     private static final String TAG_SEARCH = "search";
     private static final String TAG_FEEDBACK = "feedback";
+    private static final String TAG_AD = "ad";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        initAd();
+        initTopbar();
         initView();
         setDatas();
         updateUI();
@@ -42,16 +40,7 @@ public class SettingActivity extends SwipeBackActivity {
 
     private void initView() {
 
-        topbar = (View) findViewById(R.id.topbar);
-        img_back = (ImageView) topbar.findViewById(R.id.img_back);
-        txt_title = (TextView) topbar.findViewById(R.id.txt_title);
         txt_title.setText(getString(R.string.setting_manager));
-        img_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         Layout_View = (LinearLayout) findViewById(R.id.Layout_View);
     }
@@ -61,6 +50,7 @@ public class SettingActivity extends SwipeBackActivity {
         list.add(setSettingClass(R.string.setting_favroite, TAG_FAVROITE));
         list.add(setSettingClass(R.string.setting_search, TAG_SEARCH));
         list.add(setSettingClass(R.string.setting_feedback, TAG_FEEDBACK));
+        list.add(setSettingClass(R.string.ad_tips, TAG_AD));
     }
 
     private SettingClass setSettingClass(Integer id, String tag) {
@@ -106,6 +96,9 @@ public class SettingActivity extends SwipeBackActivity {
         } else if (settingClass.Tag.equals(TAG_FEEDBACK)) {
             FeedbackAgent agent = new FeedbackAgent(SettingActivity.this);
             agent.startFeedbackActivity();
+        } else if (settingClass.Tag.equals(TAG_AD)) {
+            intent = new Intent(SettingActivity.this, AdTipsActivity.class);
+            startActivity(intent);
         }
     }
 

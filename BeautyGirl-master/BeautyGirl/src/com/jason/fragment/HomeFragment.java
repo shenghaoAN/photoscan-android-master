@@ -511,6 +511,12 @@ public class HomeFragment extends BaseFragment {
         //将itemObjects数据保存到本地数据库ItemCategoryBean,没有互联网时就直接取本地数据
         itemCategoryBeanService.deleteByTitle(title);
 
+        ItemCategoryBean itemCategoryBean1 = new ItemCategoryBean();
+        itemCategoryBean1.icon = "http://ww2.sinaimg.cn/mw1024/66106115jw1exy5eqjhb9j20ku0kuwg8.jpg";
+        itemCategoryBean1.title = title;
+        itemCategoryBean1.tag = "全部";
+        itemCategoryBeans.add(itemCategoryBean1);
+
         for (int i = 0; i < thumbs.length(); i++) {
             try {
                 ItemCategoryBean itemCategoryBean = new ItemCategoryBean();

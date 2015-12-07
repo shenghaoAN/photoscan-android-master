@@ -146,6 +146,8 @@ public class FavroiteAdapter extends SectionedBaseAdapter {
     private void DeleteItem(FavroiteBean favroiteBean, int section) {
         service.delete(favroiteBean.id);
         childList.get(section).remove(favroiteBean);
+/*        if (childList.get(section).isEmpty())
+            groupList.remove(section);*/
         notifyDataSetChanged();
     }
 

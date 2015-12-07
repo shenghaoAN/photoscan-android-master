@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/adLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"></LinearLayout>
+
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/adLayout"
         android:focusableInTouchMode="true"
         android:focusable="true">
 
@@ -115,12 +125,4 @@
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/adLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:orientation="vertical"
-        android:layout_gravity="bottom"
-        android:gravity="center_horizontal"></LinearLayout>
-
-</FrameLayout>
+</RelativeLayout>

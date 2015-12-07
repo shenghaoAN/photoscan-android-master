@@ -24,6 +24,7 @@
     <string name="favroite">收藏</string>
     <string name="setting_favroite">收藏列表</string>
     <string name="setting_search">搜索记录</string>
+    <string name="ad_tips">广告提示</string>
     <string name="setting_feedback">用户反馈</string>
     <string name="setting_manager">设置</string>
     <string name="ok">确定</string>
@@ -35,9 +36,12 @@
     <string name="no_data">暂无数据</string>
     <string name="the_end">加载完毕</string>
     <string name="out_app">再按一次退出程序</string>
+    <string name="tips">\t\t\t首先，跟各位用户说声不好意思，嵌入广告主要是为了给开发者带来收益。
+        如果用户在使用过程中，觉得频繁的广告会影响体验的话，请在用户反馈中提出，我会尽我自己的能力优化广告。\n
+    \t\t\t同时，希望用户在使用过程中，可以点击下广告，你们的支持是我们开发的动力，谢谢！</string>
 
     <string-array name="item_menus">
-        <!--<item>9GAG</item>-->
+<!--        <item>9GAG</item>-->
         <item>明星</item>
         <item>美女</item>
         <item>动漫</item>

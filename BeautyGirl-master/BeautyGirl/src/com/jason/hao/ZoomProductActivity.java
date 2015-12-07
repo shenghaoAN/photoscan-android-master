@@ -19,6 +19,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -57,6 +58,9 @@ import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
+
+import net.youmi.android.banner.AdSize;
+import net.youmi.android.banner.AdView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -129,6 +133,14 @@ public class ZoomProductActivity extends SwipeBackActivity {
      * findID
      */
     protected void findViewById() {
+
+        // 实例化广告条
+        AdView adView = new AdView(this, AdSize.FIT_SCREEN);
+        // 获取要嵌入广告条的布局
+        LinearLayout adLayout = (LinearLayout) findViewById(R.id.adLayout);
+        // 将广告条加入到布局中
+        adLayout.addView(adView);
+
         relative_top = (View) findViewById(R.id.relative_top);
         relative_bottom = (View) findViewById(R.id.relative_bottom);
         zoom_viewpager = (HackyViewPager) findViewById(R.id.zoom_viewpager);

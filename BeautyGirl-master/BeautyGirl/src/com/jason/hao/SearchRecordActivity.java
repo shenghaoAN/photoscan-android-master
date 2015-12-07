@@ -5,6 +5,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jason.adapter.SearchRecordAdapter;
@@ -15,6 +16,9 @@ import com.jason.pinnedheaderlistview.PinnedHeaderListView;
 import com.jason.swipeback.SwipeBackActivity;
 import com.jason.utils.DensityUtils;
 
+import net.youmi.android.banner.AdSize;
+import net.youmi.android.banner.AdView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +26,6 @@ import java.util.List;
  * Created by shenghao on 2015/6/24.
  */
 public class SearchRecordActivity extends SwipeBackActivity {
-
-    private View topbar;
-    private ImageView img_back;
-    private TextView txt_title;
 
     private TextView txt_no_data;
     private PinnedHeaderListView listView;
@@ -43,20 +43,15 @@ public class SearchRecordActivity extends SwipeBackActivity {
         groupList = new ArrayList<String>();
         childList = new ArrayList<List<SearchBean>>();
         getList();  // 获取数据
+
+        initAd();
+        initTopbar();
         initView();
     }
 
     private void initView() {
-        topbar = (View) findViewById(R.id.topbar);
-        img_back = (ImageView) topbar.findViewById(R.id.img_back);
-        txt_title = (TextView) topbar.findViewById(R.id.txt_title);
+
         txt_title.setText(getString(R.string.setting_search));
-        img_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         txt_no_data = (TextView) findViewById(R.id.txt_no_data);
         listView = (PinnedHeaderListView) findViewById(R.id.listview);

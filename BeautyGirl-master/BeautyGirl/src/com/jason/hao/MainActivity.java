@@ -17,8 +17,10 @@ import com.jason.bean.ItemCategoryBean;
 import com.jason.fragment.GagFragment;
 import com.jason.fragment.HomeFragment;
 import com.jason.fragment.MenuFragment;
+import com.jason.utils.UniversalImageLoadTool;
 import com.jason.view.DragLayout;
 import com.nineoldandroids.view.ViewHelper;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
@@ -41,6 +43,8 @@ public class MainActivity extends BaseActivity {
     private TextView txt_version;
 
     private HomeFragment homeFragment;
+
+    private String icon = "http://ww2.sinaimg.cn/mw1024/66106115jw1exy5eqjhb9j20ku0kuwg8.jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +108,10 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
+
+        ImageLoader.getInstance().displayImage(icon, iv_icon,
+                UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
+
         iv_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,17 +192,20 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-//    @Override
+    //    @Override
 //    protected void onStop() {
 //        // 如果不调用此方法，则按home键的时候会出现图标无法显示的情况。
 //        SpotManager.getInstance(this).onStop();
 //        super.onStop();
 //    }
 //
-//    @Override
-//    protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
 //        SpotManager.getInstance(this).onDestroy();
-//        super.onDestroy();
-//    }
+        SpotManager.getInstance(this).setSpotOrientation(
+                SpotManager.ORIENTATION_LANDSCAPE);
+        SpotManager.getInstance(this).showSpotAds(this);
+        super.onDestroy();
+    }
 
 }

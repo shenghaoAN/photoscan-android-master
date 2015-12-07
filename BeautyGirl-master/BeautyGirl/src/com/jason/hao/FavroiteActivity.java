@@ -2,7 +2,6 @@ package com.jason.hao;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jason.adapter.FavroiteAdapter;
@@ -21,10 +20,6 @@ import java.util.List;
  */
 public class FavroiteActivity extends SwipeBackActivity {
 
-    private View topbar;
-    private ImageView img_back;
-    private TextView txt_title;
-
     private TextView txt_no_data;
     private PinnedHeaderListView listView;
     private FavroiteAdapter adapter;
@@ -42,29 +37,23 @@ public class FavroiteActivity extends SwipeBackActivity {
         itemCartoonDetailBeans = new ArrayList<ItemCartoonDetailBean>();
         groupList = new ArrayList<String>();
         childList = new ArrayList<List<FavroiteBean>>();
+
         getList(); //获取数据源
+        initAd();
+        initTopbar();
         initView();
     }
 
     private void initView() {
 
-        topbar = (View) findViewById(R.id.topbar);
-        img_back = (ImageView) topbar.findViewById(R.id.img_back);
-        txt_title = (TextView) topbar.findViewById(R.id.txt_title);
         txt_title.setText(getString(R.string.setting_favroite));
-        img_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         txt_no_data = (TextView) findViewById(R.id.txt_no_data);
         listView = (PinnedHeaderListView) findViewById(R.id.listview);
         adapter = new FavroiteAdapter(this, groupList, childList, favroiteBeanService);
         listView.setAdapter(adapter);
 
-        if(adapter.getCount() == 0){
+        if (adapter.getCount() == 0) {
             listView.setVisibility(View.GONE);
             txt_no_data.setVisibility(View.VISIBLE);
         }
