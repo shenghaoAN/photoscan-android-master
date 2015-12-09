@@ -34,4 +34,6 @@ public class ItemCategoryBean implements Serializable {
     @DBField(name = "tag", type = DBField.Type.TEXT, fineldName = "tag")
     public String tag;
 
+    public String ftags = "";
+
 }

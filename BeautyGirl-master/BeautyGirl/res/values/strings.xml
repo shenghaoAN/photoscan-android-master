@@ -22,6 +22,7 @@
     <string name="success_favroite">收藏成功</string>
     <string name="failure_favroite">收藏失败</string>
     <string name="favroite">收藏</string>
+    <string name="check">查看%1$s的图册</string>
     <string name="setting_favroite">收藏列表</string>
     <string name="setting_search">搜索记录</string>
     <string name="ad_tips">广告提示</string>

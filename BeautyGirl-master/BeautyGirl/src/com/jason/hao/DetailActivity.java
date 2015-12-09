@@ -55,6 +55,7 @@ public class DetailActivity extends SwipeBackActivity {
     private List<ItemCartoonDetailBean> itemCartoonDetailBeans;
 
     private String tag;  //小分类标签
+    private String ftags;
     private String colum;  //大分类
     private int pn = 0;   //从哪一条数据开始
     private int rn = 30;  //每次取多少条
@@ -73,6 +74,7 @@ public class DetailActivity extends SwipeBackActivity {
         itemCartoonDetailBeanService = ManagerService.instance(this).getItemCartoonDetailBeanService();
         Bundle bundle = getIntent().getExtras();
         tag = bundle.getString(CommonData.TAG);
+        ftags = bundle.getString(CommonData.FTAGS);
         colum = bundle.getString(CommonData.TITLE);
         initAD();
         initView();
@@ -171,6 +173,7 @@ public class DetailActivity extends SwipeBackActivity {
         params.put("rn", rn);
         params.put("tag1", colum);
         params.put("tag2", tag);
+        params.put("ftags", ftags);
         client.get("channel/listjson?ie=utf8", params,
                 new JSONHttpHelper.JSONHttpResponseHandler() {
 
@@ -189,10 +192,12 @@ public class DetailActivity extends SwipeBackActivity {
                             total = totalNum;
                             //没有找到需要搜索的分类
                             if (total == 0) {
-                                progressBar.setVisibility(View.GONE);
-                                listView.setVisibility(View.GONE);
-                                txt_error.setText(getString(R.string.search_error));
-                                txt_error.setVisibility(View.VISIBLE);
+//                                progressBar.setVisibility(View.GONE);
+//                                listView.setVisibility(View.GONE);
+//                                txt_error.setText(getString(R.string.search_error));
+//                                txt_error.setVisibility(View.VISIBLE);
+                                tag = "全部";
+                                getGridData();
                                 return;
                             }
 
@@ -264,6 +269,7 @@ public class DetailActivity extends SwipeBackActivity {
                 itemCartoonDetailBean.desc = d.getString("desc");
                 itemCartoonDetailBean.colum = d.getString("colum");
                 itemCartoonDetailBean.tag = d.getString("tag");
+                itemCartoonDetailBean.ftags = convertTagName(d.getString("tags"));
                 itemCartoonDetailBean.date = d.getString("date");
                 itemCartoonDetailBean.image_url = d.getString("image_url");
                 itemCartoonDetailBean.image_width = d.getInt("image_width");
@@ -314,6 +320,18 @@ public class DetailActivity extends SwipeBackActivity {
     private int getRandom() {
         Random random = new Random();
         return random.nextInt(100);
+    }
+
+    /**
+     * 去除符号
+     */
+    private String convertTagName(String str) {
+
+        str = str.replace("\"", "");
+        str = str.replace("[", "");
+        str = str.replace("]", "");
+
+        return str;
     }
 
     @Override

@@ -144,6 +144,11 @@ public class ZoomSearchActivity extends SwipeBackActivity {
         popupwindow.setOnPopSettingClickListener(new SettingPopupwindow.OnPopSettingClickListener() {
 
             @Override
+            public void onCheckClick() {
+
+            }
+
+            @Override
             public void onFavroiteClick() {
                 if (popupwindow.isShowing())
                     popupwindow.dismiss();

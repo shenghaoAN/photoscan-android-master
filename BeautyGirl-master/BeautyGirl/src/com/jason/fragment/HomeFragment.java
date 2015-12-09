@@ -227,6 +227,7 @@ public class HomeFragment extends BaseFragment {
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(CommonData.TAG, itemCategoryBean.tag);
+                bundle.putString(CommonData.FTAGS, itemCategoryBean.ftags);
                 bundle.putString(CommonData.TITLE, itemCategoryBean.title);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -512,10 +513,26 @@ public class HomeFragment extends BaseFragment {
         itemCategoryBeanService.deleteByTitle(title);
 
         ItemCategoryBean itemCategoryBean1 = new ItemCategoryBean();
-        itemCategoryBean1.icon = "http://ww2.sinaimg.cn/mw1024/66106115jw1exy5eqjhb9j20ku0kuwg8.jpg";
+        itemCategoryBean1.icon = "https://scontent-hkg3-1.xx.fbcdn.net/hphotos-xpa1/v/t1.0-9/12243545_1731919540364254_5872207366297951127_n.jpg?oh=dd43d2b82c6ddcb07fc8d1d4d433ec2b&oe=56E2F432";
         itemCategoryBean1.title = title;
         itemCategoryBean1.tag = "全部";
         itemCategoryBeans.add(itemCategoryBean1);
+
+        if (title.equals("明星")) {
+            ItemCategoryBean itemCategoryBean2 = new ItemCategoryBean();
+            itemCategoryBean2.icon = "http://cdn.duitang.com/uploads/item/201510/22/20151022223433_xAYeu.jpeg";
+            itemCategoryBean2.title = title;
+            itemCategoryBean2.tag = "全部";
+            itemCategoryBean2.ftags = "男明星";
+            itemCategoryBeans.add(itemCategoryBean2);
+
+            ItemCategoryBean itemCategoryBean3 = new ItemCategoryBean();
+            itemCategoryBean3.icon = "http://p3.qhimg.com/t01d4016bb09560f198.jpg";
+            itemCategoryBean3.title = title;
+            itemCategoryBean3.tag = "全部";
+            itemCategoryBean3.ftags = "女明星";
+            itemCategoryBeans.add(itemCategoryBean3);
+        }
 
         for (int i = 0; i < thumbs.length(); i++) {
             try {
@@ -613,6 +630,7 @@ public class HomeFragment extends BaseFragment {
                 itemCartoonDetailBean.desc = d.getString("desc");
                 itemCartoonDetailBean.colum = d.getString("colum");
                 itemCartoonDetailBean.tag = d.getString("tag");
+                itemCartoonDetailBean.ftags = convertTagName(d.getString("tags"));
                 itemCartoonDetailBean.date = d.getString("date");
                 itemCartoonDetailBean.image_url = d.getString("image_url");
                 itemCartoonDetailBean.image_width = d.getInt("image_width");

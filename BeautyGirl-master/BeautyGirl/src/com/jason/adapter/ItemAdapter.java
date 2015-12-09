@@ -1,6 +1,8 @@
 package com.jason.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +11,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jason.bean.ItemCartoonDetailBean;
 import com.jason.bean.ItemCategoryBean;
+import com.jason.global.CommonData;
+import com.jason.hao.ImageActivity;
 import com.jason.hao.R;
 import com.jason.utils.UniversalImageLoadTool;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -55,7 +58,7 @@ public class ItemAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             viewHolder = new ViewHolder();
@@ -68,8 +71,24 @@ public class ItemAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.txt_title.setText(list.get(position).title);
-        viewHolder.txt_description.setText(Html.fromHtml(list.get(position).tag));
+        if (list.get(position).ftags.isEmpty()) {
+            viewHolder.txt_description.setText(Html.fromHtml(list.get(position).tag));
+        } else {
+            viewHolder.txt_description.setText(Html.fromHtml(list.get(position).ftags));
+        }
         imageLoader.displayImage(list.get(position).icon, viewHolder.img_icon, UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
+
+        viewHolder.img_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ImageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(CommonData.PHOTO, list.get(position).icon);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            }
+        });
+
         return convertView;
     }
 

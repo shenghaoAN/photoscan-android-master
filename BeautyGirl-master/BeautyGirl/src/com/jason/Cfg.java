@@ -9,9 +9,9 @@ import android.content.SharedPreferences;
 
 public class Cfg {
 
-    public static String mode = "sandbox"; // sandbox or product
-    public static final Integer appVersion = 6;
-    public static String VersionName = "1.7.0";
+    public static String mode = "product"; // sandbox or product
+    public static final Integer appVersion = 7;
+    public static String VersionName = "1.8.0";
 
     public static Integer appVersionInstalled = 0;
     public static boolean first = true;
@@ -25,6 +25,7 @@ public class Cfg {
 
     public static int showHomeAdNum = 0;   //达到一定数量展示插屏广告
     public static int showDetailAdNum = 0;   //达到一定数量展示插屏广告
+    public static int showZoomAdNum = 0;   //达到一定数量展示插屏广告
     public static int adNum = 5;     //adNum的倍数时展示插屏广告
 
     public static void setContext(Context ctx) {

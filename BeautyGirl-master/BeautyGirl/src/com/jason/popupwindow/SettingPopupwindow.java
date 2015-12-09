@@ -12,10 +12,13 @@ import com.jason.hao.R;
  */
 public class SettingPopupwindow extends BasePopupWindow implements View.OnClickListener {
 
+    private Button btn_check;
     private Button btn_favroite;
     private Button btn_save;
     private Button btn_share;
     private Button btn_wrapper;
+
+    private String text = "";
 
     private OnPopSettingClickListener listener;
 
@@ -33,8 +36,18 @@ public class SettingPopupwindow extends BasePopupWindow implements View.OnClickL
 
     }
 
+    /**
+     * 设置btn_check的内容
+     *
+     * @param text
+     */
+    public void setText(String text) {
+        btn_check.setText(text);
+    }
+
     @Override
     public void initViews() {
+        btn_check = (Button) findViewById(R.id.btn_check);
         btn_favroite = (Button) findViewById(R.id.btn_favroite);
         btn_save = (Button) findViewById(R.id.btn_save);
         btn_share = (Button) findViewById(R.id.btn_share);
@@ -43,6 +56,7 @@ public class SettingPopupwindow extends BasePopupWindow implements View.OnClickL
 
     @Override
     public void initEvents() {
+        btn_check.setOnClickListener(this);
         btn_favroite.setOnClickListener(this);
         btn_save.setOnClickListener(this);
         btn_share.setOnClickListener(this);
@@ -52,20 +66,24 @@ public class SettingPopupwindow extends BasePopupWindow implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btn_check:
+                if (listener != null)
+                    listener.onCheckClick();
+                break;
             case R.id.btn_favroite:
-                if(listener != null)
+                if (listener != null)
                     listener.onFavroiteClick();
                 break;
             case R.id.btn_save:
-                if(listener != null)
+                if (listener != null)
                     listener.onSaveClick();
                 break;
             case R.id.btn_share:
-                if(listener != null)
+                if (listener != null)
                     listener.onShareClick();
                 break;
             case R.id.btn_wrapper:
-                if(listener != null)
+                if (listener != null)
                     listener.onWrapperClick();
                 break;
             default:
@@ -75,6 +93,7 @@ public class SettingPopupwindow extends BasePopupWindow implements View.OnClickL
 
     /**
      * 设置接口
+     *
      * @param listener
      */
     public void setOnPopSettingClickListener(OnPopSettingClickListener listener) {
@@ -86,12 +105,18 @@ public class SettingPopupwindow extends BasePopupWindow implements View.OnClickL
      */
     public interface OnPopSettingClickListener {
 
+        //查看
+        void onCheckClick();
+
         //收藏
         void onFavroiteClick();
+
         //保存到相册
         void onSaveClick();
+
         //分享
         void onShareClick();
+
         //设置壁纸
         void onWrapperClick();
     }

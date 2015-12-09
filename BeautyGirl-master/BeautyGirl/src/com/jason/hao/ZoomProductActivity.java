@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.jason.Cfg;
 import com.jason.Debug;
 import com.jason.animation.DepthPageTransformer;
 import com.jason.bean.FavroiteBean;
@@ -61,6 +62,7 @@ import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
 import net.youmi.android.banner.AdSize;
 import net.youmi.android.banner.AdView;
+import net.youmi.android.spot.SpotManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -122,11 +124,24 @@ public class ZoomProductActivity extends SwipeBackActivity {
         ArrayList arrayList = bundle.getParcelableArrayList(CommonData.LIST);
         cartoonObjects = (List<ItemCartoonDetailBean>) arrayList.get(0);
         pagerposition = bundle.getInt(CommonData.POSITION);
+        initAD();
         findViewById();
         initView();
         initPopWindow();
         showProduct();
         initAnimation();
+    }
+
+    /**
+     * 设置插屏广告
+     */
+    private void initAD() {
+        if (Cfg.showZoomAdNum % Cfg.adNum == 0) {
+            SpotManager.getInstance(this).setSpotOrientation(
+                    SpotManager.ORIENTATION_LANDSCAPE);
+            SpotManager.getInstance(this).showSpotAds(this);
+        }
+        Cfg.showZoomAdNum++;
     }
 
     /**
@@ -153,9 +168,23 @@ public class ZoomProductActivity extends SwipeBackActivity {
      * 初始化PopupWindow
      */
     private void initPopWindow() {
-        popupwindow = new SettingPopupwindow(ZoomProductActivity.this, DensityUtils.dip2px(ZoomProductActivity.this, 200), DensityUtils.dip2px(ZoomProductActivity.this, 201));
+        popupwindow = new SettingPopupwindow(ZoomProductActivity.this, DensityUtils.dip2px(ZoomProductActivity.this, 200), DensityUtils.dip2px(ZoomProductActivity.this, 250));
 
         popupwindow.setOnPopSettingClickListener(new SettingPopupwindow.OnPopSettingClickListener() {
+
+            @Override
+            public void onCheckClick() {
+                ItemCartoonDetailBean cartoonDetailBean = cartoonObjects.get(pagerposition);
+                if (popupwindow.isShowing())
+                    popupwindow.dismiss();
+                Intent intent = new Intent(ZoomProductActivity.this, DetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(CommonData.TAG, cartoonDetailBean.ftags);
+                bundle.putString(CommonData.FTAGS, "");
+                bundle.putString(CommonData.TITLE, cartoonDetailBean.colum);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
 
             @Override
             public void onFavroiteClick() {
@@ -255,6 +284,7 @@ public class ZoomProductActivity extends SwipeBackActivity {
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
+                popupwindow.setText(String.format(getResources().getString(R.string.check), cartoonObjects.get(pagerposition).ftags));
                 popupwindow.showAsDropDown(findViewById(R.id.btn_setting), 0, 0);
             }
         });
