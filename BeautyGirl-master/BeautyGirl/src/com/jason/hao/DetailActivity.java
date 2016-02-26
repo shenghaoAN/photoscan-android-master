@@ -1,6 +1,7 @@
 package com.jason.hao;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -81,6 +82,22 @@ public class DetailActivity extends SwipeBackActivity {
         getGridData();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            //横屏
+        } else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            //竖屏
+        }
+
+    }
+
     /**
      * 设置插屏广告
      */
@@ -136,6 +153,14 @@ public class DetailActivity extends SwipeBackActivity {
                 }
             }
         });
+
+        //如果是横屏显示，隐藏底部广告条
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            adLayout.setVisibility(View.GONE);
+        } else {
+            adLayout.setVisibility(View.VISIBLE);
+        }
+
     }
 
     /**

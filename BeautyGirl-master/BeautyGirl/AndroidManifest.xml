@@ -44,6 +44,7 @@
     <application
         android:name="com.jason.MyApplication"
         android:allowBackup="true"
+        android:debuggable="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
@@ -71,56 +72,56 @@
         <activity
             android:name="com.jason.hao.ZoomProductActivity"
             android:label="@string/app_name"
-            android:theme="@style/TranslucentTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentTheme"></activity>
 
         <activity
             android:name="com.jason.hao.DetailActivity"
             android:label="@string/app_name"
-            android:theme="@style/TranslucentTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentTheme"></activity>
 
         <activity
             android:name="com.jason.hao.PhotoSearchActivity"
             android:label="@string/app_name"
-            android:theme="@style/TranslucentTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentTheme"></activity>
 
         <activity
             android:name="com.jason.hao.ZoomSearchActivity"
             android:label="@string/app_name"
-            android:theme="@style/TranslucentTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentTheme"></activity>
 
         <activity
             android:name="com.jason.hao.SettingActivity"
             android:label="@string/app_name"
-            android:theme="@style/TranslucentTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentTheme"></activity>
 
         <activity
             android:name="com.jason.hao.FavroiteActivity"
             android:label="@string/app_name"
-            android:theme="@style/TranslucentTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentTheme"></activity>
 
         <activity
             android:name="com.jason.hao.SearchRecordActivity"
             android:label="@string/app_name"
-            android:theme="@style/TranslucentTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentTheme"></activity>
 
         <activity
             android:name="com.jason.hao.AdTipsActivity"
             android:label="@string/app_name"
-            android:theme="@style/TranslucentTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentTheme"></activity>
 
         <activity
             android:name="com.jason.hao.ImageActivity"
             android:label="@string/app_name"
-            android:theme="@style/TranslucentTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentTheme"></activity>
 
         <!-- 百度定位 -->
         <service
@@ -185,8 +186,8 @@
         <!-- 友盟推送 -->
         <receiver
             android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
-            android:process=":push"
-            android:exported="false"></receiver>
+            android:exported="false"
+            android:process=":push"></receiver>
         <receiver
             android:name="com.umeng.message.SystemReceiver"
             android:process=":push">
@@ -231,8 +232,8 @@
 
         <service
             android:name="com.umeng.message.UmengService"
-            android:label="PushService"
             android:exported="true"
+            android:label="PushService"
             android:process=":push">
             <intent-filter>
                 <action android:name="com.jason.hao.intent.action.START" />
@@ -250,8 +251,8 @@
             android:process=":push" />
         <service
             android:name="com.umeng.message.UmengMessageIntentReceiverService"
-            android:process=":push"
-            android:exported="true">
+            android:exported="true"
+            android:process=":push">
             <intent-filter>
                 <action android:name="org.android.agoo.client.MessageReceiverService" />
             </intent-filter>
@@ -264,16 +265,16 @@
 
         <!-- 友盟KEY -->
         <meta-data
-            android:value="55823e9467e58e6e63000e18"
-            android:name="UMENG_APPKEY"></meta-data>
+            android:name="UMENG_APPKEY"
+            android:value="55823e9467e58e6e63000e18"></meta-data>
         <!-- UMENG_MESSAGE_SECRET -->
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
             android:value="cda1b16d516c0eb1667cb66f281e82ea"></meta-data>
         <!-- 友盟channel -->
         <meta-data
-            android:value=""
-            android:name="UMENG_CHANNEL" />
+            android:name="UMENG_CHANNEL"
+            android:value="" />
 
 
         <!-- 有米广告配置  -->
