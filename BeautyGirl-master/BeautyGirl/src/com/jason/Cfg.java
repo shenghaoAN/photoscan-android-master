@@ -9,7 +9,7 @@ import android.content.SharedPreferences;
 
 public class Cfg {
 
-    public static String mode = "product"; // sandbox or product
+    public static String mode = "sandbox"; // sandbox or product
     public static final Integer appVersion = 7;
     public static String VersionName = "1.8.0";
 

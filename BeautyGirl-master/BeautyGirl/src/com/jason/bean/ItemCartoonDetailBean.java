@@ -51,6 +51,6 @@ public class ItemCartoonDetailBean implements Serializable {
     @DBField(name = "share_url", type = DBField.Type.TEXT, fineldName = "share_url")
     public String share_url;
 
-    public String ftags = "";
+    public String ftags = "全部";
 
 }
