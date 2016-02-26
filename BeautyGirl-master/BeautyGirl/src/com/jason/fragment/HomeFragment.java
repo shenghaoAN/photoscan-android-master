@@ -433,10 +433,12 @@ public class HomeFragment extends BaseFragment {
 
         @Override
         public void onPageSelected(final int arg0) {
-            int currentIndex = arg0 % itemCartoonDetailBeans.size();
-            focusView.setCurrentIndex(currentIndex);
-            // 描述文字
-            focusView.setTitle(itemCartoonDetailBeans.get(currentIndex).desc.trim());
+            if (itemCartoonDetailBeans.size() > 0) {
+                int currentIndex = arg0 % itemCartoonDetailBeans.size();
+                focusView.setCurrentIndex(currentIndex);
+                // 描述文字
+                focusView.setTitle(itemCartoonDetailBeans.get(currentIndex).desc.trim());
+            }
         }
     }
 
@@ -513,7 +515,7 @@ public class HomeFragment extends BaseFragment {
         itemCategoryBeanService.deleteByTitle(title);
 
         ItemCategoryBean itemCategoryBean1 = new ItemCategoryBean();
-        itemCategoryBean1.icon = "https://scontent-hkg3-1.xx.fbcdn.net/hphotos-xpa1/v/t1.0-9/12243545_1731919540364254_5872207366297951127_n.jpg?oh=dd43d2b82c6ddcb07fc8d1d4d433ec2b&oe=56E2F432";
+        itemCategoryBean1.icon = "http://n.sinaimg.cn/transform/20151104/zQXX-fxkhcfk7628151.jpg";
         itemCategoryBean1.title = title;
         itemCategoryBean1.tag = "全部";
         itemCategoryBeans.add(itemCategoryBean1);

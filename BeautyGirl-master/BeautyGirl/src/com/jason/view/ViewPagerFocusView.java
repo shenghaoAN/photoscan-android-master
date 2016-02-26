@@ -110,7 +110,7 @@ public class ViewPagerFocusView extends View {
         int maxLength = width / (rect.width() + 2);
         textPaddingTop = (getHeight() - rect.height()) / 2 + rect.height();
         if (!"".equals(title) && title.length() > maxLength) {
-            return title.substring(0, maxLength - 6);
+            return title.substring(0, maxLength);
         } else {
             return title;
         }
