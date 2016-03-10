@@ -50,6 +50,8 @@ public class ImageActivity extends SwipeBackActivity {
         img_url = getIntent().getExtras().getString(CommonData.PHOTO);
         if (!img_url.isEmpty()) {
             imageLoader.displayImage(img_url, imageView, UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
+        } else {
+            imageLoader.displayImage("drawable://" + R.drawable.huoying12, imageView, UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
         }
     }
 }

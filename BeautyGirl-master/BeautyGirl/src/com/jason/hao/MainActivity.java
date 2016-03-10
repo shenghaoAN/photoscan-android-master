@@ -45,7 +45,8 @@ public class MainActivity extends BaseActivity {
 
     private HomeFragment homeFragment;
 
-    private String icon = "https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-xfa1/v/t1.0-9/12247100_1728831534006388_3356717374968482423_n.jpg?oh=45114efe136b2d0b69dcfd9bc4543936&oe=56EE4359&__gda__=1461502418_daeb74d421faa792a7544b923621f441";
+    //    private String icon = "https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-xfa1/v/t1.0-9/12247100_1728831534006388_3356717374968482423_n.jpg?oh=45114efe136b2d0b69dcfd9bc4543936&oe=56EE4359&__gda__=1461502418_daeb74d421faa792a7544b923621f441";
+    private String icon = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,13 +120,24 @@ public class MainActivity extends BaseActivity {
         txt_title.setText(getString(R.string.app_name));
     }
 
+    /**
+     * initView
+     */
     private void initView() {
 
-        ImageLoader.getInstance().displayImage(icon, iv_icon,
-                UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
+        if (!icon.isEmpty()) {
+            ImageLoader.getInstance().displayImage(icon, iv_icon,
+                    UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
 
-        ImageLoader.getInstance().displayImage(icon, iv_bottom,
-                UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
+            ImageLoader.getInstance().displayImage(icon, iv_bottom,
+                    UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
+        } else {
+            ImageLoader.getInstance().displayImage("drawable://" + R.drawable.huoying12, iv_icon,
+                    UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
+
+            ImageLoader.getInstance().displayImage("drawable://" + R.drawable.huoying12, iv_bottom,
+                    UniversalImageLoadTool.getImageOption(R.drawable.btn_upload_image));
+        }
 
         iv_icon.setOnClickListener(new View.OnClickListener() {
             @Override

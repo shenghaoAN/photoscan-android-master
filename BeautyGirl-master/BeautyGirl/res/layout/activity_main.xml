@@ -86,7 +86,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/huoying" />
+                    android:src="@drawable/huoying12" />
 
                 <ImageView
                     android:id="@+id/iv_set"
