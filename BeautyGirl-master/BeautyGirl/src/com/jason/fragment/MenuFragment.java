@@ -34,7 +34,7 @@ public class MenuFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        itemObjects = new ArrayList<ItemCategoryBean>();
+        itemObjects = new ArrayList<>();
         item_menus = getActivity().getResources().getStringArray(R.array.item_menus);
     }
 

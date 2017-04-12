@@ -6,6 +6,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.jason.Debug;
+import com.jason.utils.ToastShow;
 
 /**
  * 百度定位服务
@@ -68,7 +69,7 @@ public class BaiduLocationHelper {
                 sb.append(location.getOperators());
             }
             Debug.Log("BaiduLocationApiDem", sb.toString());
-//            ToastShow.displayToast(context, sb.toString());
+            ToastShow.displayToast(context, sb.toString());
         }
     }
 

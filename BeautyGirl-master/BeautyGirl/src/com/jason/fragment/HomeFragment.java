@@ -515,21 +515,21 @@ public class HomeFragment extends BaseFragment {
         itemCategoryBeanService.deleteByTitle(title);
 
         ItemCategoryBean itemCategoryBean1 = new ItemCategoryBean();
-        itemCategoryBean1.icon = "http://n.sinaimg.cn/transform/20151104/zQXX-fxkhcfk7628151.jpg";
+        itemCategoryBean1.icon = "http://img5.duitang.com/uploads/item/201407/10/20140710155414_5rn28.jpeg";
         itemCategoryBean1.title = title;
         itemCategoryBean1.tag = "全部";
         itemCategoryBeans.add(itemCategoryBean1);
 
         if (title.equals("明星")) {
             ItemCategoryBean itemCategoryBean2 = new ItemCategoryBean();
-            itemCategoryBean2.icon = "http://cdn.duitang.com/uploads/item/201510/22/20151022223433_xAYeu.jpeg";
+            itemCategoryBean2.icon = "http://www.ld12.com/upimg358/allimg/c140921/141129349241950-44I9.jpg";
             itemCategoryBean2.title = title;
             itemCategoryBean2.tag = "全部";
             itemCategoryBean2.ftags = "男明星";
             itemCategoryBeans.add(itemCategoryBean2);
 
             ItemCategoryBean itemCategoryBean3 = new ItemCategoryBean();
-            itemCategoryBean3.icon = "http://p3.qhimg.com/t01d4016bb09560f198.jpg";
+            itemCategoryBean3.icon = "http://img4q.duitang.com/uploads/item/201306/16/20130616213517_zkhNK.jpeg";
             itemCategoryBean3.title = title;
             itemCategoryBean3.tag = "全部";
             itemCategoryBean3.ftags = "女明星";

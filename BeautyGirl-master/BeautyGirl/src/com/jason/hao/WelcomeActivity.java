@@ -16,18 +16,13 @@ import com.baidu.location.LocationClientOption;
 import com.jason.Debug;
 import com.jason.helper.BaiduLocationHelper;
 import com.jason.object.DeviceObject;
-import com.jason.utils.ToastShow;
 
 import net.youmi.android.AdManager;
 import net.youmi.android.spot.SplashView;
 import net.youmi.android.spot.SpotDialogListener;
 import net.youmi.android.spot.SpotManager;
 
-import java.util.List;
-
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 
 /**

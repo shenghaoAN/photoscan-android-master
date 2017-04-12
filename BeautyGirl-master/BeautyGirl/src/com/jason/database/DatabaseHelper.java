@@ -9,8 +9,6 @@ import com.jason.bean.FavroiteBean;
 import com.jason.bean.ItemCartoonDetailBean;
 import com.jason.bean.ItemCategoryBean;
 import com.jason.bean.SearchBean;
-import com.jason.dbservice.ItemCategoryBeanService;
-import com.jason.dbservice.ManagerService;
 import com.jason.utils.DBUtils;
 
 /**
@@ -37,20 +35,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//        db.execSQL(DBUtils.getDropSqlByClass(FavroiteBean.class));
-//        db.execSQL(DBUtils.getDropSqlByClass(SearchBean.class));
-//        db.execSQL(DBUtils.getDropSqlByClass(ItemCategoryBean.class));
-//        db.execSQL(DBUtils.getCreateSqlByClass(ItemCartoonDetailBean.class));
-//        onCreate(db);
 
         //数据库升级处理
         if (oldVersion == 1 && newVersion == 2) {
 
             Debug.Log("upgrade db", "create new table");
-            db.execSQL(DBUtils.getCreateSqlByClass(FavroiteBean.class,"_tmp_FavroiteBean"));
-            db.execSQL(DBUtils.getCreateSqlByClass(SearchBean.class,"_tmp_SearchBean"));
-            db.execSQL(DBUtils.getCreateSqlByClass(ItemCategoryBean.class,"_tmp_ItemCategoryBean"));
-            db.execSQL(DBUtils.getCreateSqlByClass(ItemCartoonDetailBean.class,"_tmp_ItemCartoonDetailBean"));
+            db.execSQL(DBUtils.getCreateSqlByClass(FavroiteBean.class, "_tmp_FavroiteBean"));
+            db.execSQL(DBUtils.getCreateSqlByClass(SearchBean.class, "_tmp_SearchBean"));
+            db.execSQL(DBUtils.getCreateSqlByClass(ItemCategoryBean.class, "_tmp_ItemCategoryBean"));
+            db.execSQL(DBUtils.getCreateSqlByClass(ItemCartoonDetailBean.class, "_tmp_ItemCartoonDetailBean"));
 
             Debug.Log("upgrade db", "move data from old tables");
             db.execSQL("Insert into _tmp_FavroiteBean Select * from FavroiteBean");

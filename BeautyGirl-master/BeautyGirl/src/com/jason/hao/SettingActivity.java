@@ -50,7 +50,7 @@ public class SettingActivity extends SwipeBackActivity {
         list.add(setSettingClass(R.string.setting_favroite, TAG_FAVROITE));
         list.add(setSettingClass(R.string.setting_search, TAG_SEARCH));
         list.add(setSettingClass(R.string.setting_feedback, TAG_FEEDBACK));
-        list.add(setSettingClass(R.string.ad_tips, TAG_AD));
+//        list.add(setSettingClass(R.string.ad_tips, TAG_AD));
     }
 
     private SettingClass setSettingClass(Integer id, String tag) {
